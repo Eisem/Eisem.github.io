@@ -1,16 +1,22 @@
-window.addEventListener('scroll', function() {
-    const scrollThreshold = 200; // 触发滚动的距离（单位：px）
-    const webBg = document.getElementById('web_bg');
+function debounce(func, wait = 50) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
 
-    
-    if (window.scrollY > scrollThreshold) {
+function handleScroll() {
+    const webBg = document.getElementById('web_bg');
+    const startBlurAt = 200; // 触发模糊的滚动距离
+    const scrollY = window.scrollY;
+
+    if (scrollY > startBlurAt) {
         webBg.classList.add('scrolled');
     } else {
         webBg.classList.remove('scrolled');
     }
-});
+}
 
-window.addEventListener('scroll', () => {
-    const blurValue = Math.min(window.scrollY * 0.1, 15); // 最大模糊15px
-    document.querySelector('#web_bg::after').style.backdropFilter = `blur(${blurValue}px)`;
-});
+window.addEventListener('scroll', debounce(handleScroll));
+window.dispatchEvent(new Event('scroll')); // 初始化检查
