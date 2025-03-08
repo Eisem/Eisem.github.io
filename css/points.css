@@ -1,0 +1,10 @@
+/*这里放外框*/
+body{
+    cursor: url('/img/zc.cur') , default !important;
+    }
+    /*这里放内框*/
+    a,img,button{
+        cursor: url('/img/lj.cur')   , pointer !important;
+    }
+    
+    
