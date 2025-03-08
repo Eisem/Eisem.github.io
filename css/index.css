@@ -1476,7 +1476,7 @@ table td {
 }
 *::selection {
   background: #00c4b6;
-  color: #f7f7f7;
+  color: #fff;
 }
 button {
   padding: 0;
