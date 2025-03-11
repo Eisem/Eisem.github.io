@@ -29,7 +29,6 @@ body.scrolled #web_bg::after {
     z-index: -2;
 }
 
-css
 复制
 #web_bg .bg {
     transform: translateZ(-1px) scale(1.02);
