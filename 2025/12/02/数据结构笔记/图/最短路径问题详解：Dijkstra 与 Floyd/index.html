@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[数据结构·图] 最短路径问题详解 | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="最短路径问题详解：Dijkstra 与 Floyd在图论中，最短路径问题主要分为两类：  单源最短路径 (Single-Source Shortest Path)：求从一个起点到其他所有点的最短路径。（代表：Dijkstra） 多源最短路径 (All-Pairs Shortest Path)：求任意两个点之间的最短路径。（代表：Floyd）   一、Dijkstra 算法 (单源最短路)适用场景：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[数据结构·图] 最短路径问题详解">
+<meta property="og:url" content="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/index.html">
+<meta property="og:site_name" content="Welcome To My-Blog">
+<meta property="og:description" content="最短路径问题详解：Dijkstra 与 Floyd在图论中，最短路径问题主要分为两类：  单源最短路径 (Single-Source Shortest Path)：求从一个起点到其他所有点的最短路径。（代表：Dijkstra） 多源最短路径 (All-Pairs Shortest Path)：求任意两个点之间的最短路径。（代表：Floyd）   一、Dijkstra 算法 (单源最短路)适用场景：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/A4.webp">
+<meta property="article:published_time" content="2025-12-02T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-27T14:25:46.614Z">
+<meta property="article:author" content="Eisem">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="图">
+<meta property="article:tag" content="最短路径">
+<meta property="article:tag" content="Dijkstra">
+<meta property="article:tag" content="Floyd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[数据结构·图] 最短路径问题详解",
+  "url": "http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/",
+  "image": "http://example.com/img/A4.webp",
+  "datePublished": "2025-12-02T04:00:00.000Z",
+  "dateModified": "2026-04-27T14:25:46.614Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eisem",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[数据结构·图] 最短路径问题详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[数据结构·图] 最短路径问题详解</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[数据结构·图] 最短路径问题详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-02T04:00:00.000Z" title="发表于 2025-12-02 12:00:00">2025-12-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T14:25:46.614Z" title="更新于 2026-04-27 22:25:46">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="最短路径问题详解：Dijkstra-与-Floyd"><a href="#最短路径问题详解：Dijkstra-与-Floyd" class="headerlink" title="最短路径问题详解：Dijkstra 与 Floyd"></a>最短路径问题详解：Dijkstra 与 Floyd</h1><p>在图论中，最短路径问题主要分为两类：</p>
+<ol>
+<li><strong>单源最短路径 (Single-Source Shortest Path)</strong>：求从<strong>一个</strong>起点到其他所有点的最短路径。（代表：Dijkstra）</li>
+<li><strong>多源最短路径 (All-Pairs Shortest Path)</strong>：求<strong>任意</strong>两个点之间的最短路径。（代表：Floyd）</li>
+</ol>
+<hr>
+<h2 id="一、Dijkstra-算法-单源最短路"><a href="#一、Dijkstra-算法-单源最短路" class="headerlink" title="一、Dijkstra 算法 (单源最短路)"></a>一、Dijkstra 算法 (单源最短路)</h2><p><strong>适用场景</strong>：带权图（无向/有向），<strong>边权非负</strong>。<br><strong>核心思想</strong>：贪心策略 (Greedy) + 广度优先搜索 (BFS) 的变种。</p>
+<h3 id="1-详细思路：作为“涟漪”扩散"><a href="#1-详细思路：作为“涟漪”扩散" class="headerlink" title="1. 详细思路：作为“涟漪”扩散"></a>1. 详细思路：作为“涟漪”扩散</h3><p>想象你站在起点 $S$，往地上倒了一桶水。水流会优先沿着阻力最小（边权最小）的路径蔓延。</p>
+<ul>
+<li>我们维护一个集合 $S$（已确定最短路的点）和一个集合 $U$（未确定最短路的点）。</li>
+<li>每次从 $U$ 中找出一个<strong>距离起点最近</strong>的点 $u$，把它加入 $S$。</li>
+<li>然后以 $u$ 为跳板，去“松弛” (Relax) 它的邻居 $v$。<ul>
+<li><strong>松弛操作</strong>：如果 <code>dist[u] + weight(u, v) &lt; dist[v]</code>，说明通过 $u$ 到达 $v$ 比原来的路径更近，更新 <code>dist[v]</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-算法步骤"><a href="#2-算法步骤" class="headerlink" title="2. 算法步骤"></a>2. 算法步骤</h3><ol>
+<li><strong>初始化</strong>：<ul>
+<li><code>dist</code> 数组：起点 <code>dist[start] = 0</code>，其余所有点 <code>dist[i] = INF</code>。</li>
+<li><code>visited</code> 数组：标记节点是否已确定最短路，初始全为 <code>false</code>。</li>
+<li>优先队列 <code>pq</code>：存入 <code>&#123;0, start&#125;</code>。</li>
+</ul>
+</li>
+<li><strong>循环</strong>（直到队列为空）：<ul>
+<li>弹出堆顶元素 <code>&#123;d, u&#125;</code>（距离最小的点）。</li>
+<li>如果 <code>visited[u]</code> 为 true，跳过（懒惰删除）。</li>
+<li>标记 <code>visited[u] = true</code>。</li>
+<li><strong>扫描邻居</strong>：遍历 $u$ 的所有出边 $(u, v)$，权值为 $w$。<ul>
+<li>若 <code>dist[u] + w &lt; dist[v]</code>，则更新 <code>dist[v] = dist[u] + w</code>，并将 <code>&#123;dist[v], v&#125;</code> 推入队列。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-代码模板-堆优化版"><a href="#3-代码模板-堆优化版" class="headerlink" title="3. 代码模板 (堆优化版)"></a>3. 代码模板 (堆优化版)</h3><p><em>时间复杂度：$O(E \log V)$</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123; <span class="type">int</span> to, w; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回从 start 到所有点的最短距离数组</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dijkstra</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> n, <span class="type">const</span> vector&lt;vector&lt;Edge&gt;&gt;&amp; adj)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(n + <span class="number">1</span>, INF)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">visited</span><span class="params">(n + <span class="number">1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 小根堆：pair&lt;距离, 节点&gt;</span></span><br><span class="line">    priority_queue&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;, greater&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;&gt; pq;</span><br><span class="line"></span><br><span class="line">    dist[start] = <span class="number">0</span>;</span><br><span class="line">    pq.<span class="built_in">push</span>(&#123;<span class="number">0</span>, start&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!pq.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> [d, u] = pq.<span class="built_in">top</span>();</span><br><span class="line">        pq.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (visited[u]) <span class="keyword">continue</span>;</span><br><span class="line">        visited[u] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; edge : adj[u]) &#123;</span><br><span class="line">            <span class="type">int</span> v = edge.to;</span><br><span class="line">            <span class="type">int</span> weight = edge.w;</span><br><span class="line">            <span class="comment">// 松弛操作</span></span><br><span class="line">            <span class="keyword">if</span> (dist[u] + weight &lt; dist[v]) &#123;</span><br><span class="line">                dist[v] = dist[u] + weight;</span><br><span class="line">                pq.<span class="built_in">push</span>(&#123;dist[v], v&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dist;</span><br><span class="line">&#125;</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">### <span class="number">4.</span> 常见考察形式</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> **手算题**：给出一个 <span class="number">5</span><span class="number">-6</span> 个节点的图，要求列出每一步 `dist` 数组和 `visited` 集合的变化。</span><br><span class="line">    </span><br><span class="line">    - _技巧_：画一个表格，每一行代表选定一个节点后，其他节点距离的更新情况。</span><br><span class="line">        </span><br><span class="line"><span class="number">2.</span> **负权边陷阱**：</span><br><span class="line">    </span><br><span class="line">    - _问_：Dijkstra 能处理负权边吗？</span><br><span class="line">        </span><br><span class="line">    - _答_：**不能**。因为 Dijkstra 假设一旦节点被标记为 visited，其最短路就确定了。负权边可能会打破这个假设。</span><br><span class="line">        </span><br><span class="line"><span class="number">3.</span> **最短路径计数**：不仅求最短距离，还求有多少条最短路径。</span><br><span class="line">    </span><br><span class="line">    - _解法_：在松弛时维护一个 `count` 数组。如果 `dist[u]+w &lt; dist[v]`，`count[v] = count[u]`；如果相等，`count[v] += count[u]`。</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## 二、Floyd-Warshall 算法 (多源最短路)</span><br><span class="line"></span><br><span class="line">适用场景：带权图，节点数较少 ($N \le <span class="number">300</span>$)，允许负权边（但不允许负权回路）。</span><br><span class="line"></span><br><span class="line">核心思想：动态规划 (Dynamic Programming)。</span><br><span class="line"></span><br><span class="line">### <span class="number">1.</span> 详细思路：中转点的艺术</span><br><span class="line"></span><br><span class="line">Floyd 算法探讨的是：**如果我们允许经过节点 $<span class="number">1.</span>..k$ 作为中转站，节点 $i$ 到 $j$ 的最短路径会是多少？**</span><br><span class="line"></span><br><span class="line">- 状态定义：$D[k][i][j]$ 表示“只允许经过节点 $<span class="number">1</span>$ 到 $k$ 之间作为中间节点时，从 $i$ 到 $j$ 的最短路径”。</span><br><span class="line">    </span><br><span class="line">- 状态转移方程：</span><br><span class="line">    </span><br><span class="line">    $$D[k][i][j] = \<span class="built_in">min</span>(D[k<span class="number">-1</span>][i][j], \quad D[k<span class="number">-1</span>][i][k] + D[k<span class="number">-1</span>][k][j])$$</span><br><span class="line">    </span><br><span class="line">    - 含义：从 $i$ 到 $j$ 的路，要么不经过 $k$（保持原样），要么经过 $k$（$i \to k \to j$）。</span><br><span class="line">        </span><br><span class="line">- **空间优化**：由于 $k$ 状态只依赖于 $k<span class="number">-1</span>$，可以将三维数组压缩为二维数组 `dist[i][j]`。</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">### <span class="number">2.</span> 算法步骤</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> **初始化**：</span><br><span class="line">    </span><br><span class="line">    - 二维矩阵 `dist[N][N]`。</span><br><span class="line">        </span><br><span class="line">    - `dist[i][i] = <span class="number">0</span>`。</span><br><span class="line">        </span><br><span class="line">    - 若 $i, j$ 有边，`dist[i][j] = weight`。</span><br><span class="line">        </span><br><span class="line">    - 若无边，`dist[i][j] = INF`。</span><br><span class="line">        </span><br><span class="line"><span class="number">2.</span> **三重循环**（**最关键点**）：</span><br><span class="line">    </span><br><span class="line">    - 第一层循环枚举**中转点** $k$ (<span class="number">1</span> 到 $n$)。</span><br><span class="line">        </span><br><span class="line">    - 第二层循环枚举**起点** $i$。</span><br><span class="line">        </span><br><span class="line">    - 第三层循环枚举**终点** $j$。</span><br><span class="line">        </span><br><span class="line">    - 更新：`dist[i][j] = <span class="built_in">min</span>(dist[i][j], dist[i][k] + dist[k][j])`。</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">### <span class="number">3.</span> 代码模板</span><br><span class="line"></span><br><span class="line">_时间复杂度：$<span class="built_in">O</span>(N^<span class="number">3</span>)$_</span><br><span class="line"></span><br><span class="line">C++</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接在 adj 矩阵上修改，运行后 adj[i][j] 即为最短路</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">floyd</span><span class="params">(<span class="type">int</span> n, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; adj)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 核心是 k 必须在最外层！！！</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="comment">// 防止溢出：确保 i-&gt;k 和 k-&gt;j 都是可达的</span></span><br><span class="line">                <span class="keyword">if</span> (adj[i][k] != INF &amp;&amp; adj[k][j] != INF) &#123;</span><br><span class="line">                    adj[i][j] = <span class="built_in">min</span>(adj[i][j], adj[i][k] + adj[k][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-常见考察形式"><a href="#4-常见考察形式" class="headerlink" title="4. 常见考察形式"></a>4. 常见考察形式</h3><ol>
+<li><p><strong>循环顺序（必考）</strong>：</p>
+<ul>
+<li><p><em>问</em>：如果把 $k$ 放在最内层循环会怎样？</p>
+</li>
+<li><p><em>答</em>：算法会失效。因为 Floyd 的本质是 DP，$k$ 代表阶段。如果 $k$ 在内层，意味着你在计算 $i \to j$ 时，只考虑了某一个中转点，而不是逐步引入所有中转点。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>传递闭包 (Transitive Closure)</strong>：</p>
+<ul>
+<li><p><em>问</em>：如何判断图中任意两点 $i$ 和 $j$ 是否连通？</p>
+</li>
+<li><p><em>解法</em>：把 Floyd 中的 <code>min</code> 改为 <code>||</code> (OR)，<code>+</code> 改为 <code>&amp;&amp;</code> (AND)。</p>
+</li>
+<li><p><code>adj[i][j] = adj[i][j] || (adj[i][k] &amp;&amp; adj[k][j])</code>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>最小环问题</strong>：</p>
+<ul>
+<li>Floyd 算法可以顺便求出图中的最小环（权值和最小的回路）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="三、两种算法对比总结"><a href="#三、两种算法对比总结" class="headerlink" title="三、两种算法对比总结"></a>三、两种算法对比总结</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>Dijkstra (堆优化)</strong></th>
+<th><strong>Floyd-Warshall</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>解决问题</strong></td>
+<td><strong>单源</strong>最短路 (1对多)</td>
+<td><strong>多源</strong>最短路 (多对多)</td>
+</tr>
+<tr>
+<td><strong>时间复杂度</strong></td>
+<td>$O(E \log V)$</td>
+<td>$O(N^3)$</td>
+</tr>
+<tr>
+<td><strong>空间复杂度</strong></td>
+<td>$O(N)$ (存距离)</td>
+<td>$O(N^2)$ (邻接矩阵)</td>
+</tr>
+<tr>
+<td><strong>适用数据规模</strong></td>
+<td>$N \le 10^5$ (稀疏图)</td>
+<td>$N \le 400$ (稠密图)</td>
+</tr>
+<tr>
+<td><strong>负权边</strong></td>
+<td><strong>不支持</strong></td>
+<td><strong>支持</strong> (不能有负环)</td>
+</tr>
+<tr>
+<td><strong>数据结构首选</strong></td>
+<td>邻接表 (<code>vector&lt;vector&lt;Edge&gt;&gt;</code>)</td>
+<td>邻接矩阵 (<code>vector&lt;vector&lt;int&gt;&gt;</code>)</td>
+</tr>
+<tr>
+<td><strong>核心逻辑</strong></td>
+<td>贪心 (Greedy)</td>
+<td>动态规划 (DP)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="考试做题策略"><a href="#考试做题策略" class="headerlink" title="考试做题策略"></a>考试做题策略</h3><ol>
+<li><p>看到 <strong>$N$ 很小 (&lt;=300)</strong>，且问“任意两点间距离” -&gt; <strong>Floyd</strong>。</p>
+</li>
+<li><p>看到 <strong>$N$ 很大 (1000+)</strong>，或者是“从某点出发” -&gt; <strong>Dijkstra</strong>。</p>
+</li>
+<li><p>看到 <strong>边权为负</strong> -&gt; 排除 Dijkstra，如果是单源用 <strong>SPFA/Bellman-Ford</strong>，如果是多源且 $N$ 小用 <strong>Floyd</strong>。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/">http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E5%9B%BE/">图</a><a class="post-meta__tags" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">最短路径</a><a class="post-meta__tags" href="/tags/Dijkstra/">Dijkstra</a><a class="post-meta__tags" href="/tags/Floyd/">Floyd</a></div><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" title="[数据结构·图] 松弛操作"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">[数据结构·图] 松弛操作</div></div><div class="info-2"><div class="info-item-1">什么是“松弛操作” (Relaxation)？在图论的最短路径算法中，松弛是指：尝试通过一个中转点，来缩短到达某个目标点的路径长度。 如果发现通过中转点走更近，我们就更新（减小）目标点的最短距离估计值。这个过程就叫“松弛”。  1. 为什么叫“松弛”？（直观理解）这个术语来源于数学和物理学。我们可以用橡皮筋的例子来形象地理解。 橡皮筋类比想象一下：  图中的顶点是钉在木板上的钉子。 图中的边是连接钉子的橡皮筋。 路径长度可以理解为从起点拉到终点的绳子的“张力”或长度。  一开始，我们不知道从起点 $S$ 到终点 $B$ 的最短路，我们假设它无限远（或者用一条很长的绕远路的绳子连着），这时候绳子绷得很紧（估计值很大，即 dist[B] = ∞）。 当我们发现了一条从 $S$ 经过中间点 $A$ 再到 $B$ 的更短路径时，原本那根绕远路的紧绷绳子就可以松下来了，换成了一条更短的路线。路径的估计值变小了，压力变小了，所以叫“松弛”。  2. 数学定义与公式假设我们有两个顶点 $u$ 和 $v$，以及一条从 $u$ 到 $v$ 的边，权重为 $w(u,...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Floyd-Warshall%EF%BC%88%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%EF%BC%89%E7%AE%97%E6%B3%95/" title="[数据结构·图] Floyd-Warshall 算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">[数据结构·图] Floyd-Warshall 算法</div></div><div class="info-2"><div class="info-item-1">弗洛伊德算法 (Floyd-Warshall) 详解1. 算法核心思想Floyd 算法本质上是 动态规划 (Dynamic Programming)。 核心问题：从顶点 $i$ 到顶点 $j$，如果我们允许经过一些中转点，最短路径是多少？ 1.1 状态定义我们定义 $dp[k][i][j]$ 为：“只允许使用节点 $1$ 到 $k$ 作为中转节点的情况下，从 $i$ 到 $j$ 的最短路径长度。” 1.2 状态转移方程（核心逻辑）当我们要计算允许使用节点 $1...k$ 的最短路时，我们有两种选择：  不经过节点 $k$：如果不使用 $k$ 做中转，那么最短路径就等于“只允许使用 $1...k-1$”时的路径。即：$dp[k-1][i][j]$。 经过节点 $k$：如果我们利用 $k$ 做中转，那么路径就变成了 $i \to k \to j$。这条路的长度是：$dp[k-1][i][k] + dp[k-1][k][j]$。  结论：我们要在这两者中取最小值。  dp[k][i][j] = \min(dp[k-1][i][j], \quad dp[k-1][i][k] +...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Floyd-Warshall%EF%BC%88%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%EF%BC%89%E7%AE%97%E6%B3%95/" title="[数据结构·图] Floyd-Warshall 算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Floyd-Warshall 算法</div></div><div class="info-2"><div class="info-item-1">弗洛伊德算法 (Floyd-Warshall) 详解1. 算法核心思想Floyd 算法本质上是 动态规划 (Dynamic Programming)。 核心问题：从顶点 $i$ 到顶点 $j$，如果我们允许经过一些中转点，最短路径是多少？ 1.1 状态定义我们定义 $dp[k][i][j]$ 为：“只允许使用节点 $1$ 到 $k$ 作为中转节点的情况下，从 $i$ 到 $j$ 的最短路径长度。” 1.2 状态转移方程（核心逻辑）当我们要计算允许使用节点 $1...k$ 的最短路时，我们有两种选择：  不经过节点 $k$：如果不使用 $k$ 做中转，那么最短路径就等于“只允许使用 $1...k-1$”时的路径。即：$dp[k-1][i][j]$。 经过节点 $k$：如果我们利用 $k$ 做中转，那么路径就变成了 $i \to k \to j$。这条路的长度是：$dp[k-1][i][k] + dp[k-1][k][j]$。  结论：我们要在这两者中取最小值。  dp[k][i][j] = \min(dp[k-1][i][j], \quad dp[k-1][i][k] +...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" title="[数据结构·图] 关键路径"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 关键路径</div></div><div class="info-2"><div class="info-item-1">图的关键路径 (Critical Path) 复习指南1. 核心概念1.1 定义关键路径是在 AOE 网 (Activity On Edge Network) 中，从源点 (Start) 到汇点 (End) 的所有路径中，路径长度（权重之和）最长 的那条路径。 1.2 适用范围 (AOE 网) AOE 网： 顶点 (Vertex)：表示 事件 (Event)，例如“项目开始”、“地基打好”。事件是一个瞬间点。 边 (Edge)：表示 活动 (Activity)，边上的权值表示活动持续的时间。   核心意义：关键路径的长度决定了完成整个工程所需的 最短时间。  1.3 关键活动 关键路径上的活动称为 关键活动。 这些活动是没有“缓冲时间”的，一旦延误，整个工期都会延误。   2. 核心计算步骤 (四步法)计算关键路径通常需要计算四个核心参数。假设图中有 $n$ 个事件（顶点），边 $$ 表示活动 $ak$，持续时间为 $w{i,j}$。 第一步：求 事件的最早发生时间 $ve(k)$ 顺序：从源点开始，按 拓扑序...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Kruskal%20%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="[数据结构·图] Kruskal 算法的最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Kruskal 算法的最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树 (MST) 从理论到实操：基于 Kruskal 算法1. 题目解析与理论基础什么是最小生成树 (Minimum Spanning Tree, MST)？想象你要在一个拥有 $n$ 个城市的国家修建光缆，使得所有城市都能互相连通（直接或间接相连）。  生成树 (Spanning Tree)：在一个图中，选出 $n-1$ 条边，将所有 $n$ 个点连接起来，且没有环的结构。 最小生成树 (MST)：在所有可能的生成树中，边的权值之和最小的那一个。  结合题目 输入：$n$ 个节点，$m$ 条带权无向边。可能有重边（两个点之间有多条线）。 目标：选出 $n-1$ 条边，连接所有点，使权值和最小。 数据范围： $n \le 10^3$（点不多） $m \le 10^5$（边比较多） $w \le 10^9$（权重很大，注意：结果需要用 long long）     2. 算法选择：Kruskal 算法对于这道题，我们推荐使用 Kruskal (克鲁斯卡尔) 算法。 为什么选 Kruskal？Kruskal 算法的核心思想是...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" title="[数据结构·图] 拓扑排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 拓扑排序</div></div><div class="info-2"><div class="info-item-1">图的拓扑排序 (Topological Sorting) 复习指南1. 核心概念1.1 定义拓扑排序是对有向无环图 (DAG, Directed Acyclic Graph) 的顶点的一种排序。它使得对于图中的每一条有向边 $(u, v)$，顶点 $u$ 在排序中都出现在顶点 $v$ 之前。 1.2 适用范围 (AOV 网) AOV 网 (Activity On Vertex Network)：用顶点表示活动，用边表示活动间的优先关系。 前提条件：图必须是 有向 的，且 没有环 (Acyclic)。 性质： 如果存在环，则无法进行拓扑排序。 一个 DAG 的拓扑排序序列可能不唯一。     2. 核心算法实现最常用的算法是基于 入度 (Indegree) 的算法（也称为 Kahn 算法）。 2.1 算法步骤 (Kahn 算法) 初始化：计算图中所有节点的入度。 入队：将所有入度为 0 的节点放入队列（Queue）中。 循环处理： 当队列不为空时，取出队首节点 $u$，放入结果序列。 遍历 $u$ 的所有邻接点 $v$ (即存在边 $u \to v$)。 将 $v$ 的入度减...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/" title="[数据结构·图] 图的基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 图的基础</div></div><div class="info-2"><div class="info-item-1">数据结构：图(Graph)图的基本概念一、图的定义图(Graph)是由顶点的有穷非空集合 $V(G)$ 和顶点之间边的集合 $E(G)$ 组成，通常表示为：$G=(V,E)$。  $V$ 是图 $G$ 中顶点的集合。 $E$ 是图 $G$ 中边的集合。 $|V|$ 表示顶点的个数，也称图的阶。 $|E|$ 表示边的条数。   注意：图不可以是空图，顶点集 $V$ 一定非空，但边集 $E$ 可以为空。  二、图的基本概念和术语 有向图：边是有向边（弧），记为 $$。$v$ 为弧尾，$w$ 为弧头。 无向图：边是无向边，记为 $(v, w)$ 或 $(w, v)$。 简单图：不存在重复边，不存在顶点到自身的边。 多重图：两个结点之间的边数多于一条，或允许顶点通过同一条边和自己关联。 完全图： 无向完全图：任意两个顶点之间都存在边，边数范围 $0$ 到 $n(n-1)/2$。 有向完全图：任意两个顶点之间都存在方向相反的两条弧，弧数范围 $0$ 到 $n(n-1)$。   子图：$G&#39;=(V&#39;, E&#39;)$ 是 $G=(V, E)$ 的子图，若 $V&#39;...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E2%80%94%E2%80%94%E6%99%AE%E9%87%8C%E5%A7%86%E7%AE%97%E6%B3%95/" title="[数据结构·图] 最小生成树——普里姆算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 最小生成树——普里姆算法</div></div><div class="info-2"><div class="info-item-1">最小生成树：普里姆算法 (Prim) - 邻接表版1. 算法核心思想Prim 算法是一种 贪心算法。它的逻辑类似于“通过不断吞并最近的邻居来扩张领土”。  集合划分：将顶点分为两个集合： 已选集合 ($S$)：已经在最小生成树中的点。 未选集合 ($V-S$)：还没有加入树的点。   贪心策略：每次从“未选集合”中找到一个顶点，使得它与“已选集合”之间的边权值最小。 更新：将该顶点加入 $S$，并更新它的邻居到 $S$ 的距离。   2. 数据结构设计由于使用邻接表，我们无法像邻接矩阵那样 $O(1)$ 查边，也无法高效地扫描所有点的最短距离。因此，我们需要配合 优先队列 (Min-Heap) 来快速获取当前距离生成树最近的点。  图存储：vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; adj (存目标点和权值)。 距离数组：dist[i] 记录节点 $i$ 到当前生成树集合的最小距离（注意：不是到源点的距离，那是 Dijkstra）。 访问标记：vis[i]...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra-%E4%B8%8E-Floyd"><span class="toc-number">1.</span> <span class="toc-text">最短路径问题详解：Dijkstra 与 Floyd</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Dijkstra-%E7%AE%97%E6%B3%95-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">一、Dijkstra 算法 (单源最短路)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%A6%E7%BB%86%E6%80%9D%E8%B7%AF%EF%BC%9A%E4%BD%9C%E4%B8%BA%E2%80%9C%E6%B6%9F%E6%BC%AA%E2%80%9D%E6%89%A9%E6%95%A3"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 详细思路：作为“涟漪”扩散</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 算法步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%9D%BF-%E5%A0%86%E4%BC%98%E5%8C%96%E7%89%88"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 代码模板 (堆优化版)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B8%B8%E8%A7%81%E8%80%83%E5%AF%9F%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 常见考察形式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%A4%E7%A7%8D%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text">三、两种算法对比总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%83%E8%AF%95%E5%81%9A%E9%A2%98%E7%AD%96%E7%95%A5"><span class="toc-number">1.2.1.</span> <span class="toc-text">考试做题策略</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" title="[网站建设] butterfly主题美化之背景毛玻璃效果">[网站建设] butterfly主题美化之背景毛玻璃效果</a><time datetime="2025-12-11T00:00:00.000Z" title="发表于 2025-12-11 08:00:00">2025-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" title="[RK3576] 系统检查与必要工具下载">[RK3576] 系统检查与必要工具下载</a><time datetime="2025-12-10T04:00:00.000Z" title="发表于 2025-12-10 12:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" title="[RK3576] Rknn和Rkllm的Runtime下载">[RK3576] Rknn和Rkllm的Runtime下载</a><time datetime="2025-12-10T03:00:00.000Z" title="发表于 2025-12-10 11:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用">[RK3576] RKLLM模型的使用</a><time datetime="2025-12-10T02:00:00.000Z" title="发表于 2025-12-10 10:00:00">2025-12-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: 'qLMZwh39iPK0IwpSoF1X0FHH-MdYXbMMI',
+      appKey: 'OcAr77fCRFEkevCaVCs0DxOO',
+      avatar: 'monsterid',
+      serverURLs: 'https://qlmzwh39.api.lncldglobal.com',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

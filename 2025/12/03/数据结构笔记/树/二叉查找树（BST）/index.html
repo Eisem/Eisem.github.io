@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[数据结构·树] 二叉查找树（BST） | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="你好！这是一个非常核心的数据结构问题。 首先，我来澄清一下：二叉查找树（Binary Search Tree, BST） 和 二叉排序树（Binary Sort Tree） 是 完全相同的概念，只是名字不同。它们都描述的是同一种数据结构。  🌳 什么是二叉查找树 (BST)？二叉查找树（BST）是一种特殊的二叉树，它“有序”地组织数据，其定义如下：  它首先是一棵二叉树（每个节点最多有两个子节点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[数据结构·树] 二叉查找树（BST）">
+<meta property="og:url" content="http://example.com/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88BST%EF%BC%89/index.html">
+<meta property="og:site_name" content="Welcome To My-Blog">
+<meta property="og:description" content="你好！这是一个非常核心的数据结构问题。 首先，我来澄清一下：二叉查找树（Binary Search Tree, BST） 和 二叉排序树（Binary Sort Tree） 是 完全相同的概念，只是名字不同。它们都描述的是同一种数据结构。  🌳 什么是二叉查找树 (BST)？二叉查找树（BST）是一种特殊的二叉树，它“有序”地组织数据，其定义如下：  它首先是一棵二叉树（每个节点最多有两个子节点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/A4.webp">
+<meta property="article:published_time" content="2025-12-03T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-27T14:25:46.509Z">
+<meta property="article:author" content="Eisem">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="树">
+<meta property="article:tag" content="BST">
+<meta property="article:tag" content="二叉查找树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[数据结构·树] 二叉查找树（BST）",
+  "url": "http://example.com/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88BST%EF%BC%89/",
+  "image": "http://example.com/img/A4.webp",
+  "datePublished": "2025-12-03T00:00:00.000Z",
+  "dateModified": "2026-04-27T14:25:46.509Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eisem",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88BST%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[数据结构·树] 二叉查找树（BST）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[数据结构·树] 二叉查找树（BST）</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[数据结构·树] 二叉查找树（BST）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-03T00:00:00.000Z" title="发表于 2025-12-03 08:00:00">2025-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T14:25:46.509Z" title="更新于 2026-04-27 22:25:46">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/">树</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>你好！这是一个非常核心的数据结构问题。</p>
+<p>首先，我来澄清一下：<strong>二叉查找树（Binary Search Tree, BST）</strong> 和 <strong>二叉排序树（Binary Sort Tree）</strong> 是 <strong>完全相同的概念</strong>，只是名字不同。它们都描述的是同一种数据结构。</p>
+<hr>
+<h3 id="🌳-什么是二叉查找树-BST-？"><a href="#🌳-什么是二叉查找树-BST-？" class="headerlink" title="🌳 什么是二叉查找树 (BST)？"></a>🌳 什么是二叉查找树 (BST)？</h3><p>二叉查找树（BST）是一种特殊的二叉树，它“有序”地组织数据，其定义如下：</p>
+<ol>
+<li><p>它首先是一棵二叉树（每个节点最多有两个子节点）。</p>
+</li>
+<li><p>对于树中的<strong>任意</strong>一个节点，其<strong>左子树</strong>中所有节点的值都<strong>小于</strong>该节点的值。</p>
+</li>
+<li><p>对于树中的<strong>任意</strong>一个节点，其<strong>右子树</strong>中所有节点的值都<strong>大于</strong>该节点的值。</p>
+</li>
+<li><p>它的左、右子树也分别是二叉查找树。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>注意：</strong> 这个定义通常不允许重复值。如果允许重复值，一种常见的约定是将其放在右子树（即右子树的值 &gt;= 节点的值）。</p>
+</blockquote>
+<hr>
+<h3 id="🧠-主要实现什么功能？"><a href="#🧠-主要实现什么功能？" class="headerlink" title="🧠 主要实现什么功能？"></a>🧠 主要实现什么功能？</h3><p>二叉查找树的核心功能是提供<strong>高效的动态集合操作</strong>。它的主要优势在于：</p>
+<ol>
+<li><p><strong>高效查找 (Search):</strong></p>
+<ul>
+<li><p>这是它最主要的功能。要查找一个值，你从根节点开始比较：</p>
+<ul>
+<li><p>如果值相等，就找到了。</p>
+</li>
+<li><p>如果值小于当前节点，就去左子树找。</p>
+</li>
+<li><p>如果值大于当前节点，就去右子树找。</p>
+</li>
+</ul>
+</li>
+<li><p>在理想情况下（树比较“平衡”），每次比较都能排除掉大约一半的节点，因此查找的时间复杂度是 <strong>$O(\log n)$</strong>。</p>
+</li>
+<li><p><strong>最坏情况：</strong> 如果树退化成一个链表（例如，依次插入1, 2, 3, 4, 5），查找时间会退化到 <strong>$O(n)$</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>高效插入 (Insert) 和删除 (Delete):</strong></p>
+<ul>
+<li><p>它允许你快速地插入新元素或删除已有元素，同时保持树的有序特性。</p>
+</li>
+<li><p>这些操作的平均时间复杂度也是 <strong>$O(\log n)$</strong>，最坏情况也是 <strong>$O(n)$</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>排序 (Sorting):</strong></p>
+<ul>
+<li>这也是它被称为“二叉排序树”的原因。如果你对一棵二叉查找树进行<strong>中序遍历</strong>（In-order Traversal，即“左 -&gt; 根 -&gt; 右”的顺序），你会得到一个<strong>严格递增</strong>的有序序列。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="💻-C-语言代码实现"><a href="#💻-C-语言代码实现" class="headerlink" title="💻 C 语言代码实现"></a>💻 C 语言代码实现</h3><p>下面是一个二叉查找树在 C 语言中的基本实现，包括：</p>
+<ul>
+<li><p>节点定义 (<code>struct Node</code>)</p>
+</li>
+<li><p>创建新节点 (<code>createNode</code>)</p>
+</li>
+<li><p>插入节点 (<code>insert</code>)</p>
+</li>
+<li><p>查找节点 (<code>search</code>)</p>
+</li>
+<li><p>删除节点 (<code>deleteNode</code>) - 这是最复杂的部分</p>
+</li>
+<li><p>中序遍历 (<code>inOrder</code>)</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 定义二叉查找树的节点结构</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data;                 <span class="comment">// 节点存储的数据</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">left</span>;</span>      <span class="comment">// 指向左子节点的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">right</span>;</span>     <span class="comment">// 指向右子节点的指针</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建一个新节点</span></span><br><span class="line"><span class="keyword">struct</span> Node* <span class="title function_">createNode</span><span class="params">(<span class="type">int</span> data)</span> &#123;</span><br><span class="line">    <span class="comment">// 为新节点分配内存</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">newNode</span> =</span> (<span class="keyword">struct</span> Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> Node));</span><br><span class="line">    <span class="keyword">if</span> (newNode == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;内存分配失败!\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    newNode-&gt;data = data;</span><br><span class="line">    newNode-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">    newNode-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> newNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 插入一个新节点 (递归实现)</span></span><br><span class="line"><span class="comment">// 返回值是插入新节点后(可能)的</span></span><br><span class="line"><span class="keyword">struct</span> Node* <span class="title function_">insert</span><span class="params">(<span class="keyword">struct</span> Node* node, <span class="type">int</span> data)</span> &#123;</span><br><span class="line">    <span class="comment">// 基础情况：如果树(或子树)为空，则在此处创建新节点</span></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> createNode(data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 递归步骤：</span></span><br><span class="line">    <span class="keyword">if</span> (data &lt; node-&gt;data) &#123;</span><br><span class="line">        <span class="comment">// 如果数据较小，插入到左子树</span></span><br><span class="line">        node-&gt;left = insert(node-&gt;left, data);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data &gt; node-&gt;data) &#123;</span><br><span class="line">        <span class="comment">// 如果数据较大，插入到右子树</span></span><br><span class="line">        node-&gt;right = insert(node-&gt;right, data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// (如果 data == node-&gt;data，则什么也不做，不插入重复值)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> node; <span class="comment">// 返回(可能已更新的)节点指针</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 查找一个节点 (递归实现)</span></span><br><span class="line"><span class="keyword">struct</span> Node* <span class="title function_">search</span><span class="params">(<span class="keyword">struct</span> Node* root, <span class="type">int</span> data)</span> &#123;</span><br><span class="line">    <span class="comment">// 基础情况 1: 没找到 (到达NULL)</span></span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 基础情况 2: 找到了</span></span><br><span class="line">    <span class="keyword">if</span> (root-&gt;data == data) &#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 递归步骤：</span></span><br><span class="line">    <span class="keyword">if</span> (data &lt; root-&gt;data) &#123;</span><br><span class="line">        <span class="keyword">return</span> search(root-&gt;left, data); <span class="comment">// 往左找</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> search(root-&gt;right, data); <span class="comment">// 往右找</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 中序遍历 (LDR: 左-根-右)</span></span><br><span class="line"><span class="comment">// 这将按排序顺序打印所有节点</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">inOrder</span><span class="params">(<span class="keyword">struct</span> Node* root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        inOrder(root-&gt;left);          <span class="comment">// 1. 遍历左子树</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, root-&gt;data);    <span class="comment">// 2. 访问根节点</span></span><br><span class="line">        inOrder(root-&gt;right);         <span class="comment">// 3. 遍历右子树</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// (辅助函数) 查找子树中的最小节点 (用于删除)</span></span><br><span class="line"><span class="keyword">struct</span> Node* <span class="title function_">findMin</span><span class="params">(<span class="keyword">struct</span> Node* node)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">current</span> =</span> node;</span><br><span class="line">    <span class="comment">// 最小的节点总是在最左边</span></span><br><span class="line">    <span class="keyword">while</span> (current &amp;&amp; current-&gt;left != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        current = current-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> current;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 删除一个节点 (递归实现)</span></span><br><span class="line"><span class="keyword">struct</span> Node* <span class="title function_">deleteNode</span><span class="params">(<span class="keyword">struct</span> Node* root, <span class="type">int</span> data)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> root; <span class="comment">// 没找到</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 查找要删除的节点</span></span><br><span class="line">    <span class="keyword">if</span> (data &lt; root-&gt;data) &#123;</span><br><span class="line">        root-&gt;left = deleteNode(root-&gt;left, data);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data &gt; root-&gt;data) &#123;</span><br><span class="line">        root-&gt;right = deleteNode(root-&gt;right, data);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 2. 找到了要删除的节点 (data == root-&gt;data)</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 情况 1: 节点没有子节点 或 只有一个子节点</span></span><br><span class="line">        <span class="keyword">if</span> (root-&gt;left == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">struct</span> Node* temp = root-&gt;right;</span><br><span class="line">            <span class="built_in">free</span>(root);</span><br><span class="line">            <span class="keyword">return</span> temp; <span class="comment">// 返回右子节点 (或NULL)</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root-&gt;right == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">struct</span> Node* temp = root-&gt;left;</span><br><span class="line">            <span class="built_in">free</span>(root);</span><br><span class="line">            <span class="keyword">return</span> temp; <span class="comment">// 返回左子节点</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 情况 2: 节点有两个子节点</span></span><br><span class="line">        <span class="comment">// 找到右子树中的最小节点 (即中序遍历的后继者)</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">temp</span> =</span> findMin(root-&gt;right);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将后继者的值复制到当前节点</span></span><br><span class="line">        root-&gt;data = temp-&gt;data;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从右子树中删除那个后继者节点</span></span><br><span class="line">        root-&gt;right = deleteNode(root-&gt;right, temp-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// (辅助函数) 释放整棵树的内存</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">freeTree</span><span class="params">(<span class="keyword">struct</span> Node* node)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    freeTree(node-&gt;left);</span><br><span class="line">    freeTree(node-&gt;right);</span><br><span class="line">    <span class="built_in">free</span>(node);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主函数：演示如何使用</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">root</span> =</span> <span class="literal">NULL</span>; <span class="comment">// 初始化一棵空树</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入节点</span></span><br><span class="line">    <span class="comment">// 注意：第一次插入时，必须将返回值赋给root</span></span><br><span class="line">    root = insert(root, <span class="number">50</span>);</span><br><span class="line">    insert(root, <span class="number">30</span>);</span><br><span class="line">    insert(root, <span class="number">20</span>);</span><br><span class="line">    insert(root, <span class="number">40</span>);</span><br><span class="line">    insert(root, <span class="number">70</span>);</span><br><span class="line">    insert(root, <span class="number">60</span>);</span><br><span class="line">    insert(root, <span class="number">80</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 中序遍历 (应该输出: 20 30 40 50 60 70 80)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;中序遍历 (排序结果): &quot;</span>);</span><br><span class="line">    inOrder(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找节点</span></span><br><span class="line">    <span class="type">int</span> keyToSearch = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">if</span> (search(root, keyToSearch) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;找到了 %d\n&quot;</span>, keyToSearch);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;未找到 %d\n&quot;</span>, keyToSearch);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    keyToSearch = <span class="number">90</span>;</span><br><span class="line">    <span class="keyword">if</span> (search(root, keyToSearch) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;找到了 %d\n&quot;</span>, keyToSearch);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;未找到 %d\n&quot;</span>, keyToSearch);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 删除节点</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n删除节点 20 (叶子节点)\n&quot;</span>);</span><br><span class="line">    root = deleteNode(root, <span class="number">20</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;中序遍历: &quot;</span>);</span><br><span class="line">    inOrder(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n删除节点 30 (只有一个子节点)\n&quot;</span>);</span><br><span class="line">    root = deleteNode(root, <span class="number">30</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;中序遍历: &quot;</span>);</span><br><span class="line">    inOrder(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n删除节点 50 (有两个子节点)\n&quot;</span>);</span><br><span class="line">    root = deleteNode(root, <span class="number">50</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;中序遍历: &quot;</span>);</span><br><span class="line">    inOrder(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放内存</span></span><br><span class="line">    freeTree(root);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><p><strong>二叉查找树 (BST)</strong> 和 <strong>二叉排序树</strong> 是同义词。</p>
+</li>
+<li><p><strong>核心特性：</strong> 左 &lt; 根 &lt; 右。</p>
+</li>
+<li><p><strong>主要功能：</strong> 高效的查找、插入、删除（平均 $O(\log n)$）和排序（通过中序遍历）。</p>
+</li>
+<li><p><strong>最大缺点：</strong> 在最坏情况下会退化成链表（$O(n)$），这导致了更高级的<strong>平衡二叉查找树</strong>（如 AVL 树和红黑树）的出现。</p>
+</li>
+</ul>
+<p>你是否想了解更多关于二叉查找树的平衡问题（比如AVL树或红黑树）？</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88BST%EF%BC%89/">http://example.com/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88BST%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E6%A0%91/">树</a><a class="post-meta__tags" href="/tags/BST/">BST</a><a class="post-meta__tags" href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/">二叉查找树</a></div><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Kruskal%20%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="[数据结构·图] Kruskal 算法的最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">[数据结构·图] Kruskal 算法的最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树 (MST) 从理论到实操：基于 Kruskal 算法1. 题目解析与理论基础什么是最小生成树 (Minimum Spanning Tree, MST)？想象你要在一个拥有 $n$ 个城市的国家修建光缆，使得所有城市都能互相连通（直接或间接相连）。  生成树 (Spanning Tree)：在一个图中，选出 $n-1$ 条边，将所有 $n$ 个点连接起来，且没有环的结构。 最小生成树 (MST)：在所有可能的生成树中，边的权值之和最小的那一个。  结合题目 输入：$n$ 个节点，$m$ 条带权无向边。可能有重边（两个点之间有多条线）。 目标：选出 $n-1$ 条边，连接所有点，使权值和最小。 数据范围： $n \le 10^3$（点不多） $m \le 10^5$（边比较多） $w \le 10^9$（权重很大，注意：结果需要用 long long）     2. 算法选择：Kruskal 算法对于这道题，我们推荐使用 Kruskal (克鲁斯卡尔) 算法。 为什么选 Kruskal？Kruskal 算法的核心思想是...</div></div></div></a><a class="pagination-related" href="/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B8%B8%E8%A7%81%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%88%86%E6%9E%90/" title="[数据结构·树] 二叉树的遍历方法及应用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">[数据结构·树] 二叉树的遍历方法及应用</div></div><div class="info-2"><div class="info-item-1">二叉树的遍历是指按照某种特定的顺序访问树中的每一个节点，且每个节点只被访问一次。常见的遍历方法主要分为两大类：深度优先搜索（DFS）和广度优先搜索（BFS）。  深度优先搜索 (DFS)：尽可能深地搜索树的分支。根据根节点被访问的顺序，又分为前序遍历、中序遍历和后序遍历。 广度优先搜索 (BFS)：又称为层序遍历，从根节点开始，逐层地访问节点。   1. 前序遍历 (Pre-order Traversal)访问顺序：根 (Root) -&gt; 左 (Left) -&gt; 右 (Right) 核心思想：首先访问根节点，然后递归地前序遍历左子树，最后递归地前序遍历右子树。 递归实现思路：12345678910111213function preorder(node):if node is null:returnvisit(node) // 访问根节点preorder(node.left) // 遍历左子树preorder(node.right) // 遍历右子树 迭代实现思路（使用栈）：  将根节点入栈。 循环直到栈为空：a.  弹出栈顶节点 node 并访问它。b.  先将...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%AE%9E%E7%8E%B0%20%E5%8D%95%E7%82%B9%E4%BF%AE%E6%94%B9%20+%20%E5%8C%BA%E9%97%B4%E6%9C%80%E5%80%BC%E6%9F%A5%E8%AF%A2%20(RMQ)/" title="[数据结构·树] 线段树：单点修改与区间最值查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-03</div><div class="info-item-2">[数据结构·树] 线段树：单点修改与区间最值查询</div></div><div class="info-2"><div class="info-item-1">这是一道非常经典的单点修改 + 区间最值查询 (RMQ) 问题。由于涉及频繁的修改和查询，使用线段树（Segment Tree）可以将单次操作的时间复杂度降低到 $O(\log n)$，从而在限制时间内完成 $200,000$ 次操作。 线段树解决区间最值问题 (RMQ)1. 题目分析 需求： 区间查询 (Q a b)：查询 $[a, b]$ 区间内的最大值。 单点更新 (U a b)：将 ID 为 $a$ 的成绩更新为 $b$（前提是 $b$ 更大）。   数据规模：$n, m \le 200,000$。如果使用暴力遍历，复杂度为 $O(n \times m)$，显然会超时。 最优解法：线段树。其查询和修改复杂度均为 $O(\log n)$，总复杂度 $O(m \log n)$。   2. 线段树设计思路(1) 存储结构使用一个数组 tree[] 来存储线段树节点，通常大小开到原数组的 4倍。  tree[node] 存储当前区间内的最大值。 根节点编号为 1，代表区间 $[1, n]$。 对于编号为 node 的节点： 左子节点编号为 node * 2 (或 node...</div></div></div></a><a class="pagination-related" href="/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%EF%BC%88AVL%EF%BC%89/" title="[数据结构·树] 平衡二叉搜索树（AVL）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-03</div><div class="info-item-2">[数据结构·树] 平衡二叉搜索树（AVL）</div></div><div class="info-2"><div class="info-item-1">🌳 AVL 树 (自平衡二叉查找树) 的 C 语言实现与解析AVL 树是一种自平衡的二叉查找树（BST）。它通过在插入和删除节点后进行“旋转”操作，来确保树的高度始终保持在 $O(\log n)$ 级别，从而保证了所有基本操作（查找、插入、删除）的最坏时间复杂度都是 $O(\log n)$。  📄 完整的 C...</div></div></div></a><a class="pagination-related" href="/2025/12/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B8%B8%E8%A7%81%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%88%86%E6%9E%90/" title="[数据结构·树] 二叉树的遍历方法及应用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-03</div><div class="info-item-2">[数据结构·树] 二叉树的遍历方法及应用</div></div><div class="info-2"><div class="info-item-1">二叉树的遍历是指按照某种特定的顺序访问树中的每一个节点，且每个节点只被访问一次。常见的遍历方法主要分为两大类：深度优先搜索（DFS）和广度优先搜索（BFS）。  深度优先搜索 (DFS)：尽可能深地搜索树的分支。根据根节点被访问的顺序，又分为前序遍历、中序遍历和后序遍历。 广度优先搜索 (BFS)：又称为层序遍历，从根节点开始，逐层地访问节点。   1. 前序遍历 (Pre-order Traversal)访问顺序：根 (Root) -&gt; 左 (Left) -&gt; 右 (Right) 核心思想：首先访问根节点，然后递归地前序遍历左子树，最后递归地前序遍历右子树。 递归实现思路：12345678910111213function preorder(node):if node is null:returnvisit(node) // 访问根节点preorder(node.left) // 遍历左子树preorder(node.right) // 遍历右子树 迭代实现思路（使用栈）：  将根节点入栈。 循环直到栈为空：a.  弹出栈顶节点 node 并访问它。b.  先将...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Floyd-Warshall%EF%BC%88%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%EF%BC%89%E7%AE%97%E6%B3%95/" title="[数据结构·图] Floyd-Warshall 算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Floyd-Warshall 算法</div></div><div class="info-2"><div class="info-item-1">弗洛伊德算法 (Floyd-Warshall) 详解1. 算法核心思想Floyd 算法本质上是 动态规划 (Dynamic Programming)。 核心问题：从顶点 $i$ 到顶点 $j$，如果我们允许经过一些中转点，最短路径是多少？ 1.1 状态定义我们定义 $dp[k][i][j]$ 为：“只允许使用节点 $1$ 到 $k$ 作为中转节点的情况下，从 $i$ 到 $j$ 的最短路径长度。” 1.2 状态转移方程（核心逻辑）当我们要计算允许使用节点 $1...k$ 的最短路时，我们有两种选择：  不经过节点 $k$：如果不使用 $k$ 做中转，那么最短路径就等于“只允许使用 $1...k-1$”时的路径。即：$dp[k-1][i][j]$。 经过节点 $k$：如果我们利用 $k$ 做中转，那么路径就变成了 $i \to k \to j$。这条路的长度是：$dp[k-1][i][k] + dp[k-1][k][j]$。  结论：我们要在这两者中取最小值。  dp[k][i][j] = \min(dp[k-1][i][j], \quad dp[k-1][i][k] +...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" title="[数据结构·图] 关键路径"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 关键路径</div></div><div class="info-2"><div class="info-item-1">图的关键路径 (Critical Path) 复习指南1. 核心概念1.1 定义关键路径是在 AOE 网 (Activity On Edge Network) 中，从源点 (Start) 到汇点 (End) 的所有路径中，路径长度（权重之和）最长 的那条路径。 1.2 适用范围 (AOE 网) AOE 网： 顶点 (Vertex)：表示 事件 (Event)，例如“项目开始”、“地基打好”。事件是一个瞬间点。 边 (Edge)：表示 活动 (Activity)，边上的权值表示活动持续的时间。   核心意义：关键路径的长度决定了完成整个工程所需的 最短时间。  1.3 关键活动 关键路径上的活动称为 关键活动。 这些活动是没有“缓冲时间”的，一旦延误，整个工期都会延误。   2. 核心计算步骤 (四步法)计算关键路径通常需要计算四个核心参数。假设图中有 $n$ 个事件（顶点），边 $$ 表示活动 $ak$，持续时间为 $w{i,j}$。 第一步：求 事件的最早发生时间 $ve(k)$ 顺序：从源点开始，按 拓扑序...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Kruskal%20%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="[数据结构·图] Kruskal 算法的最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Kruskal 算法的最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树 (MST) 从理论到实操：基于 Kruskal 算法1. 题目解析与理论基础什么是最小生成树 (Minimum Spanning Tree, MST)？想象你要在一个拥有 $n$ 个城市的国家修建光缆，使得所有城市都能互相连通（直接或间接相连）。  生成树 (Spanning Tree)：在一个图中，选出 $n-1$ 条边，将所有 $n$ 个点连接起来，且没有环的结构。 最小生成树 (MST)：在所有可能的生成树中，边的权值之和最小的那一个。  结合题目 输入：$n$ 个节点，$m$ 条带权无向边。可能有重边（两个点之间有多条线）。 目标：选出 $n-1$ 条边，连接所有点，使权值和最小。 数据范围： $n \le 10^3$（点不多） $m \le 10^5$（边比较多） $w \le 10^9$（权重很大，注意：结果需要用 long long）     2. 算法选择：Kruskal 算法对于这道题，我们推荐使用 Kruskal (克鲁斯卡尔) 算法。 为什么选 Kruskal？Kruskal 算法的核心思想是...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B3-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91-BST-%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">🌳 什么是二叉查找树 (BST)？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-%E4%B8%BB%E8%A6%81%E5%AE%9E%E7%8E%B0%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">🧠 主要实现什么功能？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%BB-C-%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">💻 C 语言代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" title="[网站建设] butterfly主题美化之背景毛玻璃效果">[网站建设] butterfly主题美化之背景毛玻璃效果</a><time datetime="2025-12-11T00:00:00.000Z" title="发表于 2025-12-11 08:00:00">2025-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" title="[RK3576] 系统检查与必要工具下载">[RK3576] 系统检查与必要工具下载</a><time datetime="2025-12-10T04:00:00.000Z" title="发表于 2025-12-10 12:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" title="[RK3576] Rknn和Rkllm的Runtime下载">[RK3576] Rknn和Rkllm的Runtime下载</a><time datetime="2025-12-10T03:00:00.000Z" title="发表于 2025-12-10 11:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用">[RK3576] RKLLM模型的使用</a><time datetime="2025-12-10T02:00:00.000Z" title="发表于 2025-12-10 10:00:00">2025-12-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: 'qLMZwh39iPK0IwpSoF1X0FHH-MdYXbMMI',
+      appKey: 'OcAr77fCRFEkevCaVCs0DxOO',
+      avatar: 'monsterid',
+      serverURLs: 'https://qlmzwh39.api.lncldglobal.com',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

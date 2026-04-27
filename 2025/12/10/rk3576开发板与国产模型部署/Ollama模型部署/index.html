@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[RK3576] Ollama模型部署 | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="整体思路：x86 Ubuntu 虚拟机安装 Ollama 并下载模型 → 通过 NFS 共享迁移至 ARM64 麒麟开发板 → 实现本地大模型调用。 这么操作的原因：开发板下载安装Ollama服务的网速尚可，但是下载模型时网速很慢，经常会出现因为网络波动而停止下载的问题，所以我们使用X86 Ubuntu虚拟机的Ollama结合科学上网来加速模型下载，然后通过NFS文件共享来将模型文件传输到开发板上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[RK3576] Ollama模型部署">
+<meta property="og:url" content="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="Welcome To My-Blog">
+<meta property="og:description" content="整体思路：x86 Ubuntu 虚拟机安装 Ollama 并下载模型 → 通过 NFS 共享迁移至 ARM64 麒麟开发板 → 实现本地大模型调用。 这么操作的原因：开发板下载安装Ollama服务的网速尚可，但是下载模型时网速很慢，经常会出现因为网络波动而停止下载的问题，所以我们使用X86 Ubuntu虚拟机的Ollama结合科学上网来加速模型下载，然后通过NFS文件共享来将模型文件传输到开发板上">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/A4.webp">
+<meta property="article:published_time" content="2025-12-10T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-27T14:25:46.779Z">
+<meta property="article:author" content="Eisem">
+<meta property="article:tag" content="RK3576">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="ARM">
+<meta property="article:tag" content="Ollama">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[RK3576] Ollama模型部署",
+  "url": "http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/",
+  "image": "http://example.com/img/A4.webp",
+  "datePublished": "2025-12-10T01:00:00.000Z",
+  "dateModified": "2026-04-27T14:25:46.779Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eisem",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[RK3576] Ollama模型部署',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[RK3576] Ollama模型部署</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[RK3576] Ollama模型部署</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-10T01:00:00.000Z" title="发表于 2025-12-10 09:00:00">2025-12-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T14:25:46.779Z" title="更新于 2026-04-27 22:25:46">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>整体思路：x86 Ubuntu 虚拟机安装 Ollama 并下载模型 → 通过 NFS 共享迁移至 <strong>ARM64 麒麟开发板</strong> → 实现本地大模型调用。</p>
+<p>这么操作的原因：开发板下载安装Ollama服务的网速尚可，但是下载模型时网速很慢，经常会出现因为网络波动而停止下载的问题，所以我们使用X86 Ubuntu虚拟机的Ollama结合科学上网来加速模型下载，然后通过NFS文件共享来将模型文件传输到开发板上，通过开发板下载的ollama服务来启用。</p>
+<hr>
+<h3 id="X86虚拟机端-Ollama-安装与模型下载"><a href="#X86虚拟机端-Ollama-安装与模型下载" class="headerlink" title="X86虚拟机端 Ollama 安装与模型下载"></a>X86虚拟机端 Ollama 安装与模型下载</h3><ol>
+<li>执行官方一键安装脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> curl -fsSL https://ollama.com/install.sh | sh</span><br></pre></td></tr></table></figure></li>
+<li>下载目标模型（以千问1.5B为例）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama pull qwen2.5:1.5b</span><br></pre></td></tr></table></figure></li>
+<li>验证模型是否下载成功<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama list</span><br></pre></td></tr></table></figure>
+接下来，我们需要找到下载的模型文件，然后将模型文件放在NFS的共享文件夹内；</li>
+</ol>
+<h4 id="此阶段遇到的核心问题"><a href="#此阶段遇到的核心问题" class="headerlink" title="此阶段遇到的核心问题"></a>此阶段遇到的核心问题</h4><p>问题1：在共享文件夹/用户目录<code>~/.ollama/</code>找不到模型文件</p>
+<ul>
+<li><strong>原因</strong>：Ollama 以系统服务（systemd/root）运行，模型<strong>默认存储在系统目录</strong>，而非用户家目录</li>
+<li><strong>真实模型路径</strong>：<code>/usr/share/ollama/.ollama/models/</code></li>
+<li><strong>解决方案</strong>：从系统目录拷贝模型，而非用户目录<br>问题2：模型文件名为哈希乱码，无直观模型名</li>
+<li><strong>原因</strong>：Ollama 采用哈希分片管理模型，<code>blobs</code>存模型文件、<code>manifests</code>存索引</li>
+<li><strong>解决方案</strong>：无需修改文件名，<strong>完整拷贝整个**</strong><code>.ollama</code><strong>**目录</strong>即可识别</li>
+</ul>
+<h3 id="模型迁移：x86-→-ARM64-开发板（NFS-共享）"><a href="#模型迁移：x86-→-ARM64-开发板（NFS-共享）" class="headerlink" title="模型迁移：x86 → ARM64 开发板（NFS 共享）"></a>模型迁移：x86 → ARM64 开发板（NFS 共享）</h3><p>x86 虚拟机将系统目录的 Ollama 模型拷贝至 NFS 共享文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> -r /usr/share/ollama/.ollama/ /mnt/hgfs/VMshared/ollama/</span><br></pre></td></tr></table></figure><br>到开发板上确认能否看到共享的文件，如果看不到models文件夹，可以尝试<code>ctrl + H</code>显示隐藏文件。</p>
+<h3 id="ARM64-开发板端：Ollama-部署与模型识别"><a href="#ARM64-开发板端：Ollama-部署与模型识别" class="headerlink" title="ARM64 开发板端：Ollama 部署与模型识别"></a>ARM64 开发板端：Ollama 部署与模型识别</h3><p>首先需要下载ollama，直接输入官方的一键在线安装命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br></pre></td></tr></table></figure><br>这个脚本会自动完成：</p>
+<ol>
+<li>检测系统架构（ARM64/aarch64）</li>
+<li>下载最新版 <code>ollama-linux-arm64</code> 二进制文件</li>
+<li>安装到 <code>/usr/local/bin/ollama</code></li>
+<li>配置权限与服务（麒麟系统可能需要手动调整）<br>但是在我们的麒麟系统下大概率不成功，只会留下一个<code>ollama-linux-arm64</code>二进制文件，我们需要将这个文件拷贝到系统路径中，然后授权运行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> ollama-linux-arm64 /usr/local/bin/ollama </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/ollama</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>检查验证一下ollama能否执行；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama --version</span><br></pre></td></tr></table></figure>
+<p>启动ollama服务，如果报错<code>listen tcp 127.0.0.1:11434: bind: address already in use</code>，那说明服务已经开启；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">报错`listen tcp 127.0.0.1:11434: <span class="built_in">bind</span>: address already <span class="keyword">in</span> use`</span><br></pre></td></tr></table></figure><br>将NFS共享文件目录中的模型文件拷贝到开发板的默认路径，这里的路径是我的开发板上的路径，在使用的时候要注意修改。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /home/kylin/.ollama/models </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> -r /mnt/nfs_share/VMshared/ollama/.ollama/models/* /home/kylin/.ollama/models/ </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R kylin:kylin /home/kylin/.ollama</span><br></pre></td></tr></table></figure><br>接下来，Ollama应该就可以成功读取模型文件了，我们可以直接在命令行里面输入ollama，然后根据提示来选择现在需要的服务。<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20260403113126322.png" alt="image.png"><br>我们需要选择第一项，然后按方向键右，就可以进入选择模型的页面<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20260403113212406.png" alt="image.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RK3576/">RK3576</a><a class="post-meta__tags" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a><a class="post-meta__tags" href="/tags/ARM/">ARM</a><a class="post-meta__tags" href="/tags/Ollama/">Ollama</a></div><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/NFS%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" title="[RK3576] NFS共享文件系统配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">[RK3576] NFS共享文件系统配置</div></div><div class="info-2"><div class="info-item-1">在我频繁使用windowsPC，X86虚拟机Ubuntu和开发板arm64的Linux系统的过程中，我发现文件传输极其麻烦，当我需要调试一个c语言程序的时候，需要将开发板系统生成的core文件多次拷贝到虚拟机系统中进行调试。另外，当需要下载一些模型文件的时候，开发板的网速往往不够，下载速度缓慢。在询问AI后，我得到了可以使用VMware共享文件夹和NFS共享文件目录的方法，让这三个不同环境的设备都能同时访问这个文件夹，从而实现高效的文件交换。 打通三设备网络为了让虚拟机，物理机，开发板的三个系统处于同一个网段，我们需要设置虚拟机网络桥接到wifi网卡上， 检查宿主机网卡设置在网络中心中，找到当前在使用的网卡，确保VMware Bridge Protocol这个选项是勾选的 虚拟网络编辑器首先打开虚拟网络编辑器，...</div></div></div></a><a class="pagination-related" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">[RK3576] RKLLM模型的使用</div></div><div class="info-2"><div class="info-item-1">参考文档地址：rknn-llm/doc/Rockchip_RKLLM_SDK_CN_1.2.3.pdf at main · airockchip/rknn-llm官方仓库地址：Airockchip/RKNN-LLM --- airockchip/rknn-llm 开发板驱动版本确认首先输入：1dmesg | grep -i npu这一行命令用于判断系统能否识别rk3576的NPU，接下来，为了确保能够使用rkllm模型继续推理，我们还需要保证NPU驱动版本&gt;=0.9.8，驱动版本检查命令如下：1cat /sys/kernel/debug/rknpu/version 模型转换由于模型转换部分不是由我负责，所以本章节不做讲解，先假设我们已经转换好了rkllm模型，将Qwen.rkllm 从转换用的PC上拷贝到开发板的某个目录备用。 PC上的编程，编译为了在开发板上调用我们的rkllm模型，我们选择在一台X86...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/NFS%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" title="[RK3576] NFS共享文件系统配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-10</div><div class="info-item-2">[RK3576] NFS共享文件系统配置</div></div><div class="info-2"><div class="info-item-1">在我频繁使用windowsPC，X86虚拟机Ubuntu和开发板arm64的Linux系统的过程中，我发现文件传输极其麻烦，当我需要调试一个c语言程序的时候，需要将开发板系统生成的core文件多次拷贝到虚拟机系统中进行调试。另外，当需要下载一些模型文件的时候，开发板的网速往往不够，下载速度缓慢。在询问AI后，我得到了可以使用VMware共享文件夹和NFS共享文件目录的方法，让这三个不同环境的设备都能同时访问这个文件夹，从而实现高效的文件交换。 打通三设备网络为了让虚拟机，物理机，开发板的三个系统处于同一个网段，我们需要设置虚拟机网络桥接到wifi网卡上， 检查宿主机网卡设置在网络中心中，找到当前在使用的网卡，确保VMware Bridge Protocol这个选项是勾选的 虚拟网络编辑器首先打开虚拟网络编辑器，...</div></div></div></a><a class="pagination-related" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-10</div><div class="info-item-2">[RK3576] RKLLM模型的使用</div></div><div class="info-2"><div class="info-item-1">参考文档地址：rknn-llm/doc/Rockchip_RKLLM_SDK_CN_1.2.3.pdf at main · airockchip/rknn-llm官方仓库地址：Airockchip/RKNN-LLM --- airockchip/rknn-llm 开发板驱动版本确认首先输入：1dmesg | grep -i npu这一行命令用于判断系统能否识别rk3576的NPU，接下来，为了确保能够使用rkllm模型继续推理，我们还需要保证NPU驱动版本&gt;=0.9.8，驱动版本检查命令如下：1cat /sys/kernel/debug/rknpu/version 模型转换由于模型转换部分不是由我负责，所以本章节不做讲解，先假设我们已经转换好了rkllm模型，将Qwen.rkllm 从转换用的PC上拷贝到开发板的某个目录备用。 PC上的编程，编译为了在开发板上调用我们的rkllm模型，我们选择在一台X86...</div></div></div></a><a class="pagination-related" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" title="[RK3576] Rknn和Rkllm的Runtime下载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-10</div><div class="info-item-2">[RK3576] Rknn和Rkllm的Runtime下载</div></div><div class="info-2"><div class="info-item-1">rknnrt首先，进入官方仓库https://github.com/airockchip/rknn-toolkit2 在仓库中寻找对应的文件，路径为: rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.sorknpu2/runtime/Linux/rknn_server/aarch64/usr/bin/rknn_server 可以直接用开发板上系统下载这两个文件；如图所示如果在开发板上下载好以后，大概率出现在下载文件夹，如果是从其他设备拷贝过来也没有关系，我们进入这两个文件的目录，在这里打开终端，我们使用linux中的mv命令来将这两个文件迁移到它应该在的位置。我们需要将librknnrt.so这一个文件放在/usr/lib路径下，将rknn_server这个文件放在/usr/bin rkllmrt对于rkllm运行时的下载和使用，将放在下一个文档中解释； </div></div></div></a><a class="pagination-related" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" title="[RK3576] 系统检查与必要工具下载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-10</div><div class="info-item-2">[RK3576] 系统检查与必要工具下载</div></div><div class="info-2"><div class="info-item-1">1.检查系统是否能识别NPU驱动要判断开发板能否调用rk3576的NPU进行推理，首先要看系统内核中是否有集成瑞芯微的NPU驱动，在系统终端中，输入以下命令：1demsg | grep -i rknpu如果在输出信息中显示了RKNPU的相关信息，如驱动版本，初始化成功等，就说明内核已支持NPU。如果没有任何输出，则需要考虑更新至支持NPU的系统版本。 2. 必要的工具下载在部署模型的过程中安装 Python 包时，pip 试图从源代码构建 ruamel.yaml.clib 这个依赖项，但当前环境缺少必要的构建工具或依赖库，会导致编译失败，所以需要安装以下两部分内容 1.安装系统级依赖ruamel.yaml.clib 是一个 C 扩展，编译它需要系统的 C/C++ 编译器和开发库。在基于 Debian/Ubuntu 的系统（如现在使用的麒麟系统）上，可以通过 apt 命令一键安装这些基础构建工具。请在终端执行以下命令：12sudo apt updatesudo apt install build-essential python3-devbuild-essential：包含了...</div></div></div></a><a class="pagination-related" href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/1.%E7%83%A7%E5%BD%95kylinOS%E5%88%B0microSD%E5%8D%A1%E4%B8%8A/" title="[树莓派] 1. 烧录KylinOS到MicroSD卡"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-20</div><div class="info-item-2">[树莓派] 1. 烧录KylinOS到MicroSD卡</div></div><div class="info-2"><div class="info-item-1">这一步是部署kylin的第一步，本人在这一步踩了一个巨坑：下载错系统版本，浪费了巨量时间。 工具准备： microSD卡（高速，容量不用很大，32GB-64GB够用即可） 一个USB读卡器  启动盘制作工具安装首先，下载树莓派官方的启动盘制作工具：Raspberry Pi ImagerRaspberry Pi software – Raspberry Pi找到自己电脑对应的版本，安装并启动，显示如下界面： openkylin系统镜像下载进入openkylin系统镜像下载官网：openKylin开源操作系统 官网界面如下图：如果你是树莓派4/4B，请不要下载右边的RaspberryPI版本，这是提供给树莓派5的系统，我们要点击下面的历史版本，找到最新的没有标注rasp5的arm64版本 下载这一个版本即可等待下载后，我们得到了一个.xz 文件，这就是系统镜像的压缩包，无需手动解压，Raspberry PI Imager会自己解压读取里面的内容 系统烧录将SD卡插入到电脑，在Raspberry PI...</div></div></div></a><a class="pagination-related" href="/2025/11/05/%E6%A0%91%E8%8E%93%E6%B4%BE/2.%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C/" title="[树莓派] 2. 首次启动与连接网络"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-05</div><div class="info-item-2">[树莓派] 2. 首次启动与连接网络</div></div><div class="info-2"><div class="info-item-1">本笔记介绍的方法只适用于用网线直接连接树莓派和电脑，也许对使用WIFI连接有启发作用。 工具准备 一根网线 可以供电的type-C线 已经烧录好系统的SD卡 micro-HDMI线，用于连接到显示器  硬件连接 将SD卡插入树莓派。 将Type-C供电接口插入树莓派 将网线插入树莓派以太网接口  硬件连接完成 首次启动由于作者用的是一张大容量低速卡，首次启动需要等待的时间很长，建议第一次插卡后观察电源附近ACT小灯，如果疯狂闪光并且持续一段时间说明成功概率很大，需要耐心等待。接下来，你可以进行电脑侧的网络配置，在配置完以后，就可以监测系统的运行状态。 电脑网络设置 打开电脑网络连接设置(输入win+R，然后输入ncpa.cpl). 找到现在电脑正在使用的网络（可上网的那个），右键，选择”属性“-&gt;”共享“  勾选“允许其他网络用户...”，并在下拉菜单中选择“以太网”。最后记得点击确定   监测运行状态为了获取树莓派的IP，我们需要下载IP扫描软件 Advanced IP Scanner 扫描 192.168.137.1-254 网段。Advanced IP...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#X86%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AB%AF-Ollama-%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A8%A1%E5%9E%8B%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">X86虚拟机端 Ollama 安装与模型下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A4%E9%98%B6%E6%AE%B5%E9%81%87%E5%88%B0%E7%9A%84%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">此阶段遇到的核心问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB%EF%BC%9Ax86-%E2%86%92-ARM64-%E5%BC%80%E5%8F%91%E6%9D%BF%EF%BC%88NFS-%E5%85%B1%E4%BA%AB%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">模型迁移：x86 → ARM64 开发板（NFS 共享）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARM64-%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AB%AF%EF%BC%9AOllama-%E9%83%A8%E7%BD%B2%E4%B8%8E%E6%A8%A1%E5%9E%8B%E8%AF%86%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">ARM64 开发板端：Ollama 部署与模型识别</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" title="[网站建设] butterfly主题美化之背景毛玻璃效果">[网站建设] butterfly主题美化之背景毛玻璃效果</a><time datetime="2025-12-11T00:00:00.000Z" title="发表于 2025-12-11 08:00:00">2025-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" title="[RK3576] 系统检查与必要工具下载">[RK3576] 系统检查与必要工具下载</a><time datetime="2025-12-10T04:00:00.000Z" title="发表于 2025-12-10 12:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" title="[RK3576] Rknn和Rkllm的Runtime下载">[RK3576] Rknn和Rkllm的Runtime下载</a><time datetime="2025-12-10T03:00:00.000Z" title="发表于 2025-12-10 11:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用">[RK3576] RKLLM模型的使用</a><time datetime="2025-12-10T02:00:00.000Z" title="发表于 2025-12-10 10:00:00">2025-12-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: 'qLMZwh39iPK0IwpSoF1X0FHH-MdYXbMMI',
+      appKey: 'OcAr77fCRFEkevCaVCs0DxOO',
+      avatar: 'monsterid',
+      serverURLs: 'https://qlmzwh39.api.lncldglobal.com',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

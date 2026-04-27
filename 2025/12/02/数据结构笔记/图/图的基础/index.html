@@ -1,0 +1,452 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[数据结构·图] 图的基础 | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据结构：图(Graph)图的基本概念一、图的定义图(Graph)是由顶点的有穷非空集合 $V(G)$ 和顶点之间边的集合 $E(G)$ 组成，通常表示为：$G&#x3D;(V,E)$。  $V$ 是图 $G$ 中顶点的集合。 $E$ 是图 $G$ 中边的集合。 $|V|$ 表示顶点的个数，也称图的阶。 $|E|$ 表示边的条数。   注意：图不可以是空图，顶点集 $V$ 一定非空，但边集 $E$ 可以为空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[数据结构·图] 图的基础">
+<meta property="og:url" content="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Welcome To My-Blog">
+<meta property="og:description" content="数据结构：图(Graph)图的基本概念一、图的定义图(Graph)是由顶点的有穷非空集合 $V(G)$ 和顶点之间边的集合 $E(G)$ 组成，通常表示为：$G&#x3D;(V,E)$。  $V$ 是图 $G$ 中顶点的集合。 $E$ 是图 $G$ 中边的集合。 $|V|$ 表示顶点的个数，也称图的阶。 $|E|$ 表示边的条数。   注意：图不可以是空图，顶点集 $V$ 一定非空，但边集 $E$ 可以为空">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/A4.webp">
+<meta property="article:published_time" content="2025-12-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-27T14:25:46.603Z">
+<meta property="article:author" content="Eisem">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="图">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[数据结构·图] 图的基础",
+  "url": "http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/",
+  "image": "http://example.com/img/A4.webp",
+  "datePublished": "2025-12-02T00:00:00.000Z",
+  "dateModified": "2026-04-27T14:25:46.603Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eisem",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[数据结构·图] 图的基础',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[数据结构·图] 图的基础</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[数据结构·图] 图的基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-02T00:00:00.000Z" title="发表于 2025-12-02 08:00:00">2025-12-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T14:25:46.603Z" title="更新于 2026-04-27 22:25:46">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="数据结构：图-Graph"><a href="#数据结构：图-Graph" class="headerlink" title="数据结构：图(Graph)"></a>数据结构：图(Graph)</h1><h2 id="图的基本概念"><a href="#图的基本概念" class="headerlink" title="图的基本概念"></a>图的基本概念</h2><h3 id="一、图的定义"><a href="#一、图的定义" class="headerlink" title="一、图的定义"></a>一、图的定义</h3><p>图(Graph)是由顶点的有穷非空集合 $V(G)$ 和顶点之间边的集合 $E(G)$ 组成，通常表示为：$G=(V,E)$。</p>
+<ul>
+<li>$V$ 是图 $G$ 中顶点的集合。</li>
+<li>$E$ 是图 $G$ 中边的集合。</li>
+<li>$|V|$ 表示顶点的个数，也称图的阶。</li>
+<li>$|E|$ 表示边的条数。</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>：图不可以是空图，顶点集 $V$ 一定非空，但边集 $E$ 可以为空。</p>
+</blockquote>
+<h3 id="二、图的基本概念和术语"><a href="#二、图的基本概念和术语" class="headerlink" title="二、图的基本概念和术语"></a>二、图的基本概念和术语</h3><ol>
+<li><strong>有向图</strong>：边是有向边（弧），记为 $<v, w>$。$v$ 为弧尾，$w$ 为弧头。</li>
+<li><strong>无向图</strong>：边是无向边，记为 $(v, w)$ 或 $(w, v)$。</li>
+<li><strong>简单图</strong>：不存在重复边，不存在顶点到自身的边。</li>
+<li><strong>多重图</strong>：两个结点之间的边数多于一条，或允许顶点通过同一条边和自己关联。</li>
+<li><strong>完全图</strong>：<ul>
+<li><strong>无向完全图</strong>：任意两个顶点之间都存在边，边数范围 $0$ 到 $n(n-1)/2$。</li>
+<li><strong>有向完全图</strong>：任意两个顶点之间都存在方向相反的两条弧，弧数范围 $0$ 到 $n(n-1)$。</li>
+</ul>
+</li>
+<li><strong>子图</strong>：$G&#39;=(V&#39;, E&#39;)$ 是 $G=(V, E)$ 的子图，若 $V&#39; \subseteq V$ 且 $E&#39; \subseteq E$。</li>
+<li><strong>连通性</strong>：<ul>
+<li><strong>连通图</strong>（无向）：任意两个顶点都是连通的。</li>
+<li><strong>强连通图</strong>（有向）：任何一对顶点都是强连通的（双向可达）。</li>
+<li><strong>连通分量</strong>：无向图中的极大连通子图。</li>
+<li><strong>强连通分量</strong>：有向图中的极大强连通子图。</li>
+</ul>
+</li>
+<li><strong>生成树</strong>：包含连通图中全部顶点的极小连通子图（$n$ 个顶点，$n-1$ 条边）。</li>
+<li><strong>顶点的度</strong>：<ul>
+<li><strong>无向图</strong>：$TD(v)$ 为依附于该顶点的边的条数。$\sum_{i=1}^{n}TD(v_i)= 2e$。</li>
+<li><strong>有向图</strong>：$TD(v) = ID(v) + OD(v)$（入度+出度）。$\sum<em>{i=1}^{n}ID(v_i)=\sum</em>{i=1}^{n}OD(v_i)=e$。</li>
+</ul>
+</li>
+<li><strong>网</strong>：边上带有权值的图。</li>
+<li><strong>稠密图与稀疏图</strong>：一般当 $|E| &lt; |V|\log|V|$ 时，视为稀疏图。</li>
+<li><strong>路径</strong>：顶点序列。<ul>
+<li><strong>简单路径</strong>：顶点不重复出现。</li>
+<li><strong>简单回路</strong>：除首尾外顶点不重复出现的回路。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="图的存储结构"><a href="#图的存储结构" class="headerlink" title="图的存储结构"></a>图的存储结构</h2><h3 id="一、邻接矩阵"><a href="#一、邻接矩阵" class="headerlink" title="一、邻接矩阵"></a>一、邻接矩阵</h3><p>用一个一维数组存储顶点信息，一个二维数组存储边的信息。</p>
+<ul>
+<li><p><strong>定义</strong>：</p>
+<script type="math/tex; mode=display">
+  A[i][j] = \begin{cases} 
+  1, & \text{若}(v_i, v_j) \text{或} <v_i, v_j> \in E \\
+  0, & \text{其他}
+  \end{cases}</script><p>  或者是带权图中存储权值。</p>
+</li>
+<li><p><strong>特点</strong>：</p>
+<ul>
+<li>无向图的邻接矩阵是对称矩阵。</li>
+<li>空间复杂度 $O(n^2)$。</li>
+<li>适合稠密图。</li>
+</ul>
+</li>
+</ul>
+<p><strong>结构定义</strong>：</p>
+<pre><code class="lang-c">#define MaxVertexNum 100 
+typedef char VertexType; 
+typedef int EdgeType; 
+typedef struct&#123; 
+    VertexType Vex[MaxVertexNum]; 
+    EdgeType Edge[MaxVertexNum][MaxVertexNum]; 
+    int vexnum, arcnum; 
+&#125;MGraph;
+`
+</code></pre>
+<h3 id="二、邻接表"><a href="#二、邻接表" class="headerlink" title="二、邻接表"></a>二、邻接表</h3><p>对每个顶点建立一个单链表，存储该顶点的所有邻接点。</p>
+<ul>
+<li><p><strong>特点</strong>：</p>
+<ul>
+<li><p>无向图空间复杂度 $O(|V|+2|E|)$，有向图 $O(|V|+|E|)$。</p>
+</li>
+<li><p>适合稀疏图。</p>
+</li>
+<li><p>求入度不方便（需遍历全表）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="三、其他存储结构"><a href="#三、其他存储结构" class="headerlink" title="三、其他存储结构"></a>三、其他存储结构</h3><ul>
+<li><p><strong>十字链表</strong>：主要用于有向图，容易求入度和出度。</p>
+</li>
+<li><p><strong>邻接多重表</strong>：主要用于无向图，容易处理边的操作。</p>
+</li>
+<li><p><strong>边集数组</strong>：利用数组存储每条边的起点、终点和权值。</p>
+</li>
+</ul>
+<hr>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="一、深度优先遍历-DFS"><a href="#一、深度优先遍历-DFS" class="headerlink" title="一、深度优先遍历 (DFS)"></a>一、深度优先遍历 (DFS)</h3><p>类似于树的先序遍历。</p>
+<ul>
+<li><p><strong>算法思路</strong>：从图中某顶点出发，访问该顶点，然后依次从它未被访问的邻接点出发深度优先遍历图，直至图中所有和该顶点有路径相通的顶点都被访问。</p>
+</li>
+<li><p><strong>性能</strong>：</p>
+<ul>
+<li><p>邻接矩阵：$O(|V|^2)$</p>
+</li>
+<li><p>邻接表：$O(|V|+|E|)$</p>
+</li>
+<li><p>空间复杂度：$O(|V|)$ (递归栈)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、广度优先遍历-BFS"><a href="#二、广度优先遍历-BFS" class="headerlink" title="二、广度优先遍历 (BFS)"></a>二、广度优先遍历 (BFS)</h3><p>类似于树的层序遍历。</p>
+<ul>
+<li><p><strong>算法思路</strong>：先访问起始顶点，然后依次访问该顶点的所有未被访问的邻接点，再依次访问这些邻接点的所有未被访问的邻接点。需借助队列。</p>
+</li>
+<li><p><strong>性能</strong>：</p>
+<ul>
+<li><p>邻接矩阵：$O(|V|^2)$</p>
+</li>
+<li><p>邻接表：$O(|V|+|E|)$</p>
+</li>
+<li><p>空间复杂度：$O(|V|)$ (辅助队列)</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="一、普里姆算法（Prim）"><a href="#一、普里姆算法（Prim）" class="headerlink" title="一、普里姆算法（Prim）"></a>一、普里姆算法（Prim）</h3><ul>
+<li><p><strong>思想</strong>：从一个顶点开始，每次选择连接已选顶点集合和未选顶点集合中权值最小的边，将新顶点加入集合。</p>
+</li>
+<li><p><strong>时间复杂度</strong>：$O(|V|^2)$，适合稠密图。</p>
+</li>
+</ul>
+<h3 id="二、-Kruskal-算法-Kruskal-算法的最小生成树"><a href="#二、-Kruskal-算法-Kruskal-算法的最小生成树" class="headerlink" title="二、[Kruskal 算法][Kruskal 算法的最小生成树]"></a>二、[Kruskal 算法][Kruskal 算法的最小生成树]</h3><ul>
+<li><p><strong>思想</strong>：每次选择权值最小且不构成回路的边，直到选出 $n-1$ 条边。</p>
+</li>
+<li><p><strong>时间复杂度</strong>：$O(|E|\log|E|)$，适合稀疏图。</p>
+</li>
+</ul>
+<hr>
+<h2 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h2><h3 id="一、-迪杰斯特拉-Dijkstra-算法-最短路径问题详解：Dijkstra-与-Floyd"><a href="#一、-迪杰斯特拉-Dijkstra-算法-最短路径问题详解：Dijkstra-与-Floyd" class="headerlink" title="一、[迪杰斯特拉 (Dijkstra) 算法][最短路径问题详解：Dijkstra 与 Floyd]"></a>一、[迪杰斯特拉 (Dijkstra) 算法][最短路径问题详解：Dijkstra 与 Floyd]</h3><ul>
+<li><p><strong>解决问题</strong>：单源最短路径（带权图、无负权边）。</p>
+</li>
+<li><p><strong>思想</strong>：贪心策略。每次从未标记的节点中选择距离源点最近的节点，并更新其邻居的距离。</p>
+</li>
+<li><p><strong>时间复杂度</strong>：$O(|V|^2)$。</p>
+</li>
+</ul>
+<h3 id="二、弗洛伊德-Floyd-算法"><a href="#二、弗洛伊德-Floyd-算法" class="headerlink" title="二、弗洛伊德 (Floyd) 算法"></a>二、弗洛伊德 (Floyd) 算法</h3><ul>
+<li><p><strong>解决问题</strong>：所有顶点对之间的最短路径（允许负权边，不允许负权回路）。</p>
+</li>
+<li><p><strong>思想</strong>：动态规划。</p>
+<script type="math/tex; mode=display">A^{(k)}[i][j] = \min\{A^{(k-1)}[i][j], A^{(k-1)}[i][k] + A^{(k-1)}[k][j]\}</script></li>
+<li><p><strong>时间复杂度</strong>：$O(|V|^3)$。</p>
+</li>
+</ul>
+<hr>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><ul>
+<li><p><strong>AOV网</strong>：顶点表示活动，弧表示优先关系的DAG图。</p>
+</li>
+<li><p><strong>定义</strong>：将有向无环图的所有顶点排成一个线性序列，使得图中任意一对顶点 $u$ 和 $v$，若 $<u, v> \in E(G)$，则 $u$ 在序列中出现在 $v$ 之前。</p>
+</li>
+<li><p><strong>算法</strong>：</p>
+<ol>
+<li><p>选择一个入度为0的顶点输出。</p>
+</li>
+<li><p>删除该顶点及所有以它为起点的边。</p>
+</li>
+<li><p>重复直到图空或不存在入度为0的顶点（说明有环）。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>时间复杂度</strong>：$O(|V|+|E|)$。</p>
+</li>
+</ul>
+<hr>
+<h2 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h2><ul>
+<li><p><strong>AOE网</strong>：边表示活动，顶点表示事件，带权有向无环图。</p>
+</li>
+<li><p><strong>关键路径</strong>：从源点到汇点的所有路径中，路径长度最长的路径。</p>
+</li>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><p><strong>$ve(k)$</strong>：事件 $k$ 的最早发生时间。</p>
+</li>
+<li><p><strong>$vl(k)$</strong>：事件 $k$ 的最迟发生时间。</p>
+</li>
+<li><p><strong>$e(i)$</strong>：活动 $i$ 的最早开始时间。</p>
+</li>
+<li><p><strong>$l(i)$</strong>：活动 $i$ 的最迟开始时间。</p>
+</li>
+<li><p><strong>$l(i) - e(i)$</strong>：活动的时间余量。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>关键活动</strong>：$l(i) = e(i)$ 的活动。</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/">http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E5%9B%BE/">图</a></div><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88%E5%AE%9E%E7%8E%B0%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="[数据结构·栈] 中缀表达式转后缀表达式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">[数据结构·栈] 中缀表达式转后缀表达式</div></div><div class="info-2"><div class="info-item-1">算法应用：使用栈实现中缀表达式转后缀表达式一、基本概念在继续之前，我们先明确两种表达式的定义：  中缀表达式 (Infix Expression)这是我们日常使用的标准算术表达式，操作符位于两个操作数的中间。例如：3 + 4 或 (a + b) * c  后缀表达式 (Postfix Expression / Reverse Polish Notation)也称为逆波兰表达式，操作符位于两个操作数的后面。后缀表达式在计算时不需要括号，并且计算逻辑非常简单，易于计算机处理。例如：3 4 + 或 a b + c *   转换的目标： 将人类易于阅读的中缀表达式，转换为计算机易于处理的后缀表达式。 二、转换算法思想转换过程的核心是使用一个栈来临时存放操作符。我们从左到右遍历中缀表达式的每一个字符（或token），根据字符类型执行不同的操作。  需要一个栈 s：用于存放操作符。 需要一个结果列表 postfix（或字符串）：用于存储最终的后缀表达式。  转换规则从左到右扫描中缀表达式，对于每个元素执行以下步骤：  遇到操作数（数字）：  直接将其追加到 postfix...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E9%82%BB%E6%8E%A5%E8%A1%A8/" title="[数据结构·图] 邻接表"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">[数据结构·图] 邻接表</div></div><div class="info-2"><div class="info-item-1">图的存储：邻接表 (Adjacency List) 详解1. 什么是邻接表？邻接表是图的一种链式存储结构。它克服了邻接矩阵在稀疏图（边数远小于顶点数平方）中浪费空间的缺点。 基本思想：对于图中的每个顶点 $v$，我们将所有与 $v$ 邻接的顶点记录在一个列表中。  通常使用数组（或 vector）来索引所有顶点。 数组的每个元素不再是一个单一的值，而是一个容器（链表或 vector），存储该顶点的所有出边。  内存模型示意假设有 4 个顶点，边为 $1\to2, 1\to3, 2\to4$。 AdjList (Array/Vector)+---+| 1 | -&gt; [2] -&gt; [3]    (顶点1连接到2和3)+---+| 2 | -&gt; [4]           (顶点2连接到4)+---+| 3 | -&gt; NULL          (顶点3无出边)+---+| 4 | -&gt; NULL          (顶点4无出边)+---+  2. 数据结构定义 (C++)在 C++ 中，最现代且方便的实现方式是使用 STL 的...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Floyd-Warshall%EF%BC%88%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%EF%BC%89%E7%AE%97%E6%B3%95/" title="[数据结构·图] Floyd-Warshall 算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Floyd-Warshall 算法</div></div><div class="info-2"><div class="info-item-1">弗洛伊德算法 (Floyd-Warshall) 详解1. 算法核心思想Floyd 算法本质上是 动态规划 (Dynamic Programming)。 核心问题：从顶点 $i$ 到顶点 $j$，如果我们允许经过一些中转点，最短路径是多少？ 1.1 状态定义我们定义 $dp[k][i][j]$ 为：“只允许使用节点 $1$ 到 $k$ 作为中转节点的情况下，从 $i$ 到 $j$ 的最短路径长度。” 1.2 状态转移方程（核心逻辑）当我们要计算允许使用节点 $1...k$ 的最短路时，我们有两种选择：  不经过节点 $k$：如果不使用 $k$ 做中转，那么最短路径就等于“只允许使用 $1...k-1$”时的路径。即：$dp[k-1][i][j]$。 经过节点 $k$：如果我们利用 $k$ 做中转，那么路径就变成了 $i \to k \to j$。这条路的长度是：$dp[k-1][i][k] + dp[k-1][k][j]$。  结论：我们要在这两者中取最小值。  dp[k][i][j] = \min(dp[k-1][i][j], \quad dp[k-1][i][k] +...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" title="[数据结构·图] 关键路径"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 关键路径</div></div><div class="info-2"><div class="info-item-1">图的关键路径 (Critical Path) 复习指南1. 核心概念1.1 定义关键路径是在 AOE 网 (Activity On Edge Network) 中，从源点 (Start) 到汇点 (End) 的所有路径中，路径长度（权重之和）最长 的那条路径。 1.2 适用范围 (AOE 网) AOE 网： 顶点 (Vertex)：表示 事件 (Event)，例如“项目开始”、“地基打好”。事件是一个瞬间点。 边 (Edge)：表示 活动 (Activity)，边上的权值表示活动持续的时间。   核心意义：关键路径的长度决定了完成整个工程所需的 最短时间。  1.3 关键活动 关键路径上的活动称为 关键活动。 这些活动是没有“缓冲时间”的，一旦延误，整个工期都会延误。   2. 核心计算步骤 (四步法)计算关键路径通常需要计算四个核心参数。假设图中有 $n$ 个事件（顶点），边 $$ 表示活动 $ak$，持续时间为 $w{i,j}$。 第一步：求 事件的最早发生时间 $ve(k)$ 顺序：从源点开始，按 拓扑序...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Kruskal%20%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="[数据结构·图] Kruskal 算法的最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Kruskal 算法的最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树 (MST) 从理论到实操：基于 Kruskal 算法1. 题目解析与理论基础什么是最小生成树 (Minimum Spanning Tree, MST)？想象你要在一个拥有 $n$ 个城市的国家修建光缆，使得所有城市都能互相连通（直接或间接相连）。  生成树 (Spanning Tree)：在一个图中，选出 $n-1$ 条边，将所有 $n$ 个点连接起来，且没有环的结构。 最小生成树 (MST)：在所有可能的生成树中，边的权值之和最小的那一个。  结合题目 输入：$n$ 个节点，$m$ 条带权无向边。可能有重边（两个点之间有多条线）。 目标：选出 $n-1$ 条边，连接所有点，使权值和最小。 数据范围： $n \le 10^3$（点不多） $m \le 10^5$（边比较多） $w \le 10^9$（权重很大，注意：结果需要用 long long）     2. 算法选择：Kruskal 算法对于这道题，我们推荐使用 Kruskal (克鲁斯卡尔) 算法。 为什么选 Kruskal？Kruskal 算法的核心思想是...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" title="[数据结构·图] 拓扑排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 拓扑排序</div></div><div class="info-2"><div class="info-item-1">图的拓扑排序 (Topological Sorting) 复习指南1. 核心概念1.1 定义拓扑排序是对有向无环图 (DAG, Directed Acyclic Graph) 的顶点的一种排序。它使得对于图中的每一条有向边 $(u, v)$，顶点 $u$ 在排序中都出现在顶点 $v$ 之前。 1.2 适用范围 (AOV 网) AOV 网 (Activity On Vertex Network)：用顶点表示活动，用边表示活动间的优先关系。 前提条件：图必须是 有向 的，且 没有环 (Acyclic)。 性质： 如果存在环，则无法进行拓扑排序。 一个 DAG 的拓扑排序序列可能不唯一。     2. 核心算法实现最常用的算法是基于 入度 (Indegree) 的算法（也称为 Kahn 算法）。 2.1 算法步骤 (Kahn 算法) 初始化：计算图中所有节点的入度。 入队：将所有入度为 0 的节点放入队列（Queue）中。 循环处理： 当队列不为空时，取出队首节点 $u$，放入结果序列。 遍历 $u$ 的所有邻接点 $v$ (即存在边 $u \to v$)。 将 $v$ 的入度减...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/" title="[数据结构·图] 最短路径问题详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 最短路径问题详解</div></div><div class="info-2"><div class="info-item-1">最短路径问题详解：Dijkstra 与 Floyd在图论中，最短路径问题主要分为两类：  单源最短路径 (Single-Source Shortest Path)：求从一个起点到其他所有点的最短路径。（代表：Dijkstra） 多源最短路径 (All-Pairs Shortest Path)：求任意两个点之间的最短路径。（代表：Floyd）   一、Dijkstra 算法 (单源最短路)适用场景：带权图（无向/有向），边权非负。核心思想：贪心策略 (Greedy) + 广度优先搜索 (BFS) 的变种。 1. 详细思路：作为“涟漪”扩散想象你站在起点 $S$，往地上倒了一桶水。水流会优先沿着阻力最小（边权最小）的路径蔓延。  我们维护一个集合 $S$（已确定最短路的点）和一个集合 $U$（未确定最短路的点）。 每次从 $U$ 中找出一个距离起点最近的点 $u$，把它加入 $S$。 然后以 $u$ 为跳板，去“松弛” (Relax) 它的邻居 $v$。 松弛操作：如果 dist[u] + weight(u, v) &lt; dist[v]，说明通过 $u$ 到达 $v$...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E2%80%94%E2%80%94%E6%99%AE%E9%87%8C%E5%A7%86%E7%AE%97%E6%B3%95/" title="[数据结构·图] 最小生成树——普里姆算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 最小生成树——普里姆算法</div></div><div class="info-2"><div class="info-item-1">最小生成树：普里姆算法 (Prim) - 邻接表版1. 算法核心思想Prim 算法是一种 贪心算法。它的逻辑类似于“通过不断吞并最近的邻居来扩张领土”。  集合划分：将顶点分为两个集合： 已选集合 ($S$)：已经在最小生成树中的点。 未选集合 ($V-S$)：还没有加入树的点。   贪心策略：每次从“未选集合”中找到一个顶点，使得它与“已选集合”之间的边权值最小。 更新：将该顶点加入 $S$，并更新它的邻居到 $S$ 的距离。   2. 数据结构设计由于使用邻接表，我们无法像邻接矩阵那样 $O(1)$ 查边，也无法高效地扫描所有点的最短距离。因此，我们需要配合 优先队列 (Min-Heap) 来快速获取当前距离生成树最近的点。  图存储：vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; adj (存目标点和权值)。 距离数组：dist[i] 记录节点 $i$ 到当前生成树集合的最小距离（注意：不是到源点的距离，那是 Dijkstra）。 访问标记：vis[i]...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%9B%BE-Graph"><span class="toc-number">1.</span> <span class="toc-text">数据结构：图(Graph)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">图的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">一、图的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9B%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD"><span class="toc-number">1.1.2.</span> <span class="toc-text">二、图的基本概念和术语</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">图的存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5"><span class="toc-number">1.2.1.</span> <span class="toc-text">一、邻接矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%82%BB%E6%8E%A5%E8%A1%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">二、邻接表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B6%E4%BB%96%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.3.</span> <span class="toc-text">三、其他存储结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">1.3.</span> <span class="toc-text">图的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-DFS"><span class="toc-number">1.3.1.</span> <span class="toc-text">一、深度优先遍历 (DFS)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-BFS"><span class="toc-number">1.3.2.</span> <span class="toc-text">二、广度优先遍历 (BFS)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">1.4.</span> <span class="toc-text">最小生成树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%99%AE%E9%87%8C%E5%A7%86%E7%AE%97%E6%B3%95%EF%BC%88Prim%EF%BC%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">一、普里姆算法（Prim）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-Kruskal-%E7%AE%97%E6%B3%95-Kruskal-%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">1.4.2.</span> <span class="toc-text">二、[Kruskal 算法][Kruskal 算法的最小生成树]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="toc-number">1.5.</span> <span class="toc-text">最短路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89-Dijkstra-%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra-%E4%B8%8E-Floyd"><span class="toc-number">1.5.1.</span> <span class="toc-text">一、[迪杰斯特拉 (Dijkstra) 算法][最短路径问题详解：Dijkstra 与 Floyd]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7-Floyd-%E7%AE%97%E6%B3%95"><span class="toc-number">1.5.2.</span> <span class="toc-text">二、弗洛伊德 (Floyd) 算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="toc-number">1.6.</span> <span class="toc-text">拓扑排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">1.7.</span> <span class="toc-text">关键路径</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" title="[网站建设] butterfly主题美化之背景毛玻璃效果">[网站建设] butterfly主题美化之背景毛玻璃效果</a><time datetime="2025-12-11T00:00:00.000Z" title="发表于 2025-12-11 08:00:00">2025-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" title="[RK3576] 系统检查与必要工具下载">[RK3576] 系统检查与必要工具下载</a><time datetime="2025-12-10T04:00:00.000Z" title="发表于 2025-12-10 12:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" title="[RK3576] Rknn和Rkllm的Runtime下载">[RK3576] Rknn和Rkllm的Runtime下载</a><time datetime="2025-12-10T03:00:00.000Z" title="发表于 2025-12-10 11:00:00">2025-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用">[RK3576] RKLLM模型的使用</a><time datetime="2025-12-10T02:00:00.000Z" title="发表于 2025-12-10 10:00:00">2025-12-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: 'qLMZwh39iPK0IwpSoF1X0FHH-MdYXbMMI',
+      appKey: 'OcAr77fCRFEkevCaVCs0DxOO',
+      avatar: 'monsterid',
+      serverURLs: 'https://qlmzwh39.api.lncldglobal.com',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
