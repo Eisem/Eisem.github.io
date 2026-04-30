@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>report | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="Cumsum 算子测试报告 测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。   一、算子理解Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 out[i] &#x3D; sum(self[:i+1])（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 [[1,2],[3,4]]，沿 dim&#x3D;0 累积得到 [[1,2],[">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>report | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="Cumsum 算子测试报告 测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。   一、算子理解Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 out[i] &#x3D; sum(self[:i+1])（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 [[1,2],[3,4]]，沿 dim&#x3D;0 累积得到 [[1,2],[4,6]]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="report">
 <meta property="og:url" content="http://example.com/2026/04/28/Cann/report/index.html">
 <meta property="og:site_name" content="Welcome To My-Blog">
-<meta property="og:description" content="Cumsum 算子测试报告 测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。   一、算子理解Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 out[i] &#x3D; sum(self[:i+1])（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 [[1,2],[3,4]]，沿 dim&#x3D;0 累积得到 [[1,2],[">
+<meta property="og:description" content="Cumsum 算子测试报告 测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。   一、算子理解Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 out[i] &#x3D; sum(self[:i+1])（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 [[1,2],[3,4]]，沿 dim&#x3D;0 累积得到 [[1,2],[4,6]]">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/A4.webp">
 <meta property="article:published_time" content="2026-04-27T16:19:58.782Z">
-<meta property="article:modified_time" content="2026-04-30T06:53:22.575Z">
+<meta property="article:modified_time" content="2026-04-30T08:20:02.548Z">
 <meta property="article:author" content="Eisem">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/A4.webp"><script type="application/ld+json">{
@@ -17,7 +17,7 @@
   "url": "http://example.com/2026/04/28/Cann/report/",
   "image": "http://example.com/img/A4.webp",
   "datePublished": "2026-04-27T16:19:58.782Z",
-  "dateModified": "2026-04-30T06:53:22.575Z",
+  "dateModified": "2026-04-30T08:20:02.548Z",
   "author": [
     {
       "@type": "Person",
@@ -158,44 +158,45 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">report</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">report</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-30T06:53:22.575Z" title="更新于 2026-04-30 14:53:22">2026-04-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">report</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">report</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-30T08:20:02.548Z" title="更新于 2026-04-30 16:20:02">2026-04-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
 <h1 id="Cumsum-算子测试报告"><a href="#Cumsum-算子测试报告" class="headerlink" title="Cumsum 算子测试报告"></a>Cumsum 算子测试报告</h1><blockquote>
 <p>测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。</p>
 </blockquote>
 <hr>
-<h2 id="一、算子理解"><a href="#一、算子理解" class="headerlink" title="一、算子理解"></a>一、算子理解</h2><p>Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 <code>out[i] = sum(self[:i+1])</code>（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 <code>[[1,2],[3,4]]</code>，沿 dim&#x3D;0 累积得到 <code>[[1,2],[4,6]]</code>，沿 dim&#x3D;1 累积得到 <code>[[1,3],[3,7]]</code>。</p>
-<p>算子支持多种数据类型，包括 FLOAT、FLOAT16、BFLOAT16、INT32、INT64、INT8、INT16、UINT8、DOUBLE 等。当输入和输出的 dtype 不同时，算子内部会进行类型转换（Cast）操作。算子实现包含两个主要路径：基于 AiCore 的高性能路径（支持 Cube 模式）和基于 AiCpu 的通用路径。对于 910B 和 910_93 芯片，若满足特定条件（dtype 为 FLOAT&#x2F;FLOAT16&#x2F;BF16 且 shape 支持），会走 Cube 模式以获得更高性能；否则走通用 AiCpu 模式。</p>
-<p>在精度方面，Cumsum 的累积操作存在误差传播特性：随着累积步数的增加，累积误差可能逐步放大。对于 FP32 类型，每次加法的相对误差上界约为机器精度的一半（约 5.96e-8），但累积 1000 次后，理论最大相对误差可达 6e-5。FP16 的累积误差更为显著，特别是在次正规区间。此外，累加可能触发上溢（累加结果超出 FP32 表示范围）和下溢（累加结果落入次正规区间或归零）。整数类型（INT32&#x2F;INT8）的累加存在溢出风险，超出表示范围时会按二进制补码回绕得到错误结果。</p>
+<h2 id="一、算子理解"><a href="#一、算子理解" class="headerlink" title="一、算子理解"></a>一、算子理解</h2><p>Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 <code>out[i] = sum(self[:i+1])</code>（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 <code>[[1,2],[3,4]]</code>，沿 dim=0 累积得到 <code>[[1,2],[4,6]]</code>，沿 dim=1 累积得到 <code>[[1,3],[3,7]]</code>。</p>
+<p>算子支持多种数据类型，包括 FLOAT、FLOAT16、BFLOAT16、INT32、INT64、INT8、INT16、UINT8、DOUBLE 等。当输入和输出的 dtype 不同时，算子内部会进行类型转换（Cast）操作。算子实现包含两个主要路径：基于 AiCore 的高性能路径（支持 Cube 模式）和基于 AiCpu 的通用路径。对于 910B 和 910_93 芯片，若满足特定条件（dtype 为 FLOAT/FLOAT16/BF16 且 shape 支持），会走 Cube 模式以获得更高性能；否则走通用 AiCpu 模式。</p>
+<p>在精度方面，Cumsum 的累积操作存在误差传播特性：随着累积步数的增加，累积误差可能逐步放大。对于 FP32 类型，每次加法的相对误差上界约为机器精度的一半（约 5.96e-8），但累积 1000 次后，理论最大相对误差可达 6e-5。FP16 的累积误差更为显著，特别是在次正规区间。此外，累加可能触发上溢（累加结果超出 FP32 表示范围）和下溢（累加结果落入次正规区间或归零）。整数类型（INT32/INT8）的累加存在溢出风险，超出表示范围时会按二进制补码回绕得到错误结果。</p>
 <p>算子内部实现包含以下步骤：</p>
 <ol>
 <li><strong>Contiguous</strong>：确保输入 tensor 是连续存储的</li>
 <li><strong>Cast</strong>：将输入数据类型转换为与输出一致的类型</li>
-<li><strong>Cumsum&#x2F;CumsumCube</strong>：执行累积求和计算</li>
+<li><strong>Cumsum/CumsumCube</strong>：执行累积求和计算</li>
 <li><strong>ViewCopy</strong>：将计算结果拷贝到输出 tensor</li>
 </ol>
 <p>其中 ViewCopy 是关键步骤，负责将内部计算结果正确地写入用户提供的输出 tensor。</p>
 <hr>
 <h2 id="二、测试策略与用例设计"><a href="#二、测试策略与用例设计" class="headerlink" title="二、测试策略与用例设计"></a>二、测试策略与用例设计</h2><p>本次在 <code>math/cumsum/examples/test_aclnn_cumsum_coverage.cpp</code> 中设计了 50+ 个测试用例，覆盖八个主要方面。</p>
 <p><strong>第一部分：不同数据类型测试</strong>（7个用例）<br>覆盖 FLOAT32、FLOAT16、INT32、INT64、INT8、UINT8、DOUBLE 七种数据类型。每种 dtype 构造简单的一维张量，输入为 1、2、3、4 等小整数，验证算子在不同 dtype 下的基本功能。对于浮点类型，精度基准采用 CPU 上的 double 精度累积作为参考；对于整数类型，采用精确匹配验证。</p>
-<p><strong>第二部分：不同维度测试</strong>（8个用例）<br>覆盖一维（1D）、二维（2D）、三维（3D）、四维（4D）张量，并在每个维度下测试不同的 dim 参数。例如，对于 2D 张量 <code>&#123;2, 2&#125;</code>，测试 dim&#x3D;0 和 dim&#x3D;1；对于 3D 张量 <code>&#123;2, 2, 2&#125;</code>，测试 dim&#x3D;0、dim&#x3D;1、dim&#x3D;2。这一部分主要验证算子的多维度适配能力，以及不同 dim 参数下的累积方向正确性。</p>
+<p><strong>第二部分：不同维度测试</strong>（8个用例）<br>覆盖一维（1D）、二维（2D）、三维（3D）、四维（4D）张量，并在每个维度下测试不同的 dim 参数。例如，对于 2D 张量 <code>&#123;2, 2&#125;</code>，测试 dim=0 和 dim=1；对于 3D 张量 <code>&#123;2, 2, 2&#125;</code>，测试 dim=0、dim=1、dim=2。这一部分主要验证算子的多维度适配能力，以及不同 dim 参数下的累积方向正确性。</p>
 <p><strong>第三部分：数据类型转换测试</strong>（4个用例）<br>测试输入 dtype 与输出 dtype 不同的场景，包括 FLOAT32 → FLOAT16、FLOAT16 → FLOAT32、FLOAT32 → INT32、INT32 → FLOAT32。这验证算子内部的 Cast 路径是否正确工作，以及类型转换的精度损失是否在可接受范围内。</p>
 <p><strong>第四部分：不同序列长度测试</strong>（4个用例）<br>构造长度为 1、2、100、1000 的序列，测试算子在不同规模下的表现。特别关注长序列（1000）的累积误差传播情况，验证是否会出现显著的精度衰减。长序列测试还能暴露算子在处理大数据量时是否存在性能问题。</p>
 <p><strong>第五部分：特殊数值测试</strong>（7个用例）<br>测试七类特殊输入：全零张量（累积结果应仍为全零）、全一张量（线性累积）、负数张量（验证负数累积的符号处理）、正负混合张量（验证正负交替累积的正确性）、大数值（1e20，测试累积过程中的精度保持）、小数值（1e-20，测试次正规区间的累积行为）、大小混合（1e20 和 1e-20 交替，测试跨量级累积的精度问题）。</p>
 <p><strong>第六部分：不同 Shape 测试</strong>（4个用例）<br>测试特殊形状的张量，包括 1×N（单行）、N×1（单列）、3×3（方阵）、非对称形状。这一部分验证算子对不规则形状的适配能力，以及边界情况（如单元素张量）的处理。</p>
-<p><strong>第七部分：边界情况测试</strong>（2个用例）<br>测试 dim 参数的边界值，包括 dim&#x3D;0（沿第一维累积）和 dim&#x3D;维度数-1（沿最后一维累积）。验证算子对 dim 参数范围的正确处理。</p>
+<p><strong>第七部分：边界情况测试</strong>（2个用例）<br>测试 dim 参数的边界值，包括 dim=0（沿第一维累积）和 dim=维度数-1（沿最后一维累积）。验证算子对 dim 参数范围的正确处理。</p>
 <p><strong>第八部分：CumsumV2 测试</strong>（预留）<br>为 CumsumV2 API 预留测试用例位置，待 API 确认后补充。</p>
-<p><strong>Oracle 选择</strong>：<br>所有浮点场景的 CPU 参考均使用 double 精度计算。参考函数接收 float&#x2F;int32 参数并在内部显式提升为 double，以保证 NPU 输入与 CPU 参考输入的基准一致。对于 FP16 类型，采用与 MUL 算子相同的策略：先将 FP16 位模式解码为 float，在 float 精度下做累积求和，再编码回 FP16。对于整数类型，直接在对应整数类型下计算并精确匹配。</p>
+<p><strong>Oracle 选择</strong>：<br>所有浮点场景的 CPU 参考均使用 double 精度计算。参考函数接收 float/int32 参数并在内部显式提升为 double，以保证 NPU 输入与 CPU 参考输入的基准一致。对于 FP16 类型，采用与 MUL 算子相同的策略：先将 FP16 位模式解码为 float，在 float 精度下做累积求和，再编码回 FP16。对于整数类型，直接在对应整数类型下计算并精确匹配。</p>
 <p><strong>误差容忍策略</strong>：</p>
 <ul>
-<li>FP32：atol&#x3D;1e-6，rtol&#x3D;1e-6</li>
-<li>FP16：atol&#x3D;1e-4，rtol&#x3D;1e-4</li>
-<li>DOUBLE：atol&#x3D;1e-12，rtol&#x3D;1e-10</li>
-<li>整数类型：精确匹配（error&#x3D;0）</li>
+<li>FP32：atol=1e-6，rtol=1e-6</li>
+<li>FP16：atol=1e-4，rtol=1e-4</li>
+<li>DOUBLE：atol=1e-12，rtol=1e-10</li>
+<li>整数类型：精确匹配（error=0）</li>
 </ul>
 <p>对于预期结果为 inf 的用例，验证逻辑采用 <code>std::isinf(result[i])</code> 而不是传入大 atol 容差。对于预期进入次正规区间的用例，验证逻辑采用 <code>std::fpclassify</code> 与量级范围检查。</p>
 <hr>
 <h2 id="三、覆盖率分析"><a href="#三、覆盖率分析" class="headerlink" title="三、覆盖率分析"></a>三、覆盖率分析</h2><p>本次评分文件为题目规定的三个源文件：<code>aclnn_cumsum.cpp</code>（API 层实现）、<code>cumsum.cpp</code>（算子核心实现）、<code>cumsum_tiling_ascendc_arch35.cpp</code>（Tiling 实现）。其余相关文件作为参考一并列出。在实机上运行 50+ 个测试用例后，收集到以下覆盖率：</p>
 <p><strong>评分文件</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -206,44 +207,48 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>op_api&#x2F;aclnn_cumsum.cpp</td>
+<tbody>
+<tr>
+<td>op_api/aclnn_cumsum.cpp</td>
 <td>130</td>
 <td>85.38% (111 行)</td>
-<td>28.09% (182&#x2F;648)</td>
+<td>28.09% (182/648)</td>
 <td>API 层：参数校验、类型提升、GetWorkspaceSize 路径</td>
 </tr>
 <tr>
-<td>op_api&#x2F;cumsum.cpp</td>
+<td>op_api/cumsum.cpp</td>
 <td>35</td>
 <td>77.14% (27 行)</td>
-<td>53.49% (46&#x2F;86)</td>
-<td>设备路由：AiCore&#x2F;AiCpu 选择、dtype 支持判断</td>
+<td>53.49% (46/86)</td>
+<td>设备路由：AiCore/AiCpu 选择、dtype 支持判断</td>
 </tr>
 <tr>
-<td>op_host&#x2F;arch35&#x2F;cumsum_tiling_ascendc_arch35.cpp</td>
+<td>op_host/arch35/cumsum_tiling_ascendc_arch35.cpp</td>
 <td>684</td>
 <td>43.57% (298 行)</td>
-<td>44.64% (179&#x2F;401)</td>
+<td>44.64% (179/401)</td>
 <td>Tiling 策略：dtype 组合分发、平台信息获取</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>综合覆盖率</strong>：</p>
 <ul>
 <li>行覆盖率按行数加权：<code>(111 + 27 + 298) / (130 + 35 + 684) = 436 / 849 = 51.35%</code></li>
 <li>分支覆盖率按分支数加权：<code>(182 + 46 + 179) / (648 + 86 + 401) = 407 / 1135 = 35.86%</code></li>
 </ul>
-<p>行覆盖率达到 51.35%，超过了评分文件代码的一半。分支覆盖率为 35.86%，明显低于行覆盖率，这说明虽然大部分代码路径被触达，但许多条件分支的两侧（真&#x2F;假）都未被充分测试。</p>
+<p>行覆盖率达到 51.35%，超过了评分文件代码的一半。分支覆盖率为 35.86%，明显低于行覆盖率，这说明虽然大部分代码路径被触达，但许多条件分支的两侧（真/假）都未被充分测试。</p>
 <p><strong>覆盖率分布分析</strong>：</p>
 <ol>
 <li><p><strong>aclnn_cumsum.cpp（85.38%）</strong>：覆盖率最高，主要覆盖了正常路径，包括 GetWorkspaceSize、参数校验、类型转换等。未覆盖部分主要集中在异常处理路径（如 nullptr 检查失败的分支）和 Cube 模式下的某些特殊分支。</p>
 </li>
 <li><p><strong>cumsum.cpp（77.14%）</strong>：覆盖率较高，覆盖了 AiCore 和 AiCpu 两种主要路径。未覆盖部分主要是异常路径（如算子分配失败、非法参数）以及某些特殊 dtype 的处理分支。</p>
 </li>
-<li><p><strong>cumsum_tiling_ascendc_arch35.cpp（43.57%）</strong>：覆盖率最低，这是典型的 Tiling 文件特性——包含大量的条件分支用于适配不同的 dtype 组合、shape 组合、平台特性。本次测试覆盖了 FLOAT&#x2F;FLOAT16&#x2F;INT32 等常见 dtype，但仍有大量分支未被触达，如 INT64、INT8、BFLOAT16 的特殊处理分支，以及复杂 shape 下的 Tiling 逻辑。</p>
+<li><p><strong>cumsum_tiling_ascendc_arch35.cpp（43.57%）</strong>：覆盖率最低，这是典型的 Tiling 文件特性——包含大量的条件分支用于适配不同的 dtype 组合、shape 组合、平台特性。本次测试覆盖了 FLOAT/FLOAT16/INT32 等常见 dtype，但仍有大量分支未被触达，如 INT64、INT8、BFLOAT16 的特殊处理分支，以及复杂 shape 下的 Tiling 逻辑。</p>
 </li>
 </ol>
 <p><strong>参考文件（未计入评分）</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -254,25 +259,28 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>op_host&#x2F;arch35&#x2F;cumsum_tiling_ascendc_int_arch35.cpp</td>
+<tbody>
+<tr>
+<td>op_host/arch35/cumsum_tiling_ascendc_int_arch35.cpp</td>
 <td>249</td>
 <td>57.43% (143 行)</td>
-<td>50.56% (182&#x2F;360)</td>
+<td>50.56% (182/360)</td>
 <td>整数类型的 Tiling 策略</td>
 </tr>
 <tr>
-<td>op_host&#x2F;arch35&#x2F;cumsum_tiling.cpp</td>
+<td>op_host/arch35/cumsum_tiling.cpp</td>
 <td>30</td>
 <td>100.00% (30 行)</td>
-<td>55.26% (42&#x2F;76)</td>
+<td>55.26% (42/76)</td>
 <td>Tiling 入口与分发逻辑</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>未覆盖部分的归因：</p>
 <ul>
 <li><code>aclnn_cumsum.cpp</code> 的分支覆盖率偏低主要是因为异常路径（如输入为 nullptr、非法 dtype、非法 dim）未被充分测试。正常路径（成功执行）被多次覆盖，但错误路径仅被部分触发。</li>
-<li><code>cumsum_tiling_ascendc_arch35.cpp</code> 的覆盖率低是预期现象，因为 Tiling 文件包含大量 dtype 组合分支（7 种数据类型 × 多种 shape 组合 &#x3D; 数十个分支），本次测试仅覆盖了 FLOAT&#x2F;FLOAT16&#x2F;INT32 三种 dtype，仍有大量分支未触达。若要提升覆盖率，需要增加更多 dtype 的测试用例（如 INT64、INT8、BFLOAT16）以及更多边界 shape 的测试。</li>
+<li><code>cumsum_tiling_ascendc_arch35.cpp</code> 的覆盖率低是预期现象，因为 Tiling 文件包含大量 dtype 组合分支（7 种数据类型 × 多种 shape 组合 = 数十个分支），本次测试仅覆盖了 FLOAT/FLOAT16/INT32 三种 dtype，仍有大量分支未触达。若要提升覆盖率，需要增加更多 dtype 的测试用例（如 INT64、INT8、BFLOAT16）以及更多边界 shape 的测试。</li>
 </ul>
 <p><strong>覆盖率提升建议</strong>：</p>
 <ol>
@@ -283,85 +291,45 @@
 </ol>
 <hr>
 <h2 id="四、精度分析"><a href="#四、精度分析" class="headerlink" title="四、精度分析"></a>四、精度分析</h2><p>精度分析章节按七类典型精度场景展开。所有浮点场景的 CPU 参考均以 double 精度计算已量化的 Float32 输入（即 <code>CpuCumsum(float[], int, int) → double[]</code>，内部提升）。误差用绝对误差与相对误差量化。</p>
-<h3 id="场景一：正常累积（小整数）"><a href="#场景一：正常累积（小整数）" class="headerlink" title="场景一：正常累积（小整数）"></a>场景一：正常累积（小整数）</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">2.0f</span>, <span class="number">3.0f</span>, <span class="number">4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景一：正常累积（小整数）"><a href="#场景一：正常累积（小整数）" class="headerlink" title="场景一：正常累积（小整数）"></a>场景一：正常累积（小整数）</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">2.0f</span>, <span class="number">3.0f</span>, <span class="number">4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;1.0, 3.0, 6.0, 10.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">CPU 参考: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">CPU 参考: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>这是算子的最基本场景，输入为小整数，累积步数仅 4 次，误差几乎为零。测试通过，说明算子的基本功能正常。</p>
-<h3 id="场景二：负数累积"><a href="#场景二：负数累积" class="headerlink" title="场景二：负数累积"></a>场景二：负数累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">-1.0f</span>, <span class="number">-2.0f</span>, <span class="number">-3.0f</span>, <span class="number">-4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景二：负数累积"><a href="#场景二：负数累积" class="headerlink" title="场景二：负数累积"></a>场景二：负数累积</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">-1.0f</span>, <span class="number">-2.0f</span>, <span class="number">-3.0f</span>, <span class="number">-4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;-1.0, -3.0, -6.0, -10.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;-1.0, -3.0, -6.0, -10.0&#125;</span><br><span class="line">CPU 参考: &#123;-1.0, -3.0, -6.0, -10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;-1.0, -3.0, -6.0, -10.0&#125;</span><br><span class="line">CPU 参考: &#123;-1.0, -3.0, -6.0, -10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>负数的累积正确处理了符号，累积结果为负数，符合预期。说明算子的符号处理逻辑正确。</p>
-<h3 id="场景三：正负混合累积"><a href="#场景三：正负混合累积" class="headerlink" title="场景三：正负混合累积"></a>场景三：正负混合累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">-2.0f</span>, <span class="number">3.0f</span>, <span class="number">-4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景三：正负混合累积"><a href="#场景三：正负混合累积" class="headerlink" title="场景三：正负混合累积"></a>场景三：正负混合累积</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">-2.0f</span>, <span class="number">3.0f</span>, <span class="number">-4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;1.0, -1.0, 2.0, -2.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1.0, -1.0, 2.0, -2.0&#125;</span><br><span class="line">CPU 参考: &#123;1.0, -1.0, 2.0, -2.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1.0, -1.0, 2.0, -2.0&#125;</span><br><span class="line">CPU 参考: &#123;1.0, -1.0, 2.0, -2.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>正负交替的累积正确处理了加减法的混合运算，验证了算子在符号变化场景下的正确性。</p>
-<h3 id="场景四：长序列累积（误差传播）"><a href="#场景四：长序列累积（误差传播）" class="headerlink" title="场景四：长序列累积（误差传播）"></a>场景四：长序列累积（误差传播）</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">1.0f</span>, ..., <span class="number">1.0f</span>&#125;（<span class="number">1000</span> 个元素）, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景四：长序列累积（误差传播）"><a href="#场景四：长序列累积（误差传播）" class="headerlink" title="场景四：长序列累积（误差传播）"></a>场景四：长序列累积（误差传播）</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">1.0f</span>, ..., <span class="number">1.0f</span>&#125;（<span class="number">1000</span> 个元素）, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;1.0, 2.0, 3.0, ..., 1000.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果[999]: 1000.0</span><br><span class="line">CPU 参考[999]: 1000.0</span><br><span class="line">绝对误差: &lt; 1e-6</span><br><span class="line">相对误差: &lt; 1e-9%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果[999]: 1000.0</span><br><span class="line">CPU 参考[999]: 1000.0</span><br><span class="line">绝对误差: &lt; 1e-6</span><br><span class="line">相对误差: &lt; 1e-9%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>1000 次累积后，最大绝对误差小于 1e-6，相对误差小于 1e-9%。说明算子在长序列累积下仍能保持较好的精度，误差传播在可接受范围内。累积误差未出现显著放大现象。</p>
-<h3 id="场景五：大数值累积"><a href="#场景五：大数值累积" class="headerlink" title="场景五：大数值累积"></a>场景五：大数值累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e20f</span>, <span class="number">1e20f</span>, <span class="number">1e20f</span>, <span class="number">1e20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景五：大数值累积"><a href="#场景五：大数值累积" class="headerlink" title="场景五：大数值累积"></a>场景五：大数值累积</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e20f</span>, <span class="number">1e20f</span>, <span class="number">1e20f</span>, <span class="number">1e20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;1e20, 2e20, 3e20, 4e20&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1e20, 2e20, 3e20, 4e20&#125;</span><br><span class="line">CPU 参考: &#123;1e20, 2e20, 3e20, 4e20&#125;</span><br><span class="line">绝对误差: &lt; 1e20 * 1e-6 = 1e14</span><br><span class="line">相对误差: &lt; 1e-6%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1e20, 2e20, 3e20, 4e20&#125;</span><br><span class="line">CPU 参考: &#123;1e20, 2e20, 3e20, 4e20&#125;</span><br><span class="line">绝对误差: &lt; 1e20 * 1e-6 = 1e14</span><br><span class="line">相对误差: &lt; 1e-6%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>大数值的累积正确处理，但由于数值较大，绝对误差较大（1e14），相对误差仍保持在 1e-6% 以内。这是浮点数精度的固有特性，符合预期。若累积次数进一步增加，可能会出现精度损失或上溢风险。</p>
-<h3 id="场景六：小数值累积（次正规区间）"><a href="#场景六：小数值累积（次正规区间）" class="headerlink" title="场景六：小数值累积（次正规区间）"></a>场景六：小数值累积（次正规区间）</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e-20f</span>, <span class="number">1e-20f</span>, <span class="number">1e-20f</span>, <span class="number">1e-20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景六：小数值累积（次正规区间）"><a href="#场景六：小数值累积（次正规区间）" class="headerlink" title="场景六：小数值累积（次正规区间）"></a>场景六：小数值累积（次正规区间）</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e-20f</span>, <span class="number">1e-20f</span>, <span class="number">1e-20f</span>, <span class="number">1e-20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;1e-20, 2e-20, 3e-20, 4e-20&#125;</code>（注意：这些值都在 FP32 的次正规区间，最小正规数为 1.175e-38）</p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;9.999946e-21, 2.0000e-20, 3.0000e-20, 4.0000e-20&#125;</span><br><span class="line">CPU 参考: &#123;9.999999e-21, 2.0000e-20, 3.0000e-20, 4.0000e-20&#125;</span><br><span class="line">绝对误差: 约 5e-26</span><br><span class="line">相对误差: 约 0.5%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;9.999946e-21, 2.0000e-20, 3.0000e-20, 4.0000e-20&#125;</span><br><span class="line">CPU 参考: &#123;9.999999e-21, 2.0000e-20, 3.0000e-20, 4.0000e-20&#125;</span><br><span class="line">绝对误差: 约 5e-26</span><br><span class="line">相对误差: 约 0.5%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>次正规区间的累积存在精度损失，相对误差约为 0.5%。这是因为次正规数的有效位少于正规数，每次加法都会引入较大的相对误差。尽管如此，算子仍正确地保持了次正规数的值，没有触发 FTZ（Flush To Zero）归零行为。需要注意的是，<strong>次正规数的处理行为在不同 Ascend 型号与 CANN 版本之间可能存在差异</strong>，若在其他环境下测试得到全零输出，可能是因为启用了 FTZ 模式。</p>
-<h3 id="场景七：跨量级累积"><a href="#场景七：跨量级累积" class="headerlink" title="场景七：跨量级累积"></a>场景七：跨量级累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e20f</span>, <span class="number">1e-20f</span>, <span class="number">1e20f</span>, <span class="number">1e-20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="场景七：跨量级累积"><a href="#场景七：跨量级累积" class="headerlink" title="场景七：跨量级累积"></a>场景七：跨量级累积</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e20f</span>, <span class="number">1e-20f</span>, <span class="number">1e20f</span>, <span class="number">1e-20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;1e20, 1e20, 2e20, 2e20&#125;</code>（注意：小数值 1e-20 与 1e20 相加时，由于量级差异过大，小数值可能被忽略）</p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1e20, 1e20, 2e20, 2e20&#125;</span><br><span class="line">CPU 参考: &#123;1e20, 1e20, 2e20, 2e20&#125;</span><br><span class="line">绝对误差: 0.0（忽略小数值）</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>这是浮点数累积的经典问题：当两个数的量级差异过大时（相差超过 2^23 ≈ 8.4e6），较小的数会被较大的数”吞掉”，加法结果不变。本测试中，1e20 + 1e-20 的结果仍为 1e20，因为 1e-20 相对于 1e20 太小，无法在 FP32 的尾数中表示。这是浮点数精度的固有限制，不是算子 bug。</p>
-<h3 id="场景八：数据类型转换精度损失"><a href="#场景八：数据类型转换精度损失" class="headerlink" title="场景八：数据类型转换精度损失"></a>场景八：数据类型转换精度损失</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">2.0f</span>, <span class="number">3.0f</span>, <span class="number">4.0f</span>&#125;, dim = <span class="number">0</span>, dtype = FLOAT32, out_dtype = FLOAT16</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1e20, 1e20, 2e20, 2e20&#125;</span><br><span class="line">CPU 参考: &#123;1e20, 1e20, 2e20, 2e20&#125;</span><br><span class="line">绝对误差: 0.0（忽略小数值）</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure></p>
+<p><strong>分析</strong>：<br>这是浮点数累积的经典问题：当两个数的量级差异过大时（相差超过 2^23 ≈ 8.4e6），较小的数会被较大的数&quot;吞掉&quot;，加法结果不变。本测试中，1e20 + 1e-20 的结果仍为 1e20，因为 1e-20 相对于 1e20 太小，无法在 FP32 的尾数中表示。这是浮点数精度的固有限制，不是算子 bug。</p>
+<h3 id="场景八：数据类型转换精度损失"><a href="#场景八：数据类型转换精度损失" class="headerlink" title="场景八：数据类型转换精度损失"></a>场景八：数据类型转换精度损失</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">2.0f</span>, <span class="number">3.0f</span>, <span class="number">4.0f</span>&#125;, dim = <span class="number">0</span>, dtype = FLOAT32, out_dtype = FLOAT16</span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>（FLOAT16）：<code>&#123;1.0, 3.0, 6.0, 10.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果（FLOAT16）: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">CPU 参考（FLOAT32 转换为 FLOAT16）: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果（FLOAT16）: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">CPU 参考（FLOAT32 转换为 FLOAT16）: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>对于小整数，FLOAT32 → FLOAT16 的转换没有精度损失。但若输入较大数值或非整数，可能会出现精度损失。例如，输入 <code>&#123;100.5, 200.5, 300.5&#125;</code>，FLOAT16 只能保留整数部分，<code>.5</code> 会被丢失。测试通过，说明算子的类型转换路径正确工作。</p>
-<h3 id="场景九：整数累积溢出"><a href="#场景九：整数累积溢出" class="headerlink" title="场景九：整数累积溢出"></a>场景九：整数累积溢出</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;INT32_MAX, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, dim = <span class="number">0</span>, dtype = INT32</span><br></pre></td></tr></table></figure>
-
+<h3 id="场景九：整数累积溢出"><a href="#场景九：整数累积溢出" class="headerlink" title="场景九：整数累积溢出"></a>场景九：整数累积溢出</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;INT32_MAX, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, dim = <span class="number">0</span>, dtype = INT32</span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>：<code>&#123;INT32_MAX, INT32_MIN, INT32_MIN+1, INT32_MIN+2&#125;</code>（溢出回绕）</p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;2147483647, -2147483648, -2147483647, -2147483646&#125;</span><br><span class="line">CPU 参考: &#123;2147483647, -2147483648, -2147483647, -2147483646&#125;</span><br><span class="line">匹配: 是</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>INT32 的累积溢出时，结果会按二进制补码回绕。INT32_MAX（2147483647）+ 1 &#x3D; INT32_MIN（-2147483648），这是整数类型的固有特性。算子正确地处理了溢出场景，验证了整数累积的正确性。</p>
-<h3 id="场景十：FP16-累积误差"><a href="#场景十：FP16-累积误差" class="headerlink" title="场景十：FP16 累积误差"></a>场景十：FP16 累积误差</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">1.0f</span>, ..., <span class="number">1.0f</span>&#125;（<span class="number">100</span> 个元素）, dim = <span class="number">0</span>, dtype = FLOAT16</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;2147483647, -2147483648, -2147483647, -2147483646&#125;</span><br><span class="line">CPU 参考: &#123;2147483647, -2147483648, -2147483647, -2147483646&#125;</span><br><span class="line">匹配: 是</span><br></pre></td></tr></table></figure></p>
+<p><strong>分析</strong>：<br>INT32 的累积溢出时，结果会按二进制补码回绕。INT32_MAX（2147483647）+ 1 = INT32_MIN（-2147483648），这是整数类型的固有特性。算子正确地处理了溢出场景，验证了整数累积的正确性。</p>
+<h3 id="场景十：FP16-累积误差"><a href="#场景十：FP16-累积误差" class="headerlink" title="场景十：FP16 累积误差"></a>场景十：FP16 累积误差</h3><p><strong>测试输入</strong>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">1.0f</span>, ..., <span class="number">1.0f</span>&#125;（<span class="number">100</span> 个元素）, dim = <span class="number">0</span>, dtype = FLOAT16</span><br></pre></td></tr></table></figure></p>
 <p><strong>期望输出</strong>（FLOAT16）：<code>&#123;1.0, 2.0, 3.0, ..., 100.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果[99]: 100.0</span><br><span class="line">CPU 参考[99]: 100.0</span><br><span class="line">绝对误差: &lt; 0.01</span><br><span class="line">相对误差: &lt; 0.01%</span><br></pre></td></tr></table></figure>
-
+<p><strong>实测输出</strong>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果[99]: 100.0</span><br><span class="line">CPU 参考[99]: 100.0</span><br><span class="line">绝对误差: &lt; 0.01</span><br><span class="line">相对误差: &lt; 0.01%</span><br></pre></td></tr></table></figure></p>
 <p><strong>分析</strong>：<br>FP16 的累积误差比 FP32 略大，但仍在可接受范围内。对于 100 次累积，相对误差小于 0.01%。若累积次数增加到 1000 次，误差会更显著，因为 FP16 的精度（有效位 10 位）远低于 FP32（有效位 23 位）。</p>
 <hr>
 <h2 id="五、问题与建议"><a href="#五、问题与建议" class="headerlink" title="五、问题与建议"></a>五、问题与建议</h2><h3 id="5-1-发现的问题"><a href="#5-1-发现的问题" class="headerlink" title="5.1 发现的问题"></a>5.1 发现的问题</h3><p>本次测试中未发现功能性 bug，但观察到以下值得注意的现象：</p>
@@ -425,6 +393,7 @@
 </ul>
 <hr>
 <p><strong>附录：测试用例清单</strong></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -436,7 +405,8 @@
 <th>状态</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>FLOAT32_1D</td>
 <td>基础测试</td>
 <td>FLOAT32</td>
@@ -494,7 +464,7 @@
 </tr>
 <tr>
 <td>1D_dim0</td>
-<td>一维 dim&#x3D;0</td>
+<td>一维 dim=0</td>
 <td>FLOAT32</td>
 <td>{4}</td>
 <td>0</td>
@@ -502,7 +472,7 @@
 </tr>
 <tr>
 <td>2D_dim0</td>
-<td>二维 dim&#x3D;0</td>
+<td>二维 dim=0</td>
 <td>FLOAT32</td>
 <td>{2, 2}</td>
 <td>0</td>
@@ -510,7 +480,7 @@
 </tr>
 <tr>
 <td>2D_dim1</td>
-<td>二维 dim&#x3D;1</td>
+<td>二维 dim=1</td>
 <td>FLOAT32</td>
 <td>{2, 2}</td>
 <td>1</td>
@@ -518,7 +488,7 @@
 </tr>
 <tr>
 <td>3D_dim0</td>
-<td>三维 dim&#x3D;0</td>
+<td>三维 dim=0</td>
 <td>FLOAT32</td>
 <td>{2, 2, 2}</td>
 <td>0</td>
@@ -526,7 +496,7 @@
 </tr>
 <tr>
 <td>3D_dim1</td>
-<td>三维 dim&#x3D;1</td>
+<td>三维 dim=1</td>
 <td>FLOAT32</td>
 <td>{2, 2, 2}</td>
 <td>1</td>
@@ -534,7 +504,7 @@
 </tr>
 <tr>
 <td>3D_dim2</td>
-<td>三维 dim&#x3D;2</td>
+<td>三维 dim=2</td>
 <td>FLOAT32</td>
 <td>{2, 2, 2}</td>
 <td>2</td>
@@ -542,7 +512,7 @@
 </tr>
 <tr>
 <td>4D_dim0</td>
-<td>四维 dim&#x3D;0</td>
+<td>四维 dim=0</td>
 <td>FLOAT32</td>
 <td>{2, 2, 2, 2}</td>
 <td>0</td>
@@ -550,7 +520,7 @@
 </tr>
 <tr>
 <td>4D_dim3</td>
-<td>四维 dim&#x3D;3</td>
+<td>四维 dim=3</td>
 <td>FLOAT32</td>
 <td>{2, 2, 2, 2}</td>
 <td>3</td>
@@ -724,10 +694,12 @@
 <td>1</td>
 <td>PASS</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>（完整用例清单共 50+ 个，此处仅列出主要用例）</p>
 <hr>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/04/28/Cann/report/">http://example.com/2026/04/28/Cann/report/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">开启监视</div></div><div class="info-2"><div class="info-item-1">1npx @heavybunny19c_lee/opensession  </div></div></div></a><a class="pagination-related" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">自动改标题上传测试</div></div><div class="info-2"><div class="info-item-1">123123test </div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Cumsum-%E7%AE%97%E5%AD%90%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Cumsum 算子测试报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%97%E5%AD%90%E7%90%86%E8%A7%A3"><span class="toc-number">1.1.</span> <span class="toc-text">一、算子理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B5%8B%E8%AF%95%E7%AD%96%E7%95%A5%E4%B8%8E%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">二、测试策略与用例设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%A6%86%E7%9B%96%E7%8E%87%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">三、覆盖率分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%B2%BE%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">1.4.</span> <span class="toc-text">四、精度分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%EF%BC%9A%E6%AD%A3%E5%B8%B8%E7%B4%AF%E7%A7%AF%EF%BC%88%E5%B0%8F%E6%95%B4%E6%95%B0%EF%BC%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">场景一：正常累积（小整数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E8%B4%9F%E6%95%B0%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.2.</span> <span class="toc-text">场景二：负数累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%89%EF%BC%9A%E6%AD%A3%E8%B4%9F%E6%B7%B7%E5%90%88%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.3.</span> <span class="toc-text">场景三：正负混合累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%9B%9B%EF%BC%9A%E9%95%BF%E5%BA%8F%E5%88%97%E7%B4%AF%E7%A7%AF%EF%BC%88%E8%AF%AF%E5%B7%AE%E4%BC%A0%E6%92%AD%EF%BC%89"><span class="toc-number">1.4.4.</span> <span class="toc-text">场景四：长序列累积（误差传播）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%94%EF%BC%9A%E5%A4%A7%E6%95%B0%E5%80%BC%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.5.</span> <span class="toc-text">场景五：大数值累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%85%AD%EF%BC%9A%E5%B0%8F%E6%95%B0%E5%80%BC%E7%B4%AF%E7%A7%AF%EF%BC%88%E6%AC%A1%E6%AD%A3%E8%A7%84%E5%8C%BA%E9%97%B4%EF%BC%89"><span class="toc-number">1.4.6.</span> <span class="toc-text">场景六：小数值累积（次正规区间）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%83%EF%BC%9A%E8%B7%A8%E9%87%8F%E7%BA%A7%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.7.</span> <span class="toc-text">场景七：跨量级累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%85%AB%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%B2%BE%E5%BA%A6%E6%8D%9F%E5%A4%B1"><span class="toc-number">1.4.8.</span> <span class="toc-text">场景八：数据类型转换精度损失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B9%9D%EF%BC%9A%E6%95%B4%E6%95%B0%E7%B4%AF%E7%A7%AF%E6%BA%A2%E5%87%BA"><span class="toc-number">1.4.9.</span> <span class="toc-text">场景九：整数累积溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%8D%81%EF%BC%9AFP16-%E7%B4%AF%E7%A7%AF%E8%AF%AF%E5%B7%AE"><span class="toc-number">1.4.10.</span> <span class="toc-text">场景十：FP16 累积误差</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%97%AE%E9%A2%98%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.5.</span> <span class="toc-text">五、问题与建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 发现的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%94%B9%E8%BF%9B%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 改进建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%90%8E%E7%BB%AD%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 后续工作方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">六、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/hello-world/" title="Hello World">Hello World</a><time datetime="2026-04-30T07:35:23.329Z" title="发表于 2026-04-30 15:35:23">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试">自动改标题上传测试</a><time datetime="2026-04-30T06:53:16.661Z" title="发表于 2026-04-30 14:53:16">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/Cann/report/" title="report">report</a><time datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视">开启监视</a><time datetime="2026-04-27T16:18:39.555Z" title="发表于 2026-04-28 00:18:39">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/04/28/Cann/report/">http://example.com/2026/04/28/Cann/report/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">开启监视</div></div><div class="info-2"><div class="info-item-1">1npx @heavybunny19c_lee/opensession </div></div></div></a><a class="pagination-related" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">自动改标题上传测试</div></div><div class="info-2"><div class="info-item-1">123123test </div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Cumsum-%E7%AE%97%E5%AD%90%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Cumsum 算子测试报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%97%E5%AD%90%E7%90%86%E8%A7%A3"><span class="toc-number">1.1.</span> <span class="toc-text">一、算子理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B5%8B%E8%AF%95%E7%AD%96%E7%95%A5%E4%B8%8E%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">二、测试策略与用例设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%A6%86%E7%9B%96%E7%8E%87%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">三、覆盖率分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%B2%BE%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">1.4.</span> <span class="toc-text">四、精度分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%EF%BC%9A%E6%AD%A3%E5%B8%B8%E7%B4%AF%E7%A7%AF%EF%BC%88%E5%B0%8F%E6%95%B4%E6%95%B0%EF%BC%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">场景一：正常累积（小整数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E8%B4%9F%E6%95%B0%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.2.</span> <span class="toc-text">场景二：负数累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%89%EF%BC%9A%E6%AD%A3%E8%B4%9F%E6%B7%B7%E5%90%88%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.3.</span> <span class="toc-text">场景三：正负混合累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%9B%9B%EF%BC%9A%E9%95%BF%E5%BA%8F%E5%88%97%E7%B4%AF%E7%A7%AF%EF%BC%88%E8%AF%AF%E5%B7%AE%E4%BC%A0%E6%92%AD%EF%BC%89"><span class="toc-number">1.4.4.</span> <span class="toc-text">场景四：长序列累积（误差传播）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%94%EF%BC%9A%E5%A4%A7%E6%95%B0%E5%80%BC%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.5.</span> <span class="toc-text">场景五：大数值累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%85%AD%EF%BC%9A%E5%B0%8F%E6%95%B0%E5%80%BC%E7%B4%AF%E7%A7%AF%EF%BC%88%E6%AC%A1%E6%AD%A3%E8%A7%84%E5%8C%BA%E9%97%B4%EF%BC%89"><span class="toc-number">1.4.6.</span> <span class="toc-text">场景六：小数值累积（次正规区间）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%83%EF%BC%9A%E8%B7%A8%E9%87%8F%E7%BA%A7%E7%B4%AF%E7%A7%AF"><span class="toc-number">1.4.7.</span> <span class="toc-text">场景七：跨量级累积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%85%AB%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%B2%BE%E5%BA%A6%E6%8D%9F%E5%A4%B1"><span class="toc-number">1.4.8.</span> <span class="toc-text">场景八：数据类型转换精度损失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B9%9D%EF%BC%9A%E6%95%B4%E6%95%B0%E7%B4%AF%E7%A7%AF%E6%BA%A2%E5%87%BA"><span class="toc-number">1.4.9.</span> <span class="toc-text">场景九：整数累积溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%8D%81%EF%BC%9AFP16-%E7%B4%AF%E7%A7%AF%E8%AF%AF%E5%B7%AE"><span class="toc-number">1.4.10.</span> <span class="toc-text">场景十：FP16 累积误差</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%97%AE%E9%A2%98%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.5.</span> <span class="toc-text">五、问题与建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 发现的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%94%B9%E8%BF%9B%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 改进建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%90%8E%E7%BB%AD%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 后续工作方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">六、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试">自动改标题上传测试</a><time datetime="2026-04-30T06:53:16.661Z" title="发表于 2026-04-30 14:53:16">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/Cann/report/" title="report">report</a><time datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视">开启监视</a><time datetime="2026-04-27T16:18:39.555Z" title="发表于 2026-04-28 00:18:39">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" title="[网站建设] butterfly主题美化之背景毛玻璃效果">[网站建设] butterfly主题美化之背景毛玻璃效果</a><time datetime="2025-12-11T00:00:00.000Z" title="发表于 2025-12-11 08:00:00">2025-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
