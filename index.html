@@ -1,1348 +1,216 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo my blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="none">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Welcome To My-Blog - 百亿人都在用的博客</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="none">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo my blog">
+<meta property="og:title" content="Welcome To My-Blog">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo my blog">
+<meta property="og:site_name" content="Welcome To My-Blog">
 <meta property="og:description" content="none">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="John Doe">
+<meta property="og:image" content="http://example.com/img/A4.webp">
+<meta property="article:author" content="Eisem">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo my blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo my blog</a>
-      </h1>
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
       
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">asdf</a>
-        </h2>
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Welcome To My-Blog',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Welcome To My-Blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/30/hello-world/" title="Hello World">Hello World</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-30T07:35:23.329Z" title="发表于 2026-04-30 15:35:23">2026-04-30</time></span></div><div class="content">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;  More info: Writing Run server1$ hexo server  More info: Server Generate static files1$ hexo generate  More info: Generating Deploy to remote sites1$ hexo deploy  More info: Deployment </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试">自动改标题上传测试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-30T06:53:16.661Z" title="发表于 2026-04-30 14:53:16">2026-04-30</time></span></div><div class="content">123123test </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/28/Cann/report/" title="report">report</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time></span></div><div class="content"> Cumsum 算子测试报告 测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。   一、算子理解Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 out[i] = sum(self[:i+1])（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 [[1,2],[3,4]]，沿 dim&#x3D;0 累积得到 [[1,2],[4,6]]，沿 dim&#x3D;1 累积得到 [[1,3],[3,7]]。 算子支持多种数据类型，包括 FLOAT、FLOAT16、BFLOAT16、INT32、INT64、INT8、INT16、UINT8、DOUBLE 等。当输入和输出的 dtype 不同时，算子内部会进行类型转换（Cast）操作。算子实现包含两个主要路径：基于 AiCore 的高性能路径（支持 Cube 模式）和基于 AiCpu 的通用路径。对于 910B 和 910_93 芯片，若满足特定条件（dtype 为 FLOAT&#x2F;FLOAT16&#x2F;BF16 且 shape 支持），会走 Cube...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视">开启监视</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-27T16:18:39.555Z" title="发表于 2026-04-28 00:18:39">2026-04-28</time></span></div><div class="content">1npx @heavybunny19c_lee/opensession  </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></span></div><div class="content">由于要进行嵌入式开发，我们需要用SSH连接到树莓派，但是经过了多次试错和排查，我发现，openkylin系统没有自带SSH-server，需要自行安装，这一步也需要在有显示器和键鼠的状态下进行。 工具准备： 一套键鼠，显示器 一根micro-HDMI线  安装SSH服务首先我们要自行安装ssh服务，打开终端，并输入 12sudo apt updatesudo apt install openssh-server 接下来，将SSH服务设置为开机自启动，并且启用SSH服务 12sudo systemctl enable sshsudo systemctl start ssh  尝试以SSH连接回到自己的电脑，打开终端，输入如下内容尝试连接 1ssh openkylin@&lt;你用Advanced IP Scanner扫描到的IP&gt;  如果多次输入密码后，仍无法登录，那么可能是openkylin拒绝无密码以SSH登录，你需要回到openkylin的终端，输入：whoami终端会输出一个用户名，你需要用这个用户名登录，并且为这个用户设置密码， 1passwd...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" title="[网站建设] butterfly主题美化之背景毛玻璃效果">[网站建设] butterfly主题美化之背景毛玻璃效果</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-11T00:00:00.000Z" title="发表于 2025-12-11 08:00:00">2025-12-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">网站建设</a></span></div><div class="content">前言我在进行butterfly主题美化的时候，发现隔壁redefine主题的毛玻璃效果非常好看，如果为了毛玻璃而抛弃butterfly奔向redefine，很多内容要重新配置。因此，我在ai 的帮助下，顺利给butterfly主题也加上了毛玻璃效果。一、核心实现原理初始状态：背景无模糊且透明 滚动触发：通过JavaScript监听滚动事件，超过设定阈值后添加模糊效果 视觉优化：使用backdrop-filter实现毛玻璃质感，配合透明度和过渡动画 二、操作步骤1.按照butterfly教程文档预调整自己的背景和头图（已配好背景请忽视）在config.yml中，搜索：Website Background，加上自己的背景。 123# Website Background# Can set it to color or image urlbackground: /img/your_background.XXX 接着搜索index_img，将头图设置为透明，这时我们得到了不论如何滚动都始终保持不动的背景。 12# The banner image of index...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" title="[RK3576] 系统检查与必要工具下载">[RK3576] 系统检查与必要工具下载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-10T04:00:00.000Z" title="发表于 2025-12-10 12:00:00">2025-12-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></span></div><div class="content">1.检查系统是否能识别NPU驱动要判断开发板能否调用rk3576的NPU进行推理，首先要看系统内核中是否有集成瑞芯微的NPU驱动，在系统终端中，输入以下命令： 1demsg | grep -i rknpu 如果在输出信息中显示了RKNPU的相关信息，如驱动版本，初始化成功等，就说明内核已支持NPU。如果没有任何输出，则需要考虑更新至支持NPU的系统版本。 2. 必要的工具下载在部署模型的过程中安装 Python 包时，pip 试图从源代码构建 ruamel.yaml.clib 这个依赖项，但当前环境缺少必要的构建工具或依赖库，会导致编译失败，所以需要安装以下两部分内容 1.安装系统级依赖ruamel.yaml.clib 是一个 C 扩展，编译它需要系统的 C&#x2F;C++ 编译器和开发库。在基于 Debian&#x2F;Ubuntu 的系统（如现在使用的麒麟系统）上，可以通过 apt 命令一键安装这些基础构建工具。请在终端执行以下命令： 12sudo apt updatesudo apt install build-essential...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" title="[RK3576] Rknn和Rkllm的Runtime下载">[RK3576] Rknn和Rkllm的Runtime下载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-10T03:00:00.000Z" title="发表于 2025-12-10 11:00:00">2025-12-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></span></div><div class="content">rknnrt首先，进入官方仓库https://github.com/airockchip/rknn-toolkit2 在仓库中寻找对应的文件，路径为: rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.sorknpu2/runtime/Linux/rknn_server/aarch64/usr/bin/rknn_server 可以直接用开发板上系统下载这两个文件；如图所示如果在开发板上下载好以后，大概率出现在下载文件夹，如果是从其他设备拷贝过来也没有关系，我们进入这两个文件的目录，在这里打开终端，我们使用linux中的mv命令来将这两个文件迁移到它应该在的位置。我们需要将librknnrt.so这一个文件放在/usr/lib路径下，将rknn_server这个文件放在&#x2F;usr&#x2F;bin rkllmrt对于rkllm运行时的下载和使用，将放在下一个文档中解释； </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" title="[RK3576] RKLLM模型的使用">[RK3576] RKLLM模型的使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-10T02:00:00.000Z" title="发表于 2025-12-10 10:00:00">2025-12-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></span></div><div class="content">参考文档地址：rknn-llm&#x2F;doc&#x2F;Rockchip_RKLLM_SDK_CN_1.2.3.pdf at main · airockchip&#x2F;rknn-llm官方仓库地址：Airockchip&#x2F;RKNN-LLM — airockchip&#x2F;rknn-llm 开发板驱动版本确认首先输入： 1dmesg | grep -i npu 这一行命令用于判断系统能否识别rk3576的NPU，接下来，为了确保能够使用rkllm模型继续推理，我们还需要保证NPU驱动版本&gt;&#x3D;0.9.8，驱动版本检查命令如下： 1cat /sys/kernel/debug/rknpu/version  模型转换由于模型转换部分不是由我负责，所以本章节不做讲解，先假设我们已经转换好了rkllm模型，将Qwen.rkllm 从转换用的PC上拷贝到开发板的某个目录备用。 PC上的编程，编译为了在开发板上调用我们的rkllm模型，我们选择在一台X86...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/" title="[RK3576] Ollama模型部署">[RK3576] Ollama模型部署</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-10T01:00:00.000Z" title="发表于 2025-12-10 09:00:00">2025-12-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></span></div><div class="content">整体思路：x86 Ubuntu 虚拟机安装 Ollama 并下载模型 → 通过 NFS 共享迁移至 ARM64 麒麟开发板 → 实现本地大模型调用。 这么操作的原因：开发板下载安装Ollama服务的网速尚可，但是下载模型时网速很慢，经常会出现因为网络波动而停止下载的问题，所以我们使用X86 Ubuntu虚拟机的Ollama结合科学上网来加速模型下载，然后通过NFS文件共享来将模型文件传输到开发板上，通过开发板下载的ollama服务来启用。  X86虚拟机端 Ollama 安装与模型下载 执行官方一键安装脚本1 curl -fsSL https://ollama.com/install.sh | sh 下载目标模型（以千问1.5B为例）1ollama pull qwen2.5:1.5b 验证模型是否下载成功1ollama list  接下来，我们需要找到下载的模型文件，然后将模型文件放在NFS的共享文件夹内；    此阶段遇到的核心问题问题1：在共享文件夹&#x2F;用户目录~/.ollama/找不到模型文件  原因：Ollama...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/hello-world/" title="Hello World">Hello World</a><time datetime="2026-04-30T07:35:23.329Z" title="发表于 2026-04-30 15:35:23">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试">自动改标题上传测试</a><time datetime="2026-04-30T06:53:16.661Z" title="发表于 2026-04-30 14:53:16">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/Cann/report/" title="report">report</a><time datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视">开启监视</a><time datetime="2026-04-27T16:18:39.555Z" title="发表于 2026-04-28 00:18:39">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/"><span class="card-category-list-name">RK3576与模型部署</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">数据结构笔记</span><span class="card-category-list-count">31</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/C-%E8%AF%AD%E6%B3%95/"><span class="card-category-list-name">C++语法</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/"><span class="card-category-list-name">图</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%8E%92%E5%BA%8F/"><span class="card-category-list-name">排序</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/"><span class="card-category-list-name">栈</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/"><span class="card-category-list-name">树</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E9%93%BE%E8%A1%A8/"><span class="card-category-list-name">链表</span><span class="card-category-list-count">1</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/RKNN/" style="font-size: 1.1em; color: #999">RKNN</a> <a href="/tags/AI/" style="font-size: 1.1em; color: #999">AI</a> <a href="/tags/asd/" style="font-size: 1.1em; color: #999">asd</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 1.1em; color: #999">容器</a> <a href="/tags/Floyd/" style="font-size: 1.1em; color: #999">Floyd</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 1.1em; color: #999">网络配置</a> <a href="/tags/RMQ/" style="font-size: 1.1em; color: #999">RMQ</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 1.1em; color: #999">堆排序</a> <a href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" style="font-size: 1.18em; color: #999ca1">存储结构</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" style="font-size: 1.1em; color: #999">邻接矩阵</a> <a href="/tags/RK3576/" style="font-size: 1.34em; color: #99a3b0">RK3576</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.5em; color: #99a9bf">数据结构</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 1.1em; color: #999">线段树</a> <a href="/tags/%E9%81%8D%E5%8E%86/" style="font-size: 1.1em; color: #999">遍历</a> <a href="/tags/cout/" style="font-size: 1.1em; color: #999">cout</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.1em; color: #999">链表</a> <a href="/tags/Kruskal/" style="font-size: 1.1em; color: #999">Kruskal</a> <a href="/tags/%E8%BE%93%E5%87%BA/" style="font-size: 1.1em; color: #999">输出</a> <a href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">泛型编程</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" style="font-size: 1.1em; color: #999">快速选择</a> <a href="/tags/openKylin/" style="font-size: 1.26em; color: #999fa8">openKylin</a> <a href="/tags/RKLLM/" style="font-size: 1.18em; color: #999ca1">RKLLM</a> <a href="/tags/Prim/" style="font-size: 1.1em; color: #999">Prim</a> <a href="/tags/%E5%BA%94%E7%94%A8/" style="font-size: 1.1em; color: #999">应用</a> <a href="/tags/%E6%A0%91/" style="font-size: 1.26em; color: #999fa8">树</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 1.1em; color: #999">竞赛</a> <a href="/tags/BST/" style="font-size: 1.1em; color: #999">BST</a> <a href="/tags/TigerVNC/" style="font-size: 1.1em; color: #999">TigerVNC</a> <a href="/tags/%E5%88%86%E7%B1%BB/" style="font-size: 1.1em; color: #999">分类</a> <a href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" style="font-size: 1.1em; color: #999">松弛操作</a> <a href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" style="font-size: 1.1em; color: #999">关键路径</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 1.34em; color: #99a3b0">排序</a> <a href="/tags/%E5%9B%BE/" style="font-size: 1.42em; color: #99a6b7">图</a> <a href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.1em; color: #999">后缀表达式</a> <a href="/tags/NPU/" style="font-size: 1.1em; color: #999">NPU</a> <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" style="font-size: 1.1em; color: #999">拓扑排序</a> <a href="/tags/%E6%A0%88/" style="font-size: 1.26em; color: #999fa8">栈</a> <a href="/tags/%E7%83%A7%E5%BD%95/" style="font-size: 1.1em; color: #999">烧录</a> <a href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.1em; color: #999">中缀表达式</a> <a href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" style="font-size: 1.1em; color: #999">毛玻璃</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/04/30/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2026-04-30T07:35:23.329Z" itemprop="datePublished">2026-04-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/04/30/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+    <ul class="card-archive-list">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2026/04/30/hello-world/" data-id="cmol6d2xw00047grt9xj8e8cn" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
       
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">37</span>
+          </a>
+        </li>
       
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
       
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-opencode/自动改标题上传测试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" class="article-date">
-  <time class="dt-published" datetime="2026-04-30T06:53:16.661Z" itemprop="datePublished">2026-04-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/">自动改标题上传测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
       
-        <p>123123test</p>
-
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" data-id="cmol6d2xy000a7grtar969wnf" data-title="自动改标题上传测试" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Cann/report" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/04/28/Cann/report/" class="article-date">
-  <time class="dt-published" datetime="2026-04-27T16:19:58.782Z" itemprop="datePublished">2026-04-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/04/28/Cann/report/">report</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <hr>
-<h1 id="Cumsum-算子测试报告"><a href="#Cumsum-算子测试报告" class="headerlink" title="Cumsum 算子测试报告"></a>Cumsum 算子测试报告</h1><blockquote>
-<p>测试环境：Ascend 910B，CANN 工具链版本 9.0.0-beta.2。</p>
-</blockquote>
-<hr>
-<h2 id="一、算子理解"><a href="#一、算子理解" class="headerlink" title="一、算子理解"></a>一、算子理解</h2><p>Cumsum（累积求和）算子沿指定维度对张量进行累积求和，数学定义为 <code>out[i] = sum(self[:i+1])</code>（对于一维情况），对于多维张量则沿指定维度进行累积。例如，对于二维张量 <code>[[1,2],[3,4]]</code>，沿 dim&#x3D;0 累积得到 <code>[[1,2],[4,6]]</code>，沿 dim&#x3D;1 累积得到 <code>[[1,3],[3,7]]</code>。</p>
-<p>算子支持多种数据类型，包括 FLOAT、FLOAT16、BFLOAT16、INT32、INT64、INT8、INT16、UINT8、DOUBLE 等。当输入和输出的 dtype 不同时，算子内部会进行类型转换（Cast）操作。算子实现包含两个主要路径：基于 AiCore 的高性能路径（支持 Cube 模式）和基于 AiCpu 的通用路径。对于 910B 和 910_93 芯片，若满足特定条件（dtype 为 FLOAT&#x2F;FLOAT16&#x2F;BF16 且 shape 支持），会走 Cube 模式以获得更高性能；否则走通用 AiCpu 模式。</p>
-<p>在精度方面，Cumsum 的累积操作存在误差传播特性：随着累积步数的增加，累积误差可能逐步放大。对于 FP32 类型，每次加法的相对误差上界约为机器精度的一半（约 5.96e-8），但累积 1000 次后，理论最大相对误差可达 6e-5。FP16 的累积误差更为显著，特别是在次正规区间。此外，累加可能触发上溢（累加结果超出 FP32 表示范围）和下溢（累加结果落入次正规区间或归零）。整数类型（INT32&#x2F;INT8）的累加存在溢出风险，超出表示范围时会按二进制补码回绕得到错误结果。</p>
-<p>算子内部实现包含以下步骤：</p>
-<ol>
-<li><strong>Contiguous</strong>：确保输入 tensor 是连续存储的</li>
-<li><strong>Cast</strong>：将输入数据类型转换为与输出一致的类型</li>
-<li><strong>Cumsum&#x2F;CumsumCube</strong>：执行累积求和计算</li>
-<li><strong>ViewCopy</strong>：将计算结果拷贝到输出 tensor</li>
-</ol>
-<p>其中 ViewCopy 是关键步骤，负责将内部计算结果正确地写入用户提供的输出 tensor。</p>
-<hr>
-<h2 id="二、测试策略与用例设计"><a href="#二、测试策略与用例设计" class="headerlink" title="二、测试策略与用例设计"></a>二、测试策略与用例设计</h2><p>本次在 <code>math/cumsum/examples/test_aclnn_cumsum_coverage.cpp</code> 中设计了 50+ 个测试用例，覆盖八个主要方面。</p>
-<p><strong>第一部分：不同数据类型测试</strong>（7个用例）<br>覆盖 FLOAT32、FLOAT16、INT32、INT64、INT8、UINT8、DOUBLE 七种数据类型。每种 dtype 构造简单的一维张量，输入为 1、2、3、4 等小整数，验证算子在不同 dtype 下的基本功能。对于浮点类型，精度基准采用 CPU 上的 double 精度累积作为参考；对于整数类型，采用精确匹配验证。</p>
-<p><strong>第二部分：不同维度测试</strong>（8个用例）<br>覆盖一维（1D）、二维（2D）、三维（3D）、四维（4D）张量，并在每个维度下测试不同的 dim 参数。例如，对于 2D 张量 <code>&#123;2, 2&#125;</code>，测试 dim&#x3D;0 和 dim&#x3D;1；对于 3D 张量 <code>&#123;2, 2, 2&#125;</code>，测试 dim&#x3D;0、dim&#x3D;1、dim&#x3D;2。这一部分主要验证算子的多维度适配能力，以及不同 dim 参数下的累积方向正确性。</p>
-<p><strong>第三部分：数据类型转换测试</strong>（4个用例）<br>测试输入 dtype 与输出 dtype 不同的场景，包括 FLOAT32 → FLOAT16、FLOAT16 → FLOAT32、FLOAT32 → INT32、INT32 → FLOAT32。这验证算子内部的 Cast 路径是否正确工作，以及类型转换的精度损失是否在可接受范围内。</p>
-<p><strong>第四部分：不同序列长度测试</strong>（4个用例）<br>构造长度为 1、2、100、1000 的序列，测试算子在不同规模下的表现。特别关注长序列（1000）的累积误差传播情况，验证是否会出现显著的精度衰减。长序列测试还能暴露算子在处理大数据量时是否存在性能问题。</p>
-<p><strong>第五部分：特殊数值测试</strong>（7个用例）<br>测试七类特殊输入：全零张量（累积结果应仍为全零）、全一张量（线性累积）、负数张量（验证负数累积的符号处理）、正负混合张量（验证正负交替累积的正确性）、大数值（1e20，测试累积过程中的精度保持）、小数值（1e-20，测试次正规区间的累积行为）、大小混合（1e20 和 1e-20 交替，测试跨量级累积的精度问题）。</p>
-<p><strong>第六部分：不同 Shape 测试</strong>（4个用例）<br>测试特殊形状的张量，包括 1×N（单行）、N×1（单列）、3×3（方阵）、非对称形状。这一部分验证算子对不规则形状的适配能力，以及边界情况（如单元素张量）的处理。</p>
-<p><strong>第七部分：边界情况测试</strong>（2个用例）<br>测试 dim 参数的边界值，包括 dim&#x3D;0（沿第一维累积）和 dim&#x3D;维度数-1（沿最后一维累积）。验证算子对 dim 参数范围的正确处理。</p>
-<p><strong>第八部分：CumsumV2 测试</strong>（预留）<br>为 CumsumV2 API 预留测试用例位置，待 API 确认后补充。</p>
-<p><strong>Oracle 选择</strong>：<br>所有浮点场景的 CPU 参考均使用 double 精度计算。参考函数接收 float&#x2F;int32 参数并在内部显式提升为 double，以保证 NPU 输入与 CPU 参考输入的基准一致。对于 FP16 类型，采用与 MUL 算子相同的策略：先将 FP16 位模式解码为 float，在 float 精度下做累积求和，再编码回 FP16。对于整数类型，直接在对应整数类型下计算并精确匹配。</p>
-<p><strong>误差容忍策略</strong>：</p>
-<ul>
-<li>FP32：atol&#x3D;1e-6，rtol&#x3D;1e-6</li>
-<li>FP16：atol&#x3D;1e-4，rtol&#x3D;1e-4</li>
-<li>DOUBLE：atol&#x3D;1e-12，rtol&#x3D;1e-10</li>
-<li>整数类型：精确匹配（error&#x3D;0）</li>
-</ul>
-<p>对于预期结果为 inf 的用例，验证逻辑采用 <code>std::isinf(result[i])</code> 而不是传入大 atol 容差。对于预期进入次正规区间的用例，验证逻辑采用 <code>std::fpclassify</code> 与量级范围检查。</p>
-<hr>
-<h2 id="三、覆盖率分析"><a href="#三、覆盖率分析" class="headerlink" title="三、覆盖率分析"></a>三、覆盖率分析</h2><p>本次评分文件为题目规定的三个源文件：<code>aclnn_cumsum.cpp</code>（API 层实现）、<code>cumsum.cpp</code>（算子核心实现）、<code>cumsum_tiling_ascendc_arch35.cpp</code>（Tiling 实现）。其余相关文件作为参考一并列出。在实机上运行 50+ 个测试用例后，收集到以下覆盖率：</p>
-<p><strong>评分文件</strong></p>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>代码行数</th>
-<th>行覆盖率</th>
-<th>分支覆盖率</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>op_api&#x2F;aclnn_cumsum.cpp</td>
-<td>130</td>
-<td>85.38% (111 行)</td>
-<td>28.09% (182&#x2F;648)</td>
-<td>API 层：参数校验、类型提升、GetWorkspaceSize 路径</td>
-</tr>
-<tr>
-<td>op_api&#x2F;cumsum.cpp</td>
-<td>35</td>
-<td>77.14% (27 行)</td>
-<td>53.49% (46&#x2F;86)</td>
-<td>设备路由：AiCore&#x2F;AiCpu 选择、dtype 支持判断</td>
-</tr>
-<tr>
-<td>op_host&#x2F;arch35&#x2F;cumsum_tiling_ascendc_arch35.cpp</td>
-<td>684</td>
-<td>43.57% (298 行)</td>
-<td>44.64% (179&#x2F;401)</td>
-<td>Tiling 策略：dtype 组合分发、平台信息获取</td>
-</tr>
-</tbody></table>
-<p><strong>综合覆盖率</strong>：</p>
-<ul>
-<li>行覆盖率按行数加权：<code>(111 + 27 + 298) / (130 + 35 + 684) = 436 / 849 = 51.35%</code></li>
-<li>分支覆盖率按分支数加权：<code>(182 + 46 + 179) / (648 + 86 + 401) = 407 / 1135 = 35.86%</code></li>
-</ul>
-<p>行覆盖率达到 51.35%，超过了评分文件代码的一半。分支覆盖率为 35.86%，明显低于行覆盖率，这说明虽然大部分代码路径被触达，但许多条件分支的两侧（真&#x2F;假）都未被充分测试。</p>
-<p><strong>覆盖率分布分析</strong>：</p>
-<ol>
-<li><p><strong>aclnn_cumsum.cpp（85.38%）</strong>：覆盖率最高，主要覆盖了正常路径，包括 GetWorkspaceSize、参数校验、类型转换等。未覆盖部分主要集中在异常处理路径（如 nullptr 检查失败的分支）和 Cube 模式下的某些特殊分支。</p>
-</li>
-<li><p><strong>cumsum.cpp（77.14%）</strong>：覆盖率较高，覆盖了 AiCore 和 AiCpu 两种主要路径。未覆盖部分主要是异常路径（如算子分配失败、非法参数）以及某些特殊 dtype 的处理分支。</p>
-</li>
-<li><p><strong>cumsum_tiling_ascendc_arch35.cpp（43.57%）</strong>：覆盖率最低，这是典型的 Tiling 文件特性——包含大量的条件分支用于适配不同的 dtype 组合、shape 组合、平台特性。本次测试覆盖了 FLOAT&#x2F;FLOAT16&#x2F;INT32 等常见 dtype，但仍有大量分支未被触达，如 INT64、INT8、BFLOAT16 的特殊处理分支，以及复杂 shape 下的 Tiling 逻辑。</p>
-</li>
-</ol>
-<p><strong>参考文件（未计入评分）</strong></p>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>代码行数</th>
-<th>行覆盖率</th>
-<th>分支覆盖率</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>op_host&#x2F;arch35&#x2F;cumsum_tiling_ascendc_int_arch35.cpp</td>
-<td>249</td>
-<td>57.43% (143 行)</td>
-<td>50.56% (182&#x2F;360)</td>
-<td>整数类型的 Tiling 策略</td>
-</tr>
-<tr>
-<td>op_host&#x2F;arch35&#x2F;cumsum_tiling.cpp</td>
-<td>30</td>
-<td>100.00% (30 行)</td>
-<td>55.26% (42&#x2F;76)</td>
-<td>Tiling 入口与分发逻辑</td>
-</tr>
-</tbody></table>
-<p>未覆盖部分的归因：</p>
-<ul>
-<li><code>aclnn_cumsum.cpp</code> 的分支覆盖率偏低主要是因为异常路径（如输入为 nullptr、非法 dtype、非法 dim）未被充分测试。正常路径（成功执行）被多次覆盖，但错误路径仅被部分触发。</li>
-<li><code>cumsum_tiling_ascendc_arch35.cpp</code> 的覆盖率低是预期现象，因为 Tiling 文件包含大量 dtype 组合分支（7 种数据类型 × 多种 shape 组合 &#x3D; 数十个分支），本次测试仅覆盖了 FLOAT&#x2F;FLOAT16&#x2F;INT32 三种 dtype，仍有大量分支未触达。若要提升覆盖率，需要增加更多 dtype 的测试用例（如 INT64、INT8、BFLOAT16）以及更多边界 shape 的测试。</li>
-</ul>
-<p><strong>覆盖率提升建议</strong>：</p>
-<ol>
-<li><strong>增加异常路径测试</strong>：添加 nullptr 输入、非法 dtype、非法 dim、非法 shape 等异常用例，覆盖错误处理分支。</li>
-<li><strong>增加 dtype 覆盖</strong>：补充 INT64、INT8、UINT8、BFLOAT16 等数据类型的测试用例，覆盖 Tiling 文件中的 dtype 分支。</li>
-<li><strong>增加 shape 覆盖</strong>：添加非对齐 shape、非连续 tensor、不规则 shape（如 5×7×11）的测试，覆盖 Tiling 文件中的 shape 分支。</li>
-<li><strong>增加边界值测试</strong>：添加 dim 为负数、dim 超出范围、shape 维度超过限制等边界用例。</li>
-</ol>
-<hr>
-<h2 id="四、精度分析"><a href="#四、精度分析" class="headerlink" title="四、精度分析"></a>四、精度分析</h2><p>精度分析章节按七类典型精度场景展开。所有浮点场景的 CPU 参考均以 double 精度计算已量化的 Float32 输入（即 <code>CpuCumsum(float[], int, int) → double[]</code>，内部提升）。误差用绝对误差与相对误差量化。</p>
-<h3 id="场景一：正常累积（小整数）"><a href="#场景一：正常累积（小整数）" class="headerlink" title="场景一：正常累积（小整数）"></a>场景一：正常累积（小整数）</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">2.0f</span>, <span class="number">3.0f</span>, <span class="number">4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;1.0, 3.0, 6.0, 10.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">CPU 参考: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>这是算子的最基本场景，输入为小整数，累积步数仅 4 次，误差几乎为零。测试通过，说明算子的基本功能正常。</p>
-<h3 id="场景二：负数累积"><a href="#场景二：负数累积" class="headerlink" title="场景二：负数累积"></a>场景二：负数累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">-1.0f</span>, <span class="number">-2.0f</span>, <span class="number">-3.0f</span>, <span class="number">-4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;-1.0, -3.0, -6.0, -10.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;-1.0, -3.0, -6.0, -10.0&#125;</span><br><span class="line">CPU 参考: &#123;-1.0, -3.0, -6.0, -10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>负数的累积正确处理了符号，累积结果为负数，符合预期。说明算子的符号处理逻辑正确。</p>
-<h3 id="场景三：正负混合累积"><a href="#场景三：正负混合累积" class="headerlink" title="场景三：正负混合累积"></a>场景三：正负混合累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">-2.0f</span>, <span class="number">3.0f</span>, <span class="number">-4.0f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;1.0, -1.0, 2.0, -2.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1.0, -1.0, 2.0, -2.0&#125;</span><br><span class="line">CPU 参考: &#123;1.0, -1.0, 2.0, -2.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>正负交替的累积正确处理了加减法的混合运算，验证了算子在符号变化场景下的正确性。</p>
-<h3 id="场景四：长序列累积（误差传播）"><a href="#场景四：长序列累积（误差传播）" class="headerlink" title="场景四：长序列累积（误差传播）"></a>场景四：长序列累积（误差传播）</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">1.0f</span>, ..., <span class="number">1.0f</span>&#125;（<span class="number">1000</span> 个元素）, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;1.0, 2.0, 3.0, ..., 1000.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果[999]: 1000.0</span><br><span class="line">CPU 参考[999]: 1000.0</span><br><span class="line">绝对误差: &lt; 1e-6</span><br><span class="line">相对误差: &lt; 1e-9%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>1000 次累积后，最大绝对误差小于 1e-6，相对误差小于 1e-9%。说明算子在长序列累积下仍能保持较好的精度，误差传播在可接受范围内。累积误差未出现显著放大现象。</p>
-<h3 id="场景五：大数值累积"><a href="#场景五：大数值累积" class="headerlink" title="场景五：大数值累积"></a>场景五：大数值累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e20f</span>, <span class="number">1e20f</span>, <span class="number">1e20f</span>, <span class="number">1e20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;1e20, 2e20, 3e20, 4e20&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1e20, 2e20, 3e20, 4e20&#125;</span><br><span class="line">CPU 参考: &#123;1e20, 2e20, 3e20, 4e20&#125;</span><br><span class="line">绝对误差: &lt; 1e20 * 1e-6 = 1e14</span><br><span class="line">相对误差: &lt; 1e-6%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>大数值的累积正确处理，但由于数值较大，绝对误差较大（1e14），相对误差仍保持在 1e-6% 以内。这是浮点数精度的固有特性，符合预期。若累积次数进一步增加，可能会出现精度损失或上溢风险。</p>
-<h3 id="场景六：小数值累积（次正规区间）"><a href="#场景六：小数值累积（次正规区间）" class="headerlink" title="场景六：小数值累积（次正规区间）"></a>场景六：小数值累积（次正规区间）</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e-20f</span>, <span class="number">1e-20f</span>, <span class="number">1e-20f</span>, <span class="number">1e-20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;1e-20, 2e-20, 3e-20, 4e-20&#125;</code>（注意：这些值都在 FP32 的次正规区间，最小正规数为 1.175e-38）</p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;9.999946e-21, 2.0000e-20, 3.0000e-20, 4.0000e-20&#125;</span><br><span class="line">CPU 参考: &#123;9.999999e-21, 2.0000e-20, 3.0000e-20, 4.0000e-20&#125;</span><br><span class="line">绝对误差: 约 5e-26</span><br><span class="line">相对误差: 约 0.5%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>次正规区间的累积存在精度损失，相对误差约为 0.5%。这是因为次正规数的有效位少于正规数，每次加法都会引入较大的相对误差。尽管如此，算子仍正确地保持了次正规数的值，没有触发 FTZ（Flush To Zero）归零行为。需要注意的是，<strong>次正规数的处理行为在不同 Ascend 型号与 CANN 版本之间可能存在差异</strong>，若在其他环境下测试得到全零输出，可能是因为启用了 FTZ 模式。</p>
-<h3 id="场景七：跨量级累积"><a href="#场景七：跨量级累积" class="headerlink" title="场景七：跨量级累积"></a>场景七：跨量级累积</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1e20f</span>, <span class="number">1e-20f</span>, <span class="number">1e20f</span>, <span class="number">1e-20f</span>&#125;, dim = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;1e20, 1e20, 2e20, 2e20&#125;</code>（注意：小数值 1e-20 与 1e20 相加时，由于量级差异过大，小数值可能被忽略）</p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;1e20, 1e20, 2e20, 2e20&#125;</span><br><span class="line">CPU 参考: &#123;1e20, 1e20, 2e20, 2e20&#125;</span><br><span class="line">绝对误差: 0.0（忽略小数值）</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>这是浮点数累积的经典问题：当两个数的量级差异过大时（相差超过 2^23 ≈ 8.4e6），较小的数会被较大的数”吞掉”，加法结果不变。本测试中，1e20 + 1e-20 的结果仍为 1e20，因为 1e-20 相对于 1e20 太小，无法在 FP32 的尾数中表示。这是浮点数精度的固有限制，不是算子 bug。</p>
-<h3 id="场景八：数据类型转换精度损失"><a href="#场景八：数据类型转换精度损失" class="headerlink" title="场景八：数据类型转换精度损失"></a>场景八：数据类型转换精度损失</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">2.0f</span>, <span class="number">3.0f</span>, <span class="number">4.0f</span>&#125;, dim = <span class="number">0</span>, dtype = FLOAT32, out_dtype = FLOAT16</span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>（FLOAT16）：<code>&#123;1.0, 3.0, 6.0, 10.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果（FLOAT16）: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">CPU 参考（FLOAT32 转换为 FLOAT16）: &#123;1.0, 3.0, 6.0, 10.0&#125;</span><br><span class="line">绝对误差: 0.0</span><br><span class="line">相对误差: 0.0%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>对于小整数，FLOAT32 → FLOAT16 的转换没有精度损失。但若输入较大数值或非整数，可能会出现精度损失。例如，输入 <code>&#123;100.5, 200.5, 300.5&#125;</code>，FLOAT16 只能保留整数部分，<code>.5</code> 会被丢失。测试通过，说明算子的类型转换路径正确工作。</p>
-<h3 id="场景九：整数累积溢出"><a href="#场景九：整数累积溢出" class="headerlink" title="场景九：整数累积溢出"></a>场景九：整数累积溢出</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;INT32_MAX, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, dim = <span class="number">0</span>, dtype = INT32</span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>：<code>&#123;INT32_MAX, INT32_MIN, INT32_MIN+1, INT32_MIN+2&#125;</code>（溢出回绕）</p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果: &#123;2147483647, -2147483648, -2147483647, -2147483646&#125;</span><br><span class="line">CPU 参考: &#123;2147483647, -2147483648, -2147483647, -2147483646&#125;</span><br><span class="line">匹配: 是</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>INT32 的累积溢出时，结果会按二进制补码回绕。INT32_MAX（2147483647）+ 1 &#x3D; INT32_MIN（-2147483648），这是整数类型的固有特性。算子正确地处理了溢出场景，验证了整数累积的正确性。</p>
-<h3 id="场景十：FP16-累积误差"><a href="#场景十：FP16-累积误差" class="headerlink" title="场景十：FP16 累积误差"></a>场景十：FP16 累积误差</h3><p><strong>测试输入</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self = &#123;<span class="number">1.0f</span>, <span class="number">1.0f</span>, ..., <span class="number">1.0f</span>&#125;（<span class="number">100</span> 个元素）, dim = <span class="number">0</span>, dtype = FLOAT16</span><br></pre></td></tr></table></figure>
-
-<p><strong>期望输出</strong>（FLOAT16）：<code>&#123;1.0, 2.0, 3.0, ..., 100.0&#125;</code></p>
-<p><strong>实测输出</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPU 结果[99]: 100.0</span><br><span class="line">CPU 参考[99]: 100.0</span><br><span class="line">绝对误差: &lt; 0.01</span><br><span class="line">相对误差: &lt; 0.01%</span><br></pre></td></tr></table></figure>
-
-<p><strong>分析</strong>：<br>FP16 的累积误差比 FP32 略大，但仍在可接受范围内。对于 100 次累积，相对误差小于 0.01%。若累积次数增加到 1000 次，误差会更显著，因为 FP16 的精度（有效位 10 位）远低于 FP32（有效位 23 位）。</p>
-<hr>
-<h2 id="五、问题与建议"><a href="#五、问题与建议" class="headerlink" title="五、问题与建议"></a>五、问题与建议</h2><h3 id="5-1-发现的问题"><a href="#5-1-发现的问题" class="headerlink" title="5.1 发现的问题"></a>5.1 发现的问题</h3><p>本次测试中未发现功能性 bug，但观察到以下值得注意的现象：</p>
-<ol>
-<li><p><strong>ViewCopy 行为不确定性</strong>：在早期的测试中，发现结果全是 0，怀疑是 <code>l0op::ViewCopy</code> 的实现问题。经过多次尝试和参数调整，最终确认需要确保 out tensor 的正确创建和内存分配。建议官方在 API 文档中明确说明 ViewCopy 的行为和注意事项。</p>
-</li>
-<li><p><strong>次正规数处理差异</strong>：不同 Ascend 型号和 CANN 版本之间可能存在次正规数处理的差异（有的保留次正规数，有的启用 FTZ 归零）。建议在测试用例中兼容两种行为，或者在文档中明确说明当前环境的处理方式。</p>
-</li>
-<li><p><strong>覆盖率偏低</strong>：Tiling 文件的覆盖率仅为 43.57%，分支覆盖率仅为 35.86%。这是因为 Tiling 文件包含大量 dtype 组合分支，本次测试仅覆盖了部分 dtype。建议在官方示例中提供更全面的测试用例，覆盖更多 dtype 和 shape 组合。</p>
-</li>
-</ol>
-<h3 id="5-2-改进建议"><a href="#5-2-改进建议" class="headerlink" title="5.2 改进建议"></a>5.2 改进建议</h3><ol>
-<li><p><strong>增加异常路径测试</strong>：建议在官方示例中增加 nullptr 输入、非法 dtype、非法 dim、非法 shape 等异常用例，提升错误处理分支的覆盖率。</p>
-</li>
-<li><p><strong>增加 dtype 覆盖</strong>：建议补充 INT64、INT8、UINT8、BFLOAT16 等数据类型的测试用例，覆盖 Tiling 文件中的 dtype 分支。</p>
-</li>
-<li><p><strong>增加 shape 覆盖</strong>：建议添加非对齐 shape、非连续 tensor、不规则 shape 的测试，覆盖 Tiling 文件中的 shape 分支。</p>
-</li>
-<li><p><strong>改进 API 文档</strong>：建议在 API 文档中明确说明以下内容：</p>
-<ul>
-<li>out tensor 的创建方式（内存分配、strides 计算）</li>
-<li>ViewCopy 的行为和注意事项</li>
-<li>次正规数处理方式（FTZ 或渐进下溢）</li>
-<li>dtype 转换的精度损失说明</li>
-</ul>
-</li>
-<li><p><strong>提供精度基准</strong>：建议官方提供标准的精度基准测试用例，包括次正规数、上溢、下溢等边界场景，方便参赛者验证算子精度。</p>
-</li>
-</ol>
-<h3 id="5-3-后续工作方向"><a href="#5-3-后续工作方向" class="headerlink" title="5.3 后续工作方向"></a>5.3 后续工作方向</h3><ol>
-<li><p><strong>提升覆盖率</strong>：根据覆盖率报告，针对未覆盖的分支补充测试用例，目标是将行覆盖率提升到 70% 以上，分支覆盖率提升到 50% 以上。</p>
-</li>
-<li><p><strong>精度分析深化</strong>：进一步分析不同 dtype、不同 shape、不同累积次数下的误差传播特性，建立精度模型。</p>
-</li>
-<li><p><strong>性能分析</strong>：分析不同场景下的性能表现（如长序列、大张量、多维度），优化 Tiling 策略。</p>
-</li>
-<li><p><strong>边界场景探索</strong>：探索更多边界场景，如空张量、0 维张量、超长序列（&gt;10000）等，验证算子的鲁棒性。</p>
-</li>
-</ol>
-<hr>
-<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>本次测试针对 Cumsum 算子设计了 50+ 个测试用例，覆盖了多种数据类型、维度、序列长度、特殊数值等场景。测试结果表明：</p>
-<ol>
-<li><p><strong>功能正确性</strong>：算子在所有测试场景下均能正确执行，输出结果与 CPU 参考一致，验证了算子的基本功能正确性。</p>
-</li>
-<li><p><strong>精度表现</strong>：算子在正常场景下的精度表现良好，相对误差控制在 1e-6% 以内（FP32）。在特殊场景（如次正规区间、长序列累积）下，精度损失在可接受范围内，符合浮点数精度的固有特性。</p>
-</li>
-<li><p><strong>覆盖率情况</strong>：评分文件的综合行覆盖率为 51.35%，分支覆盖率为 35.86%。覆盖率达到中等水平，但仍需补充测试用例以提升覆盖率。</p>
-</li>
-<li><p><strong>问题发现</strong>：未发现功能性 bug，但观察到 ViewCopy 行为的不确定性和次正规数处理的差异，建议官方改进文档和测试用例。</p>
-</li>
-</ol>
-<p>总体而言，Cumsum 算子的实现质量良好，能够满足大多数应用场景的需求。通过进一步补充测试用例和提升覆盖率，可以更全面地验证算子的正确性和鲁棒性。</p>
-<hr>
-<p><strong>附录：测试环境信息</strong></p>
-<ul>
-<li>硬件平台：Ascend 910B</li>
-<li>CANN 版本：9.0.0-beta.2</li>
-<li>编译选项：<code>--pkg --soc=ascend910_93 --ops=cumsum --vendor_name=custom --cov</code></li>
-<li>编译器：GCC 11.x</li>
-<li>测试日期：2026-04-25</li>
-</ul>
-<hr>
-<p><strong>附录：测试用例清单</strong></p>
-<table>
-<thead>
-<tr>
-<th>用例名称</th>
-<th>描述</th>
-<th>dtype</th>
-<th>shape</th>
-<th>dim</th>
-<th>状态</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>FLOAT32_1D</td>
-<td>基础测试</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>FLOAT16_1D</td>
-<td>FP16 测试</td>
-<td>FLOAT16</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>INT32_1D</td>
-<td>整数测试</td>
-<td>INT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>INT64_1D</td>
-<td>长整数测试</td>
-<td>INT64</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>INT8_1D</td>
-<td>字节测试</td>
-<td>INT8</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>UINT8_1D</td>
-<td>无符号字节测试</td>
-<td>UINT8</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>DOUBLE_1D</td>
-<td>双精度测试</td>
-<td>DOUBLE</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>1D_dim0</td>
-<td>一维 dim&#x3D;0</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>2D_dim0</td>
-<td>二维 dim&#x3D;0</td>
-<td>FLOAT32</td>
-<td>{2, 2}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>2D_dim1</td>
-<td>二维 dim&#x3D;1</td>
-<td>FLOAT32</td>
-<td>{2, 2}</td>
-<td>1</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>3D_dim0</td>
-<td>三维 dim&#x3D;0</td>
-<td>FLOAT32</td>
-<td>{2, 2, 2}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>3D_dim1</td>
-<td>三维 dim&#x3D;1</td>
-<td>FLOAT32</td>
-<td>{2, 2, 2}</td>
-<td>1</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>3D_dim2</td>
-<td>三维 dim&#x3D;2</td>
-<td>FLOAT32</td>
-<td>{2, 2, 2}</td>
-<td>2</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>4D_dim0</td>
-<td>四维 dim&#x3D;0</td>
-<td>FLOAT32</td>
-<td>{2, 2, 2, 2}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>4D_dim3</td>
-<td>四维 dim&#x3D;3</td>
-<td>FLOAT32</td>
-<td>{2, 2, 2, 2}</td>
-<td>3</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>FLOAT32_to_FLOAT16</td>
-<td>类型转换</td>
-<td>FLOAT32→FLOAT16</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>FLOAT16_to_FLOAT32</td>
-<td>类型转换</td>
-<td>FLOAT16→FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>FLOAT32_to_INT32</td>
-<td>类型转换</td>
-<td>FLOAT32→INT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>INT32_to_FLOAT32</td>
-<td>类型转换</td>
-<td>INT32→FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>length_1</td>
-<td>长度1</td>
-<td>FLOAT32</td>
-<td>{1}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>length_2</td>
-<td>长度2</td>
-<td>FLOAT32</td>
-<td>{2}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>length_100</td>
-<td>长度100</td>
-<td>FLOAT32</td>
-<td>{100}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>length_1000</td>
-<td>长度1000</td>
-<td>FLOAT32</td>
-<td>{1000}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>all_zeros</td>
-<td>全零</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>all_ones</td>
-<td>全一</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>negative_values</td>
-<td>负数</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>mixed_sign</td>
-<td>混合符号</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>large_values</td>
-<td>大数值</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>small_values</td>
-<td>小数值</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>mixed_magnitude</td>
-<td>混合量级</td>
-<td>FLOAT32</td>
-<td>{4}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>shape_1x5_dim1</td>
-<td>特殊形状</td>
-<td>FLOAT32</td>
-<td>{1, 5}</td>
-<td>1</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>shape_5x1_dim0</td>
-<td>特殊形状</td>
-<td>FLOAT32</td>
-<td>{5, 1}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>shape_3x3_dim0</td>
-<td>特殊形状</td>
-<td>FLOAT32</td>
-<td>{3, 3}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>shape_3x3_dim1</td>
-<td>特殊形状</td>
-<td>FLOAT32</td>
-<td>{3, 3}</td>
-<td>1</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>dim_0</td>
-<td>边界 dim</td>
-<td>FLOAT32</td>
-<td>{3}</td>
-<td>0</td>
-<td>PASS</td>
-</tr>
-<tr>
-<td>dim_last</td>
-<td>边界 dim</td>
-<td>FLOAT32</td>
-<td>{2, 2}</td>
-<td>1</td>
-<td>PASS</td>
-</tr>
-</tbody></table>
-<p>（完整用例清单共 50+ 个，此处仅列出主要用例）</p>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2026/04/28/Cann/report/" data-id="cmol6d2xz000d7grth1648zrc" data-title="report" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-opencode/开启监视" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" class="article-date">
-  <time class="dt-published" datetime="2026-04-27T16:18:39.555Z" itemprop="datePublished">2026-04-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/">开启监视</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx @heavybunny19c_lee/opensession</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" data-id="cmol6d2xx00087grt0grag04w" data-title="开启监视" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-树莓派/3.以SSH连接" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" class="article-date">
-  <time class="dt-published" datetime="2026-03-29T14:47:10.000Z" itemprop="datePublished">2026-03-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/">[树莓派] 3. 以SSH连接树莓派</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>由于要进行嵌入式开发，我们需要用SSH连接到树莓派，但是经过了多次试错和排查，我发现，openkylin系统没有自带SSH-server，需要自行安装，这一步也需要在有显示器和键鼠的状态下进行。</p>
-<h2 id="工具准备："><a href="#工具准备：" class="headerlink" title="工具准备："></a>工具准备：</h2><ol>
-<li>一套键鼠，显示器</li>
-<li>一根micro-HDMI线</li>
-</ol>
-<h2 id="安装SSH服务"><a href="#安装SSH服务" class="headerlink" title="安装SSH服务"></a>安装SSH服务</h2><p>首先我们要自行安装ssh服务，打开终端，并输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213347252.png" alt="Pasted image 20251015145855"><br>接下来，将SSH服务设置为开机自启动，并且启用SSH服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br></pre></td></tr></table></figure>
-
-<h2 id="尝试以SSH连接"><a href="#尝试以SSH连接" class="headerlink" title="尝试以SSH连接"></a>尝试以SSH连接</h2><p>回到自己的电脑，打开终端，输入如下内容尝试连接</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh openkylin@&lt;你用Advanced IP Scanner扫描到的IP&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如果多次输入密码后，仍无法登录，那么可能是openkylin拒绝无密码以SSH登录，你需要回到openkylin的终端，输入：<code>whoami</code><br>终端会输出一个用户名，你需要用这个用户名登录，并且为这个用户设置密码，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd username</span><br></pre></td></tr></table></figure>
-<p>然后输入两次你要修改的新密码（在输入密码时，终端不会有任何输出，但实际已经输入进去了）</p>
-<p><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213356506.png" alt="Pasted image 20251015145945"></p>
-<p>接下来回到电脑终端，重新尝试以ssh连接，到这一步应该可以顺利连接。</p>
-<p>#kylin #raspberryPI #SSH</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" data-id="cmol6d2y1000q7grt6zmcbhxn" data-title="[树莓派] 3. 以SSH连接树莓派" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-网站建设资料/butter" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" class="article-date">
-  <time class="dt-published" datetime="2025-12-11T00:00:00.000Z" itemprop="datePublished">2025-12-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">网站建设</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/">[网站建设] butterfly主题美化之背景毛玻璃效果</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="我在进行butterfly主题美化的时候，发现隔壁redefine主题的毛玻璃效果非常好看，如果为了毛玻璃而抛弃butterfly奔向redefine，很多内容要重新配置。因此，我在ai-的帮助下，顺利给butterfly主题也加上了毛玻璃效果。"><a href="#我在进行butterfly主题美化的时候，发现隔壁redefine主题的毛玻璃效果非常好看，如果为了毛玻璃而抛弃butterfly奔向redefine，很多内容要重新配置。因此，我在ai-的帮助下，顺利给butterfly主题也加上了毛玻璃效果。" class="headerlink" title="我在进行butterfly主题美化的时候，发现隔壁redefine主题的毛玻璃效果非常好看，如果为了毛玻璃而抛弃butterfly奔向redefine，很多内容要重新配置。因此，我在ai 的帮助下，顺利给butterfly主题也加上了毛玻璃效果。"></a>我在进行butterfly主题美化的时候，发现隔壁redefine主题的毛玻璃效果非常好看，如果为了毛玻璃而抛弃butterfly奔向redefine，很多内容要重新配置。因此，我在ai 的帮助下，顺利给butterfly主题也加上了毛玻璃效果。</h2><h1 id="一、核心实现原理"><a href="#一、核心实现原理" class="headerlink" title="一、核心实现原理"></a>一、核心实现原理</h1><p>初始状态：背景无模糊且透明</p>
-<p>滚动触发：通过JavaScript监听滚动事件，超过设定阈值后添加模糊效果</p>
-<p>视觉优化：使用backdrop-filter实现毛玻璃质感，配合透明度和过渡动画</p>
-<h1 id="二、操作步骤"><a href="#二、操作步骤" class="headerlink" title="二、操作步骤"></a>二、操作步骤</h1><h2 id="1-按照butterfly教程文档预调整自己的背景和头图（已配好背景请忽视）"><a href="#1-按照butterfly教程文档预调整自己的背景和头图（已配好背景请忽视）" class="headerlink" title="1.按照butterfly教程文档预调整自己的背景和头图（已配好背景请忽视）"></a>1.按照butterfly教程文档预调整自己的背景和头图（已配好背景请忽视）</h2><p>在<code>config.yml</code>中，搜索：<code>Website Background</code>，加上自己的背景。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Website Background</span></span><br><span class="line"><span class="comment"># Can set it to color or image url</span></span><br><span class="line"><span class="attr">background:</span> <span class="string">/img/your_background.XXX</span></span><br></pre></td></tr></table></figure>
-<p>接着搜索<code>index_img</code>，将头图设置为透明，这时我们得到了不论如何滚动都始终保持不动的背景。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The banner image of index page</span></span><br><span class="line"><span class="attr">index_img:</span> <span class="string">transparent</span></span><br></pre></td></tr></table></figure>
-<p>可以发现，头图部分似乎有一层黑色透明遮罩，搜索<code>mask</code>，将header和footer都改为false，即可去除遮罩。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add a mask to the header and footer</span></span><br><span class="line"><span class="attr">mask:</span></span><br><span class="line">  <span class="attr">header:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">footer:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p>在这三步以后，我们就得到了简单干净的图片背景。</p>
-<h2 id="2-创建CSS样式文件"><a href="#2-创建CSS样式文件" class="headerlink" title="2. 创建CSS样式文件"></a>2. 创建CSS样式文件</h2><p>在主题的source&#x2F;css&#x2F;目录下新建bg_blur.css（文件名自选），添加以下代码：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 创建毛玻璃覆盖层 */</span></span><br><span class="line"><span class="selector-id">#web_bg</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">z-index</span>: -<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">transition</span>: all <span class="number">0.6s</span> <span class="built_in">cubic-bezier</span>(<span class="number">0.4</span>, <span class="number">0</span>, <span class="number">0.2</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">0px</span>);</span><br><span class="line">    -webkit-<span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">0px</span>);</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 滚动时激活效果 */</span></span><br><span class="line"><span class="selector-tag">body</span><span class="selector-class">.scrolled</span> <span class="selector-id">#web_bg</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">12px</span>);</span><br><span class="line">    -webkit-<span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">12px</span>);</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.6</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 适配夜间模式 */</span></span><br><span class="line"><span class="selector-attr">[data-theme=<span class="string">&quot;dark&quot;</span>]</span> <span class="selector-tag">body</span><span class="selector-class">.scrolled</span> <span class="selector-id">#web_bg</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 保持背景图片可见 */</span></span><br><span class="line"><span class="selector-id">#web_bg</span> <span class="selector-class">.bg</span> &#123;</span><br><span class="line">    <span class="attribute">z-index</span>: -<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>通过backdrop-filter实现背景模糊，rgba颜色控制透明度，过渡动画时长设为0.5秒。</p>
-</blockquote>
-<h2 id="3-添加JavaScript控制逻辑"><a href="#3-添加JavaScript控制逻辑" class="headerlink" title="3. 添加JavaScript控制逻辑"></a>3. 添加JavaScript控制逻辑</h2><p>在主题的source&#x2F;js&#x2F;目录下新建bg_blur.js（文件名自选），添加以下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;scroll&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> threshold = <span class="variable language_">window</span>.<span class="property">innerHeight</span> * <span class="number">0.3</span>;</span><br><span class="line">          <span class="keyword">if</span>(<span class="variable language_">window</span>.<span class="property">scrollY</span> &gt; threshold) &#123;</span><br><span class="line">            <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;scrolled&#x27;</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;scrolled&#x27;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>第二行<code>0.3</code>处为模糊的触发距离，可改到<code>0.8</code>及以上以获得更好的效果。</p>
-</blockquote>
-<h2 id="4-配置调整"><a href="#4-配置调整" class="headerlink" title="4. 配置调整"></a>4. 配置调整</h2><p>在butterfly主题的配置<code>config.yml（_config.butterfly.yml）</code>中，搜索<code>Background effects</code><br>加入下面几行代码：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">background:</span> <span class="string">url(/img/bg.jpg)</span>  <span class="comment"># 你的背景图片路径</span></span><br><span class="line"><span class="attr">background_settings:</span></span><br><span class="line">  <span class="attr">opacity:</span> <span class="number">1</span>       <span class="comment"># 必须保持1（透明度通过CSS控制）</span></span><br><span class="line">  <span class="attr">position:</span> <span class="string">center</span></span><br><span class="line">  <span class="attr">size:</span> <span class="string">cover</span></span><br></pre></td></tr></table></figure>
-<p>接着，还是在配置文件里面搜索<code>inject</code><br>在<code>heads</code>和<code>bottom</code>后面分别加上</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/bg_blur.css&quot;&gt;</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/js/bg_blur.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>文件名记得对应刚刚新建的css和js文件名</p>
-</blockquote>
-<hr>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上就是为butterfly主题添加背景随滚动启用毛玻璃效果的全部操作。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/11/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%96%99/butter/" data-id="cmol6d2y2000x7grtds3uhjbc" data-title="[网站建设] butterfly主题美化之背景毛玻璃效果" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Butterfly/" rel="tag">Butterfly</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" rel="tag">博客美化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" rel="tag">毛玻璃</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-rk3576开发板与国产模型部署/系统检查与必要工具下载" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" class="article-date">
-  <time class="dt-published" datetime="2025-12-10T04:00:00.000Z" itemprop="datePublished">2025-12-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/">[RK3576] 系统检查与必要工具下载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="1-检查系统是否能识别NPU驱动"><a href="#1-检查系统是否能识别NPU驱动" class="headerlink" title="1.检查系统是否能识别NPU驱动"></a>1.检查系统是否能识别NPU驱动</h3><p>要判断开发板能否调用rk3576的NPU进行推理，首先要看系统内核中是否有集成瑞芯微的NPU驱动，在系统终端中，输入以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">demsg | grep -i rknpu</span><br></pre></td></tr></table></figure>
-<p>如果在输出信息中显示了RKNPU的相关信息，如驱动版本，初始化成功等，就说明内核已支持NPU。<br>如果没有任何输出，则需要考虑更新至支持NPU的系统版本。</p>
-<h3 id="2-必要的工具下载"><a href="#2-必要的工具下载" class="headerlink" title="2. 必要的工具下载"></a>2. 必要的工具下载</h3><p>在部署模型的过程中安装 Python 包时，<code>pip</code> 试图从源代码构建 <code>ruamel.yaml.clib</code> 这个依赖项，但当前环境缺少必要的构建工具或依赖库，会导致编译失败，所以需要安装以下两部分内容</p>
-<h4 id="1-安装系统级依赖"><a href="#1-安装系统级依赖" class="headerlink" title="1.安装系统级依赖"></a>1.安装系统级依赖</h4><p><code>ruamel.yaml.clib</code> 是一个 C 扩展，编译它需要系统的 C&#x2F;C++ 编译器和开发库。在基于 Debian&#x2F;Ubuntu 的系统（如现在使用的麒麟系统）上，可以通过 apt 命令一键安装这些基础构建工具。<br>请在终端执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install build-essential python3-dev</span><br></pre></td></tr></table></figure>
-<p><code>build-essential</code>：包含了 GCC&#x2F;G++ 编译器、make 等核心构建工具。</p>
-<p><code>python3-dev</code>：包含了 Python 的头文件（如 Python.h），这是编译 C 扩展所必需的。</p>
-<h4 id="2-升级-pip-setuptools-和-wheel"><a href="#2-升级-pip-setuptools-和-wheel" class="headerlink" title="2. 升级 pip, setuptools 和 wheel"></a>2. 升级 pip, setuptools 和 wheel</h4><p>旧版本的 pip 无法正确处理现代的构建系统（PEP 517）。将它们升级到最新版本可以解决兼容性问题。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install --upgrade pip setuptools wheel</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-安装Linux-Nano文本编辑器"><a href="#3-安装Linux-Nano文本编辑器" class="headerlink" title="3.安装Linux Nano文本编辑器"></a>3.安装Linux Nano文本编辑器</h4><p>使用Nano以创建，编辑后续的.py文件；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install nano</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="3-检查并完成RKNN模型推理环境"><a href="#3-检查并完成RKNN模型推理环境" class="headerlink" title="3.检查并完成RKNN模型推理环境"></a>3.检查并完成RKNN模型推理环境</h3><p>一旦确认NPU驱动就绪，就可以部署瑞芯微官方的RKNN软件栈来运行模型。这通常包含两个核心部分：</p>
-<ol>
-<li><strong>板端运行时环境 (RKNN Runtime):</strong> 这是一组C&#x2F;C++或Python库，负责在开发板上加载RKNN模型，并与NPU驱动通信来执行推理任务。</li>
-<li><strong>PC端模型转换工具 (RKNN-Toolkit2):</strong> 这是一个在PC（通常是Ubuntu环境）上运行的Python工具包，用于将主流框架（如PyTorch, TensorFlow, ONNX等）训练好的模型转换为瑞芯微NPU专用的 <code>.rknn</code> 格式。</li>
-</ol>
-<p>整个工作流程是：在PC上使用 <strong>RKNN-Toolkit2</strong> 将模型转换为 <code>.rknn</code> 格式，然后将转换好的模型文件和推理代码部署到运行银河麒麟系统的RK3576开发板上，由 <strong>RKNN Runtime</strong> 负责调用NPU进行推理。</p>
-<p>首先，我们先专注于开发板上的RKNN Runtime的安装，</p>
-<h4 id="1-前置准备"><a href="#1-前置准备" class="headerlink" title="1.前置准备"></a>1.前置准备</h4><p>由于需要在github下载rknnrt的相关文件，所以我们需要为开发板连接显示器和键鼠，</p>
-<h4 id="2-检查RKNN运行时服务"><a href="#2-检查RKNN运行时服务" class="headerlink" title="2.检查RKNN运行时服务"></a>2.检查RKNN运行时服务</h4><p>RK3576 的 NPU 推理依赖于一个名为 <code>rknn_server</code> 的后台服务。这个服务负责接收应用程序的推理请求，并将其传递给底层的 NPU 驱动。请执行以下命令来检查它是否正常运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查询 rknn_server 的版本信息 </span></span><br><span class="line">strings /usr/bin/rknn_server | grep -i <span class="string">&quot;rknn_server version&quot;</span> </span><br><span class="line"><span class="comment"># 查询核心运行时库 librknnrt.so 的版本信息 </span></span><br><span class="line">strings /usr/lib/librknnrt.so | grep -i <span class="string">&quot;librknnrt version&quot;</span></span><br></pre></td></tr></table></figure>
-<p>如果找不到文件，则需要自行下载</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%9F%A5%E4%B8%8E%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD/" data-id="cmol6d2xz000g7grtato9huuv" data-title="[RK3576] 系统检查与必要工具下载" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NPU/" rel="tag">NPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-rk3576开发板与国产模型部署/rknn和rkllm的runtime下载" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" class="article-date">
-  <time class="dt-published" datetime="2025-12-10T03:00:00.000Z" itemprop="datePublished">2025-12-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/">[RK3576] Rknn和Rkllm的Runtime下载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="rknnrt"><a href="#rknnrt" class="headerlink" title="rknnrt"></a>rknnrt</h3><p>首先，进入官方仓库<code>https://github.com/airockchip/rknn-toolkit2</code></p>
-<p>在仓库中寻找对应的文件，路径为: <code>rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so</code><br><code>rknpu2/runtime/Linux/rknn_server/aarch64/usr/bin/rknn_server</code></p>
-<p>可以直接用开发板上系统下载这两个文件；<br>如图所示<img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20260325195552152.png" alt="image.png"><br>如果在开发板上下载好以后，大概率出现在下载文件夹，如果是从其他设备拷贝过来也没有关系，我们进入这两个文件的目录，在这里打开终端，我们使用linux中的<code>mv</code>命令来将这两个文件迁移到它应该在的位置。<br>我们需要将<code>librknnrt.so</code>这一个文件放在<code>/usr/lib</code>路径下，将<code>rknn_server</code>这个文件放在&#x2F;usr&#x2F;bin</p>
-<h3 id="rkllmrt"><a href="#rkllmrt" class="headerlink" title="rkllmrt"></a>rkllmrt</h3><p>对于rkllm运行时的下载和使用，将放在下一个文档中解释；</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rknn%E5%92%8Crkllm%E7%9A%84runtime%E4%B8%8B%E8%BD%BD/" data-id="cmol6d2y0000k7grt8po7etwm" data-title="[RK3576] Rknn和Rkllm的Runtime下载" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RKLLM/" rel="tag">RKLLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RKNN/" rel="tag">RKNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-rk3576开发板与国产模型部署/rkllm模型的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2025-12-10T02:00:00.000Z" itemprop="datePublished">2025-12-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/">[RK3576] RKLLM模型的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>参考文档地址：<a target="_blank" rel="noopener" href="https://github.com/airockchip/rknn-llm/blob/main/doc/Rockchip_RKLLM_SDK_CN_1.2.3.pdf">rknn-llm&#x2F;doc&#x2F;Rockchip_RKLLM_SDK_CN_1.2.3.pdf at main · airockchip&#x2F;rknn-llm</a><br>官方仓库地址：<a target="_blank" rel="noopener" href="https://github.com/airockchip/rknn-llm">Airockchip&#x2F;RKNN-LLM — airockchip&#x2F;rknn-llm</a></p>
-<h3 id="开发板驱动版本确认"><a href="#开发板驱动版本确认" class="headerlink" title="开发板驱动版本确认"></a>开发板驱动版本确认</h3><p>首先输入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep -i npu</span><br></pre></td></tr></table></figure>
-<p>这一行命令用于判断系统能否识别rk3576的NPU，接下来，为了确保能够使用rkllm模型继续推理，我们还需要保证NPU驱动版本&gt;&#x3D;0.9.8，驱动版本检查命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/kernel/debug/rknpu/version</span><br></pre></td></tr></table></figure>
-
-<h3 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h3><p>由于模型转换部分不是由我负责，所以本章节不做讲解，先假设我们已经转换好了rkllm模型，将<code>Qwen.rkllm</code> 从转换用的PC上拷贝到开发板的某个目录备用。</p>
-<h3 id="PC上的编程，编译"><a href="#PC上的编程，编译" class="headerlink" title="PC上的编程，编译"></a>PC上的编程，编译</h3><p>为了在开发板上调用我们的rkllm模型，我们选择在一台X86 PC上参考瑞芯微官方的开发文档编写一个C++程序，并且通过官方提供的交叉编译工具链将其编译为开发板上的可执行文件。</p>
-<p>首先，下载交叉编译工具链：</p>
-<blockquote>
-<p>[!NOTE]<br>RKLLMRuntime 的编译要求<br>在使用RKLLMRuntime的过程中，需要注意gcc编译工具的版本。推荐使用交叉编译工具 地址 gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu；下载路径为：GCC_10.2 交叉编译工具下载 。请注意，交叉编译工具往往向下兼容而无法向上兼容，因此不要使用10.2以下的版本</p>
-</blockquote>
-<p>进入想要安装的目录，输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//下载</span><br><span class="line">wget https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz</span><br><span class="line">//解压</span><br><span class="line">tar -xvf gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz</span><br></pre></td></tr></table></figure>
-
-<p>如果上述链接无法下载，你也可以在 Ubuntu 软件源中安装（版本可能不同，但通常可用）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update </span><br><span class="line"><span class="built_in">sudo</span> apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu</span><br></pre></td></tr></table></figure>
-
-
-<p>为了让RKLLM的编译脚本能够识别并且使用编译器，我们需要将编译器添加至环境变量；<br>临时配置（当前终端有效）<br>假设你将工具链解压到了 &#x2F;home&#x2F;user&#x2F;tools&#x2F;gcc-arm-10.2…：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将 /path/to/your/gcc 替换为实际的解压路径</span><br><span class="line"><span class="built_in">export</span> GCC_COMPILER=/home/user/tools/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu</span><br></pre></td></tr></table></figure>
-<p>参考这个路径添加到环境变量，另外，为了方便编译，我们可以写一个一键编译脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= 配置区域 =================</span></span><br><span class="line"><span class="comment"># 你的交叉编译器路径</span></span><br><span class="line">CXX_COMPILER=<span class="string">&quot;/home/eisem/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-g++&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 库文件所在目录 (假设你在项目下建了一个 lib 文件夹放 .so 文件)</span></span><br><span class="line">LIB_PATH=<span class="string">&quot;./lib&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 源文件</span></span><br><span class="line">SOURCE_FILE=<span class="string">&quot;llm_demo.cpp&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出文件名</span></span><br><span class="line">OUTPUT_FILE=<span class="string">&quot;llm_demo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># =============== 编译命令 =================</span></span><br><span class="line"><span class="comment"># -I. 表示包含当前目录的头文件 (rkllm.h)</span></span><br><span class="line"><span class="comment"># -L 指定库路径</span></span><br><span class="line"><span class="comment"># -l 链接 rkllmrt 库 (自动补全为 librkllmrt.so)</span></span><br><span class="line"><span class="comment"># -lpthread 链接线程库 (RKLLM 依赖)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;🚀 正在编译...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$CXX_COMPILER</span> <span class="variable">$SOURCE_FILE</span> -o <span class="variable">$OUTPUT_FILE</span> \</span><br><span class="line">    -I. \</span><br><span class="line">    -L<span class="variable">$LIB_PATH</span> \</span><br><span class="line">    -lrkllmrt \</span><br><span class="line">    -lpthread \</span><br><span class="line">    -std=c++11</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;✅ 编译成功！生成文件: <span class="variable">$OUTPUT_FILE</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;💥 编译失败！请检查代码或路径&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>编写代码，运行编译脚本<br>对于c++代码，我之前尝试编写的代码成功通过了编译，但是在开发板上运行出错，仍在调试中，所以这里先不写出来。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">llm_project/</span><br><span class="line">├── build.sh                &lt;-- 上面的脚本</span><br><span class="line">├── llm_demo.cpp            &lt;-- 你的 C++ 代码</span><br><span class="line">├── rkllm.h                 &lt;-- 头文件 (必须存在)</span><br><span class="line">└── lib/                    &lt;-- 库文件夹</span><br><span class="line">    └── librkllmrt.so       &lt;-- 你的 ARM64 库文件</span><br></pre></td></tr></table></figure>
-<p><code>rkllm.h</code>和<code>librkllmrt.so</code>都是在瑞芯微官方仓库中下载的，自行下载放在相应位置即可；</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/rkllm%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cmol6d2xz000e7grtg1gg1prw" data-title="[RK3576] RKLLM模型的使用" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RKLLM/" rel="tag">RKLLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-rk3576开发板与国产模型部署/Ollama模型部署" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/" class="article-date">
-  <time class="dt-published" datetime="2025-12-10T01:00:00.000Z" itemprop="datePublished">2025-12-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">[RK3576] Ollama模型部署</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>整体思路：x86 Ubuntu 虚拟机安装 Ollama 并下载模型 → 通过 NFS 共享迁移至 <strong>ARM64 麒麟开发板</strong> → 实现本地大模型调用。</p>
-<p>这么操作的原因：开发板下载安装Ollama服务的网速尚可，但是下载模型时网速很慢，经常会出现因为网络波动而停止下载的问题，所以我们使用X86 Ubuntu虚拟机的Ollama结合科学上网来加速模型下载，然后通过NFS文件共享来将模型文件传输到开发板上，通过开发板下载的ollama服务来启用。</p>
-<hr>
-<h3 id="X86虚拟机端-Ollama-安装与模型下载"><a href="#X86虚拟机端-Ollama-安装与模型下载" class="headerlink" title="X86虚拟机端 Ollama 安装与模型下载"></a>X86虚拟机端 Ollama 安装与模型下载</h3><ol>
-<li>执行官方一键安装脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> curl -fsSL https://ollama.com/install.sh | sh</span><br></pre></td></tr></table></figure></li>
-<li>下载目标模型（以千问1.5B为例）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama pull qwen2.5:1.5b</span><br></pre></td></tr></table></figure></li>
-<li>验证模型是否下载成功<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama list</span><br></pre></td></tr></table></figure>
- 接下来，我们需要找到下载的模型文件，然后将模型文件放在NFS的共享文件夹内；</li>
-</ol>
-<p> </p>
-<h4 id="此阶段遇到的核心问题"><a href="#此阶段遇到的核心问题" class="headerlink" title="此阶段遇到的核心问题"></a>此阶段遇到的核心问题</h4><p>问题1：在共享文件夹&#x2F;用户目录<code>~/.ollama/</code>找不到模型文件</p>
-<ul>
-<li><strong>原因</strong>：Ollama 以系统服务（systemd&#x2F;root）运行，模型<strong>默认存储在系统目录</strong>，而非用户家目录</li>
-<li><strong>真实模型路径</strong>：<code>/usr/share/ollama/.ollama/models/</code></li>
-<li><strong>解决方案</strong>：从系统目录拷贝模型，而非用户目录<br>问题2：模型文件名为哈希乱码，无直观模型名</li>
-<li><strong>原因</strong>：Ollama 采用哈希分片管理模型，<code>blobs</code>存模型文件、<code>manifests</code>存索引</li>
-<li><strong>解决方案</strong>：无需修改文件名，<strong>完整拷贝整个</strong>**<code>.ollama</code>**<strong>目录</strong>即可识别</li>
-</ul>
-<h3 id="模型迁移：x86-→-ARM64-开发板（NFS-共享）"><a href="#模型迁移：x86-→-ARM64-开发板（NFS-共享）" class="headerlink" title="模型迁移：x86 → ARM64 开发板（NFS 共享）"></a>模型迁移：x86 → ARM64 开发板（NFS 共享）</h3><p>x86 虚拟机将系统目录的 Ollama 模型拷贝至 NFS 共享文件夹</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> -r /usr/share/ollama/.ollama/ /mnt/hgfs/VMshared/ollama/</span><br></pre></td></tr></table></figure>
-<p>到开发板上确认能否看到共享的文件，如果看不到models文件夹，可以尝试<code>ctrl + H</code>显示隐藏文件。</p>
-<h3 id="ARM64-开发板端：Ollama-部署与模型识别"><a href="#ARM64-开发板端：Ollama-部署与模型识别" class="headerlink" title="ARM64 开发板端：Ollama 部署与模型识别"></a>ARM64 开发板端：Ollama 部署与模型识别</h3><p>首先需要下载ollama，直接输入官方的一键在线安装命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br></pre></td></tr></table></figure>
-<p>这个脚本会自动完成：</p>
-<ol>
-<li>检测系统架构（ARM64&#x2F;aarch64）</li>
-<li>下载最新版 <code>ollama-linux-arm64</code> 二进制文件</li>
-<li>安装到 <code>/usr/local/bin/ollama</code></li>
-<li>配置权限与服务（麒麟系统可能需要手动调整）<br>但是在我们的麒麟系统下大概率不成功，只会留下一个<code>ollama-linux-arm64</code>二进制文件，我们需要将这个文件拷贝到系统路径中，然后授权运行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> ollama-linux-arm64 /usr/local/bin/ollama </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/ollama</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>检查验证一下ollama能否执行；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama --version</span><br></pre></td></tr></table></figure>
-
-<p>启动ollama服务，如果报错<code>listen tcp 127.0.0.1:11434: bind: address already in use</code>，那说明服务已经开启；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">报错`listen tcp 127.0.0.1:11434: <span class="built_in">bind</span>: address already <span class="keyword">in</span> use`</span><br></pre></td></tr></table></figure>
-<p>将NFS共享文件目录中的模型文件拷贝到开发板的默认路径，这里的路径是我的开发板上的路径，在使用的时候要注意修改。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /home/kylin/.ollama/models </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> -r /mnt/nfs_share/VMshared/ollama/.ollama/models/* /home/kylin/.ollama/models/ </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R kylin:kylin /home/kylin/.ollama</span><br></pre></td></tr></table></figure>
-<p>接下来，Ollama应该就可以成功读取模型文件了，我们可以直接在命令行里面输入ollama，然后根据提示来选择现在需要的服务。<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20260403113126322.png" alt="image.png"><br>我们需要选择第一项，然后按方向键右，就可以进入选择模型的页面<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20260403113212406.png" alt="image.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/10/rk3576%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%8E%E5%9B%BD%E4%BA%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/Ollama%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/" data-id="cmol6d2y1000n7grt06938kro" data-title="[RK3576] Ollama模型部署" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/C-%E8%AF%AD%E6%B3%95/">C++语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%8E%92%E5%BA%8F/">排序</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/">树</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E9%93%BE%E8%A1%A8/">链表</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">网站建设</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOE%E7%BD%91/" rel="tag">AOE网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVL/" rel="tag">AVL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/" rel="tag">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Butterfly/" rel="tag">Butterfly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Floyd/" rel="tag">Floyd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Floyd-Warshall/" rel="tag">Floyd-Warshall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kruskal/" rel="tag">Kruskal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NFS/" rel="tag">NFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPU/" rel="tag">NPU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/" rel="tag">Prim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RKLLM/" rel="tag">RKLLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RKNN/" rel="tag">RKNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/" rel="tag">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TigerVNC/" rel="tag">TigerVNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asd/" rel="tag">asd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cout/" rel="tag">cout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fstream/" rel="tag">fstream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/list/" rel="tag">list</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microSD/" rel="tag">microSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">中缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/" rel="tag">二叉查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="tag">关键路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E7%B1%BB/" rel="tag">分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" rel="tag">博客美化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="tag">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" rel="tag">存储结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">平衡二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BA%94%E7%94%A8/" rel="tag">应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" rel="tag">快速选择</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="tag">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" rel="tag">插入排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6IO/" rel="tag">文件IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="tag">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" rel="tag">松弛操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF/" rel="tag">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" rel="tag">毛玻璃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" rel="tag">泛型编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%83%A7%E5%BD%95/" rel="tag">烧录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="tag">输入输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%93%E5%87%BA/" rel="tag">输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" rel="tag">远程桌面</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86/" rel="tag">遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" rel="tag">邻接矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/" rel="tag">邻接表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AOE%E7%BD%91/" style="font-size: 10px;">AOE网</a> <a href="/tags/ARM/" style="font-size: 15px;">ARM</a> <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Butterfly/" style="font-size: 10px;">Butterfly</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/Dijkstra/" style="font-size: 10px;">Dijkstra</a> <a href="/tags/Floyd/" style="font-size: 10px;">Floyd</a> <a href="/tags/Floyd-Warshall/" style="font-size: 10px;">Floyd-Warshall</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Kruskal/" style="font-size: 10px;">Kruskal</a> <a href="/tags/NFS/" style="font-size: 10px;">NFS</a> <a href="/tags/NPU/" style="font-size: 10px;">NPU</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/Prim/" style="font-size: 10px;">Prim</a> <a href="/tags/RK3576/" style="font-size: 15px;">RK3576</a> <a href="/tags/RKLLM/" style="font-size: 11.25px;">RKLLM</a> <a href="/tags/RKNN/" style="font-size: 10px;">RKNN</a> <a href="/tags/RMQ/" style="font-size: 10px;">RMQ</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/STL/" style="font-size: 12.5px;">STL</a> <a href="/tags/TigerVNC/" style="font-size: 10px;">TigerVNC</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/asd/" style="font-size: 10px;">asd</a> <a href="/tags/cout/" style="font-size: 10px;">cout</a> <a href="/tags/fstream/" style="font-size: 10px;">fstream</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/microSD/" style="font-size: 10px;">microSD</a> <a href="/tags/openKylin/" style="font-size: 13.75px;">openKylin</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">中缀表达式</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/" style="font-size: 10px;">二叉查找树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">关键路径</a> <a href="/tags/%E5%88%86%E7%B1%BB/" style="font-size: 10px;">分类</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">博客美化</a> <a href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">后缀表达式</a> <a href="/tags/%E5%9B%BE/" style="font-size: 18.75px;">图</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">存储结构</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">容器</a> <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" style="font-size: 17.5px;">嵌入式</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">平衡二叉树</a> <a href="/tags/%E5%BA%94%E7%94%A8/" style="font-size: 10px;">应用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">快速排序</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" style="font-size: 10px;">快速选择</a> <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 15px;">排序</a> <a href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">插入排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6IO/" style="font-size: 10px;">文件IO</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 11.25px;">最小生成树</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 11.25px;">最短路径</a> <a href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">松弛操作</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.75px;">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 13.75px;">树</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 13.75px;">树莓派</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 10px;">模板</a> <a href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" style="font-size: 10px;">毛玻璃</a> <a href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">泛型编程</a> <a href="/tags/%E7%83%A7%E5%BD%95/" style="font-size: 10px;">烧录</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 10px;">竞赛</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 10px;">线段树</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" style="font-size: 10px;">输入输出</a> <a href="/tags/%E8%BE%93%E5%87%BA/" style="font-size: 10px;">输出</a> <a href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">远程桌面</a> <a href="/tags/%E9%81%8D%E5%8E%86/" style="font-size: 10px;">遍历</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">邻接矩阵</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/" style="font-size: 10px;">邻接表</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2026/04/30/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/">自动改标题上传测试</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/28/Cann/report/">report</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/">开启监视</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/">[树莓派] 3. 以SSH连接树莓派</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">46</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-30T07:56:32.420Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

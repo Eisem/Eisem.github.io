@@ -1,743 +1,216 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo my blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="none">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Welcome To My-Blog - 百亿人都在用的博客</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="none">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo my blog">
+<meta property="og:title" content="Welcome To My-Blog">
 <meta property="og:url" content="http://example.com/page/5/index.html">
-<meta property="og:site_name" content="Hexo my blog">
+<meta property="og:site_name" content="Welcome To My-Blog">
 <meta property="og:description" content="none">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="John Doe">
+<meta property="og:image" content="http://example.com/img/A4.webp">
+<meta property="article:author" content="Eisem">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo my blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo my blog</a>
-      </h1>
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
       
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">asdf</a>
-        </h2>
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Welcome To My-Blog',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Welcome To My-Blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88%E7%9A%84%E7%AE%97%E6%B3%95/" title="[数据结构·栈] 核心应用与算法实战">[数据结构·栈] 核心应用与算法实战</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-01T03:00:00.000Z" title="发表于 2025-12-01 11:00:00">2025-12-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a></span></div><div class="content">数据结构复习：栈 (Stack) 的核心应用与算法实战1. 栈的基本概念回顾栈是一种后进先出 (LIFO, Last In First Out) 的线性数据结构。  主要操作：push (入栈), pop (出栈), top&#x2F;peek (查看栈顶), isEmpty (判空)。 核心本质：栈主要用于处理具有完全包含关系或逆序处理的问题。   2. 栈的四大核心应用场景2.1 符号匹配与语法解析 (Symbol Matching)这是栈最经典的应用。编译器在检查代码语法（如括号匹配 &#123; [ ( ) ] &#125;）时，利用栈来确保每一个右括号都能匹配最近的一个未匹配的左括号。  原理：遇到左括号入栈，遇到右括号检查栈顶是否为对应的左括号，若是则出栈，否则报错。  2.2 表达式求值 (Expression Evaluation)计算机无法像人类一样直接理解中缀表达式（如 3 + 4 * 5），通常需要转化为后缀表达式 (逆波兰表达式, RPN) 或...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88/" title="[数据结构·栈] 栈">[数据结构·栈] 栈</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-12-01T02:00:00.000Z" title="发表于 2025-12-01 10:00:00">2025-12-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a></span></div><div class="content">数据结构：栈 (Stack)一、 什么是栈？栈是一种特殊的线性表，其所有插入和删除操作都限制在表的同一端进行。这个允许操作的端点被称为**栈顶 (Top)，另一端则被称为栈底 (Bottom)**。 栈的核心特点是 **后进先出 (Last-In, First-Out)**，简称 LIFO。  形象比喻：我们可以把栈想象成一个只有一个开口的狭窄死胡同，或者一摞盘子。  **存入数据 (入栈&#x2F;Push)**：就像在胡同口放东西或者在最上面放一个新盘子。 **取出数据 (出栈&#x2F;Pop)**：就像从胡同口取出东西或者从最上面拿走一个盘子。你总是最后放入的那个最先被取出。    二、 栈的逻辑结构从逻辑结构上讲，栈是一种线性结构。数据元素之间存在着“一对一”的关系。除了第一个元素（栈底）没有前驱，最后一个元素（栈顶）没有后继外，其他每个元素都有一个唯一的前驱和唯一的后继。 其特殊之处在于，它的操作受到了限制，数据只能从栈顶进出。  **栈顶 (Top)**：允许进行插入和删除操作的一端。 **栈底 (Bottom)**：固定不动，不允许操作的一端。 **空栈...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/05/%E6%A0%91%E8%8E%93%E6%B4%BE/2.%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C/" title="[树莓派] 2. 首次启动与连接网络">[树莓派] 2. 首次启动与连接网络</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-05T07:07:45.000Z" title="发表于 2025-11-05 15:07:45">2025-11-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></span></div><div class="content">本笔记介绍的方法只适用于用网线直接连接树莓派和电脑，也许对使用WIFI连接有启发作用。 工具准备 一根网线 可以供电的type-C线 已经烧录好系统的SD卡 micro-HDMI线，用于连接到显示器  硬件连接 将SD卡插入树莓派。 将Type-C供电接口插入树莓派 将网线插入树莓派以太网接口  硬件连接完成 首次启动由于作者用的是一张大容量低速卡，首次启动需要等待的时间很长，建议第一次插卡后观察电源附近ACT小灯，如果疯狂闪光并且持续一段时间说明成功概率很大，需要耐心等待。接下来，你可以进行电脑侧的网络配置，在配置完以后，就可以监测系统的运行状态。 电脑网络设置 打开电脑网络连接设置(输入win+R，然后输入ncpa.cpl).  找到现在电脑正在使用的网络（可上网的那个），右键，选择”属性“-&gt;”共享“   勾选“允许其他网络用户…”，并在下拉菜单中选择“以太网”。最后记得点击确定   监测运行状态为了获取树莓派的IP，我们需要下载IP扫描软件 Advanced IP Scanner 扫描 192.168.137.1-254 网段。Advanced IP...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/1.%E7%83%A7%E5%BD%95kylinOS%E5%88%B0microSD%E5%8D%A1%E4%B8%8A/" title="[树莓派] 1. 烧录KylinOS到MicroSD卡">[树莓派] 1. 烧录KylinOS到MicroSD卡</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-20T14:36:44.000Z" title="发表于 2025-10-20 22:36:44">2025-10-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></span></div><div class="content">这一步是部署kylin的第一步，本人在这一步踩了一个巨坑：下载错系统版本，浪费了巨量时间。 工具准备： microSD卡（高速，容量不用很大，32GB-64GB够用即可） 一个USB读卡器  启动盘制作工具安装首先，下载树莓派官方的启动盘制作工具：Raspberry Pi ImagerRaspberry Pi software – Raspberry Pi找到自己电脑对应的版本，安装并启动，显示如下界面： openkylin系统镜像下载进入openkylin系统镜像下载官网：openKylin开源操作系统 官网界面如下图：如果你是树莓派4&#x2F;4B，请不要下载右边的RaspberryPI版本，这是提供给树莓派5的系统，我们要点击下面的历史版本，找到最新的没有标注rasp5的arm64版本 下载这一个版本即可等待下载后，我们得到了一个.xz 文件，这就是系统镜像的压缩包，无需手动解压，Raspberry PI Imager会自己解压读取里面的内容 系统烧录将SD卡插入到电脑，在Raspberry PI...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/4.VNC%E8%BF%9C%E7%A8%8B%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93/" title="[树莓派] 4. VNC远程桌面连接">[树莓派] 4. VNC远程桌面连接</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-10-20T02:31:00.000Z" title="发表于 2025-10-20 10:31:00">2025-10-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></span></div><div class="content">由于我们使用的是 openKylin 操作系统，而不是 Raspberry Pi OS。这意味着我们不能使用 raspi-config 工具，也不能使用 Raspberry Pi OS 默认集成的 RealVNC。需要使用 Linux 通用的 VNC 解决方案。 对于 openKylin (一个基于 Linux 的发行版)，最常用和最适合无头模式的 VNC 服务器是 TigerVNC  请通过ssh终端执行以下步骤 安装TigerVNC服务器1.首先，更新软件包列表，然后安装 tigervnc-standalone-server。openKylin 使用 apt 作为包管理器 12sudo apt updatesudo apt install tigervnc-standalone-server  2.设置VNC密码安装完成后，需要运行一次 vncserver 命令来设置一个专用于 VNC 连接的密码 在终端输入 1vncserver  然后系统会提示设置密码： You will require a password to access your desktops....</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/24/my-first-blog/" title="my first blog">my first blog</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-02-24T13:16:46.000Z" title="发表于 2025-02-24 21:16:46">2025-02-24</time></span></div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/4/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="page-number current">5</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/hello-world/" title="Hello World">Hello World</a><time datetime="2026-04-30T07:35:23.329Z" title="发表于 2026-04-30 15:35:23">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试">自动改标题上传测试</a><time datetime="2026-04-30T06:53:16.661Z" title="发表于 2026-04-30 14:53:16">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/Cann/report/" title="report">report</a><time datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视">开启监视</a><time datetime="2026-04-27T16:18:39.555Z" title="发表于 2026-04-28 00:18:39">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/"><span class="card-category-list-name">RK3576与模型部署</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">数据结构笔记</span><span class="card-category-list-count">31</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/C-%E8%AF%AD%E6%B3%95/"><span class="card-category-list-name">C++语法</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/"><span class="card-category-list-name">图</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%8E%92%E5%BA%8F/"><span class="card-category-list-name">排序</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/"><span class="card-category-list-name">栈</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/"><span class="card-category-list-name">树</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E9%93%BE%E8%A1%A8/"><span class="card-category-list-name">链表</span><span class="card-category-list-count">1</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/RKNN/" style="font-size: 1.1em; color: #999">RKNN</a> <a href="/tags/AI/" style="font-size: 1.1em; color: #999">AI</a> <a href="/tags/asd/" style="font-size: 1.1em; color: #999">asd</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 1.1em; color: #999">容器</a> <a href="/tags/Floyd/" style="font-size: 1.1em; color: #999">Floyd</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 1.1em; color: #999">网络配置</a> <a href="/tags/RMQ/" style="font-size: 1.1em; color: #999">RMQ</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 1.1em; color: #999">堆排序</a> <a href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" style="font-size: 1.18em; color: #999ca1">存储结构</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" style="font-size: 1.1em; color: #999">邻接矩阵</a> <a href="/tags/RK3576/" style="font-size: 1.34em; color: #99a3b0">RK3576</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.5em; color: #99a9bf">数据结构</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 1.1em; color: #999">线段树</a> <a href="/tags/%E9%81%8D%E5%8E%86/" style="font-size: 1.1em; color: #999">遍历</a> <a href="/tags/cout/" style="font-size: 1.1em; color: #999">cout</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.1em; color: #999">链表</a> <a href="/tags/Kruskal/" style="font-size: 1.1em; color: #999">Kruskal</a> <a href="/tags/%E8%BE%93%E5%87%BA/" style="font-size: 1.1em; color: #999">输出</a> <a href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">泛型编程</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" style="font-size: 1.1em; color: #999">快速选择</a> <a href="/tags/openKylin/" style="font-size: 1.26em; color: #999fa8">openKylin</a> <a href="/tags/RKLLM/" style="font-size: 1.18em; color: #999ca1">RKLLM</a> <a href="/tags/Prim/" style="font-size: 1.1em; color: #999">Prim</a> <a href="/tags/%E5%BA%94%E7%94%A8/" style="font-size: 1.1em; color: #999">应用</a> <a href="/tags/%E6%A0%91/" style="font-size: 1.26em; color: #999fa8">树</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 1.1em; color: #999">竞赛</a> <a href="/tags/BST/" style="font-size: 1.1em; color: #999">BST</a> <a href="/tags/TigerVNC/" style="font-size: 1.1em; color: #999">TigerVNC</a> <a href="/tags/%E5%88%86%E7%B1%BB/" style="font-size: 1.1em; color: #999">分类</a> <a href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" style="font-size: 1.1em; color: #999">松弛操作</a> <a href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" style="font-size: 1.1em; color: #999">关键路径</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 1.34em; color: #99a3b0">排序</a> <a href="/tags/%E5%9B%BE/" style="font-size: 1.42em; color: #99a6b7">图</a> <a href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.1em; color: #999">后缀表达式</a> <a href="/tags/NPU/" style="font-size: 1.1em; color: #999">NPU</a> <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" style="font-size: 1.1em; color: #999">拓扑排序</a> <a href="/tags/%E6%A0%88/" style="font-size: 1.26em; color: #999fa8">栈</a> <a href="/tags/%E7%83%A7%E5%BD%95/" style="font-size: 1.1em; color: #999">烧录</a> <a href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.1em; color: #999">中缀表达式</a> <a href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" style="font-size: 1.1em; color: #999">毛玻璃</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-数据结构笔记/栈/栈的算法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88%E7%9A%84%E7%AE%97%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2025-12-01T03:00:00.000Z" itemprop="datePublished">2025-12-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a>►<a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88%E7%9A%84%E7%AE%97%E6%B3%95/">[数据结构·栈] 核心应用与算法实战</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+    <ul class="card-archive-list">
       
-        <h1 id="数据结构复习：栈-Stack-的核心应用与算法实战"><a href="#数据结构复习：栈-Stack-的核心应用与算法实战" class="headerlink" title="数据结构复习：栈 (Stack) 的核心应用与算法实战"></a>数据结构复习：栈 (Stack) 的核心应用与算法实战</h1><h2 id="1-栈的基本概念回顾"><a href="#1-栈的基本概念回顾" class="headerlink" title="1. 栈的基本概念回顾"></a>1. 栈的基本概念回顾</h2><p>栈是一种<strong>后进先出 (LIFO, Last In First Out)</strong> 的线性数据结构。</p>
-<ul>
-<li><strong>主要操作</strong>：<code>push</code> (入栈), <code>pop</code> (出栈), <code>top</code>&#x2F;<code>peek</code> (查看栈顶), <code>isEmpty</code> (判空)。</li>
-<li><strong>核心本质</strong>：栈主要用于处理具有<strong>完全包含关系</strong>或<strong>逆序处理</strong>的问题。</li>
-</ul>
-<hr>
-<h2 id="2-栈的四大核心应用场景"><a href="#2-栈的四大核心应用场景" class="headerlink" title="2. 栈的四大核心应用场景"></a>2. 栈的四大核心应用场景</h2><h3 id="2-1-符号匹配与语法解析-Symbol-Matching"><a href="#2-1-符号匹配与语法解析-Symbol-Matching" class="headerlink" title="2.1 符号匹配与语法解析 (Symbol Matching)"></a>2.1 符号匹配与语法解析 (Symbol Matching)</h3><p>这是栈最经典的应用。编译器在检查代码语法（如括号匹配 <code>&#123; [ ( ) ] &#125;</code>）时，利用栈来确保每一个右括号都能匹配最近的一个未匹配的左括号。</p>
-<ul>
-<li><strong>原理</strong>：遇到左括号入栈，遇到右括号检查栈顶是否为对应的左括号，若是则出栈，否则报错。</li>
-</ul>
-<h3 id="2-2-表达式求值-Expression-Evaluation"><a href="#2-2-表达式求值-Expression-Evaluation" class="headerlink" title="2.2 表达式求值 (Expression Evaluation)"></a>2.2 表达式求值 (Expression Evaluation)</h3><p>计算机无法像人类一样直接理解中缀表达式（如 <code>3 + 4 * 5</code>），通常需要转化为<strong>后缀表达式 (逆波兰表达式, RPN)</strong> 或 <strong>前缀表达式</strong>。</p>
-<ul>
-<li><strong>中缀转后缀</strong>：使用一个栈存储运算符，根据优先级决定何时出栈输出。</li>
-<li><strong>后缀表达式求值</strong>：使用一个栈存储操作数。遇到数字入栈，遇到运算符则弹出栈顶两个数字进行计算，结果再入栈。</li>
-</ul>
-<h3 id="2-3-函数调用与递归-Function-Call-Recursion"><a href="#2-3-函数调用与递归-Function-Call-Recursion" class="headerlink" title="2.3 函数调用与递归 (Function Call &amp; Recursion)"></a>2.3 函数调用与递归 (Function Call &amp; Recursion)</h3><p>在操作系统层面，栈用于管理函数的调用。</p>
-<ul>
-<li>**调用栈 (Call Stack)<strong>：每当调用一个函数时，系统会为该函数创建一个</strong>栈帧 (Stack Frame)**，存储局部变量、参数和返回地址。</li>
-<li><strong>递归</strong>：递归本质上就是利用系统栈来保存每一层的状态。如果递归过深，会导致 <code>Stack Overflow</code>。</li>
-</ul>
-<h3 id="2-4-单调栈-Monotonic-Stack"><a href="#2-4-单调栈-Monotonic-Stack" class="headerlink" title="2.4 单调栈 (Monotonic Stack)"></a>2.4 单调栈 (Monotonic Stack)</h3><p><strong>这是算法竞赛和高难度面试题中的重点。</strong></p>
-<ul>
-<li><strong>定义</strong>：栈内元素保持单调递增或单调递减。</li>
-<li><strong>应用</strong>：用于寻找数组中<strong>左边&#x2F;右边第一个比当前元素大&#x2F;小</strong>的元素。</li>
-<li><strong>时间复杂度</strong>：每个元素最多进栈一次、出栈一次，所以复杂度通常是 $O(n)$。</li>
-</ul>
-<hr>
-<h2 id="3-LeetCode-精选算法题-C-版"><a href="#3-LeetCode-精选算法题-C-版" class="headerlink" title="3. LeetCode 精选算法题 (C++ 版)"></a>3. LeetCode 精选算法题 (C++ 版)</h2><p>以下题目涵盖了栈的不同考察方向，建议按照顺序练习。</p>
-<h3 id="题目-1：有效的括号-基础"><a href="#题目-1：有效的括号-基础" class="headerlink" title="题目 1：有效的括号 (基础)"></a>题目 1：有效的括号 (基础)</h3><p><strong>LeetCode 20: Valid Parentheses</strong></p>
-<blockquote>
-<p><strong>描述</strong>：给定一个只包括 <code>&#39;(&#39;</code>, <code>&#39;)&#39;</code>, <code>&#39;&#123;&#39;</code>, <code>&#39;&#125;&#39;</code>, <code>&#39;[&#39;</code>, <code>&#39;]&#39;</code> 的字符串，判断字符串是否有效。</p>
-</blockquote>
-<p><strong>解题思路</strong>：<br>标准的栈应用。遇到左括号入栈，遇到右括号判断栈顶。注意处理栈空的情况。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValid</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.<span class="built_in">size</span>() % <span class="number">2</span> != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 奇数长度一定无效</span></span><br><span class="line">        stack&lt;<span class="type">char</span>&gt; st;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : s) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="string">&#x27;(&#x27;</span> || c == <span class="string">&#x27;[&#x27;</span> || c == <span class="string">&#x27;&#123;&#x27;</span>) &#123;</span><br><span class="line">                st.<span class="built_in">push</span>(c);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (st.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="type">char</span> top = st.<span class="built_in">top</span>();</span><br><span class="line">                <span class="keyword">if</span> ((c == <span class="string">&#x27;)&#x27;</span> &amp;&amp; top == <span class="string">&#x27;(&#x27;</span>) || </span><br><span class="line">                    (c == <span class="string">&#x27;]&#x27;</span> &amp;&amp; top == <span class="string">&#x27;[&#x27;</span>) || </span><br><span class="line">                    (c == <span class="string">&#x27;&#125;&#x27;</span> &amp;&amp; top == <span class="string">&#x27;&#123;&#x27;</span>)) &#123;</span><br><span class="line">                    st.<span class="built_in">pop</span>();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> st.<span class="built_in">empty</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">### 题目 <span class="number">2</span>：最小栈 (辅助栈思想)</span><br><span class="line"></span><br><span class="line">**LeetCode <span class="number">155</span>: Min Stack**</span><br><span class="line"></span><br><span class="line">&gt; **描述**：设计一个支持 `push`, `pop`, `top` 操作，并能在常数时间内检索到最小元素的栈。</span><br><span class="line"></span><br><span class="line">解题思路：</span><br><span class="line"></span><br><span class="line">使用两个栈。</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> `dataStack`: 正常存储数据。</span><br><span class="line">    </span><br><span class="line"><span class="number">2.</span> `minStack`: 同步存储当前的最小值。每次 push 时，如果新值小于等于 `minStack` 栈顶，则也 push 进 `minStack`。</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">C++</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MinStack</span> &#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; min_s;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MinStack</span>() &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        s.<span class="built_in">push</span>(val);</span><br><span class="line">        <span class="comment">// 注意这里是 &lt;=，重复的最小值也要入栈</span></span><br><span class="line">        <span class="keyword">if</span> (min_s.<span class="built_in">empty</span>() || val &lt;= min_s.<span class="built_in">top</span>()) &#123;</span><br><span class="line">            min_s.<span class="built_in">push</span>(val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.<span class="built_in">top</span>() == min_s.<span class="built_in">top</span>()) &#123;</span><br><span class="line">            min_s.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        s.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s.<span class="built_in">top</span>(); &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> min_s.<span class="built_in">top</span>(); &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="题目-3：逆波兰表达式求值-后缀表达式"><a href="#题目-3：逆波兰表达式求值-后缀表达式" class="headerlink" title="题目 3：逆波兰表达式求值 (后缀表达式)"></a>题目 3：逆波兰表达式求值 (后缀表达式)</h3><p><strong>LeetCode 150: Evaluate Reverse Polish Notation</strong></p>
-<blockquote>
-<p><strong>描述</strong>：根据逆波兰表示法，求表达式的值。输入: <code>[&quot;2&quot;,&quot;1&quot;,&quot;+&quot;,&quot;3&quot;,&quot;*&quot;]</code> -&gt; <code>((2 + 1) * 3) = 9</code>。</p>
-</blockquote>
-<p>解题思路：</p>
-<p>遇到数字 push，遇到符号 pop 两个数字计算后 push 结果。注意减法和除法的操作数顺序（先 pop 出来的是右操作数）。</p>
-<p>C++</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int evalRPN(vector&lt;string&gt;&amp; tokens) &#123;</span><br><span class="line">        stack&lt;long long&gt; st;</span><br><span class="line">        for (const string&amp; s : tokens) &#123;</span><br><span class="line">            if (s == &quot;+&quot; || s == &quot;-&quot; || s == &quot;*&quot; || s == &quot;/&quot;) &#123;</span><br><span class="line">                long long b = st.top(); st.pop();</span><br><span class="line">                long long a = st.top(); st.pop();</span><br><span class="line">                if (s == &quot;+&quot;) st.push(a + b);</span><br><span class="line">                else if (s == &quot;-&quot;) st.push(a - b);</span><br><span class="line">                else if (s == &quot;*&quot;) st.push(a * b);</span><br><span class="line">                else if (s == &quot;/&quot;) st.push(a / b);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                st.push(stoll(s));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return st.top();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="题目-4：每日温度-单调栈经典"><a href="#题目-4：每日温度-单调栈经典" class="headerlink" title="题目 4：每日温度 (单调栈经典)"></a>题目 4：每日温度 (单调栈经典)</h3><p><strong>LeetCode 739: Daily Temperatures</strong></p>
-<blockquote>
-<p><strong>描述</strong>：给定一个温度列表，对于每一个位置，求下一次气温升高需要等待的天数。如果之后都没升高，填 0。</p>
-</blockquote>
-<p>解题思路：</p>
-<p>维护一个单调递减栈（存储下标）。</p>
-<ol>
-<li><p>遍历数组，如果当前温度 <code>T[i]</code> 大于栈顶下标对应的温度 <code>T[top]</code>，说明找到了栈顶元素右边第一个比它大的数。</p>
-</li>
-<li><p>此时弹出栈顶，计算下标差值 <code>i - top</code>，即为等待天数。</p>
-</li>
-<li><p>重复上述过程直到栈为空或当前温度不再大于栈顶温度，将 <code>i</code> 入栈。</p>
-</li>
-</ol>
-<p>C++</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; dailyTemperatures(vector&lt;int&gt;&amp; temperatures) &#123;</span><br><span class="line">        int n = temperatures.size();</span><br><span class="line">        vector&lt;int&gt; ans(n, 0);</span><br><span class="line">        stack&lt;int&gt; st; // 存下标</span><br><span class="line">        </span><br><span class="line">        for (int i = 0; i &lt; n; ++i) &#123;</span><br><span class="line">            // 当前元素大于栈顶元素 -&gt; 破坏了递减性质 -&gt; 触发计算</span><br><span class="line">            while (!st.empty() &amp;&amp; temperatures[i] &gt; temperatures[st.top()]) &#123;</span><br><span class="line">                int prevIndex = st.top();</span><br><span class="line">                st.pop();</span><br><span class="line">                ans[prevIndex] = i - prevIndex;</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="题目-5：验证栈序列-模拟"><a href="#题目-5：验证栈序列-模拟" class="headerlink" title="题目 5：验证栈序列 (模拟)"></a>题目 5：验证栈序列 (模拟)</h3><p><strong>LeetCode 946: Validate Stack Sequences</strong></p>
-<blockquote>
-<p><strong>描述</strong>：给定 <code>pushed</code> 和 <code>popped</code> 两个序列，判断 <code>popped</code> 是否可能是 <code>pushed</code> 的弹出序列。</p>
-</blockquote>
-<p>解题思路：</p>
-<p>直接模拟。</p>
-<ol>
-<li><p>遍历 <code>pushed</code> 数组，将元素入栈。</p>
-</li>
-<li><p>每次入栈后，循环检查：如果栈不为空且栈顶元素等于 <code>popped</code> 当前指向的元素，则出栈，并移动 <code>popped</code> 指针。</p>
-</li>
-<li><p>最后如果栈为空，说明序列合法。</p>
-</li>
-</ol>
-<p>C++</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool validateStackSequences(vector&lt;int&gt;&amp; pushed, vector&lt;int&gt;&amp; popped) &#123;</span><br><span class="line">        stack&lt;int&gt; st;</span><br><span class="line">        int j = 0; // 指向 popped 数组</span><br><span class="line">        for (int x : pushed) &#123;</span><br><span class="line">            st.push(x);</span><br><span class="line">            while (!st.empty() &amp;&amp; st.top() == popped[j]) &#123;</span><br><span class="line">                st.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return st.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>在期末复习或面试中，遇到以下关键词请优先考虑 <strong>栈</strong>：</p>
-<ol>
-<li><p><strong>最近相关性</strong>：如“匹配最近的括号”、“消除相邻重复项”。</p>
-</li>
-<li><p><strong>反转&#x2F;逆序</strong>：如“链表逆序打印”、“逆波兰表达式”。</p>
-</li>
-<li><p><strong>嵌套结构</strong>：如“解析 XML&#x2F;JSON”、“目录路径简化”。</p>
-</li>
-<li><p><strong>下一个更大&#x2F;更小元素</strong>：这是<strong>单调栈</strong>的专属领域。</p>
-</li>
-</ol>
-
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88%E7%9A%84%E7%AE%97%E6%B3%95/" data-id="cmol6d2yv00be7grtfeeob47y" data-title="[数据结构·栈] 核心应用与算法实战" class="article-share-link"><span class="fa fa-share">分享</span></a>
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
       
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">37</span>
+          </a>
+        </li>
       
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-数据结构笔记/栈/栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88/" class="article-date">
-  <time class="dt-published" datetime="2025-12-01T02:00:00.000Z" itemprop="datePublished">2025-12-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a>►<a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88/">[数据结构·栈] 栈</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
       
-        <h1 id="数据结构：栈-Stack"><a href="#数据结构：栈-Stack" class="headerlink" title="数据结构：栈 (Stack)"></a>数据结构：栈 (Stack)</h1><h2 id="一、-什么是栈？"><a href="#一、-什么是栈？" class="headerlink" title="一、 什么是栈？"></a>一、 什么是栈？</h2><p>栈是一种特殊的线性表，其所有插入和删除操作都限制在表的同一端进行。这个允许操作的端点被称为**栈顶 (Top)<strong>，另一端则被称为</strong>栈底 (Bottom)**。</p>
-<p>栈的核心特点是 **后进先出 (Last-In, First-Out)**，简称 <strong>LIFO</strong>。</p>
-<blockquote>
-<p><strong>形象比喻：</strong><br>我们可以把栈想象成一个只有一个开口的狭窄死胡同，或者一摞盘子。</p>
-<ul>
-<li>**存入数据 (入栈&#x2F;Push)**：就像在胡同口放东西或者在最上面放一个新盘子。</li>
-<li>**取出数据 (出栈&#x2F;Pop)**：就像从胡同口取出东西或者从最上面拿走一个盘子。你总是最后放入的那个最先被取出。</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="二、-栈的逻辑结构"><a href="#二、-栈的逻辑结构" class="headerlink" title="二、 栈的逻辑结构"></a>二、 栈的逻辑结构</h2><p>从逻辑结构上讲，栈是一种<strong>线性结构</strong>。数据元素之间存在着“一对一”的关系。除了第一个元素（栈底）没有前驱，最后一个元素（栈顶）没有后继外，其他每个元素都有一个唯一的前驱和唯一的后继。</p>
-<p>其特殊之处在于，它的操作受到了限制，数据只能从栈顶进出。</p>
-<ul>
-<li>**栈顶 (Top)**：允许进行插入和删除操作的一端。</li>
-<li>**栈底 (Bottom)**：固定不动，不允许操作的一端。</li>
-<li>**空栈 (Empty Stack)**：不包含任何数据元素的栈。</li>
-</ul>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Lifo_stack.png" alt="Stack Logical Structure"></p>
-<hr>
-<h2 id="三、-栈的物理结构（存储结构）"><a href="#三、-栈的物理结构（存储结构）" class="headerlink" title="三、 栈的物理结构（存储结构）"></a>三、 栈的物理结构（存储结构）</h2><p>栈的物理实现主要有两种方式：<strong>顺序栈</strong>和<strong>链式栈</strong>。</p>
-<h3 id="1-顺序栈-Sequential-Stack"><a href="#1-顺序栈-Sequential-Stack" class="headerlink" title="1. 顺序栈 (Sequential Stack)"></a>1. 顺序栈 (Sequential Stack)</h3><p>顺序栈是利用一组地址连续的存储单元（通常是<strong>数组</strong>）来依次存放从栈底到栈顶的数据元素。</p>
-<ul>
-<li><strong>实现方式</strong>：使用一个数组 <code>data</code> 来存储数据，并用一个整型变量 <code>top</code> 来记录栈顶元素在数组中的位置（索引）。<code>top</code> 通常被称为<strong>栈顶指针</strong>。</li>
-<li><strong>栈顶指针 <code>top</code> 的两种约定</strong>：<ol>
-<li><code>top</code> 指向栈顶元素的位置。</li>
-<li><code>top</code> 指向栈顶元素的下一个位置。<br>  （以下代码实现将采用第 2 种约定，因为这在判断栈满和栈空时更方便）</li>
-</ol>
-</li>
-<li><strong>特点</strong>：<ul>
-<li><strong>优点</strong>：存取速度快，因为是随机存取。</li>
-<li><strong>缺点</strong>：大小固定，在声明时需要预先分配好空间。如果空间分配过小，可能导致**栈上溢 (Overflow)**；如果过大，则会浪费存储空间。</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-链式栈-Linked-Stack"><a href="#2-链式栈-Linked-Stack" class="headerlink" title="2. 链式栈 (Linked Stack)"></a>2. 链式栈 (Linked Stack)</h3><p>链式栈是采用<strong>链表</strong>来实现的。通常使用单链表，并且将链表的<strong>头结点作为栈顶</strong>，这样可以使得入栈和出栈操作的时间复杂度都是 $O(1)$。</p>
-<ul>
-<li><strong>实现方式</strong>：每个节点包含一个数据域 <code>data</code> 和一个指向下一个节点的指针域 <code>next</code>。用一个指针 <code>top</code> 指向链表的头结点（即栈顶元素）。</li>
-<li><strong>特点</strong>：<ul>
-<li><strong>优点</strong>：大小可以动态扩展，空间利用率高，不存在栈上溢的问题（除非内存耗尽）。</li>
-<li><strong>缺点</strong>：每个元素都需要额外的指针域，存在一定的空间开销。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="四、-栈的常用操作"><a href="#四、-栈的常用操作" class="headerlink" title="四、 栈的常用操作"></a>四、 栈的常用操作</h2><p>无论栈的物理结构是顺序的还是链式的，其基本操作是相同的。</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>描述</th>
-<th>时间复杂度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>push(element)</code></td>
-<td><strong>入栈</strong>：将元素 <code>element</code> 压入栈顶。</td>
-<td>$O(1)$</td>
-</tr>
-<tr>
-<td><code>pop()</code></td>
-<td><strong>出栈</strong>：移除并返回栈顶元素。</td>
-<td>$O(1)$</td>
-</tr>
-<tr>
-<td><code>peek()</code> &#x2F; <code>top()</code></td>
-<td><strong>查看栈顶</strong>：返回栈顶元素，但不移除它。</td>
-<td>$O(1)$</td>
-</tr>
-<tr>
-<td><code>isEmpty()</code></td>
-<td><strong>判空</strong>：检查栈是否为空。</td>
-<td>$O(1)$</td>
-</tr>
-<tr>
-<td><code>size()</code></td>
-<td><strong>获取大小</strong>：返回栈中元素的数量。</td>
-<td>$O(1)$</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="五、-代码实现-C"><a href="#五、-代码实现-C" class="headerlink" title="五、 代码实现 (C++)"></a>五、 代码实现 (C++)</h2><p>下面分别提供顺序栈和链式栈的 C++ 代码实现。</p>
-<h3 id="1-顺序栈-基于数组"><a href="#1-顺序栈-基于数组" class="headerlink" title="1. 顺序栈 (基于数组)"></a>1. 顺序栈 (基于数组)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span> <span class="comment">// 用于抛出异常</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAX_SIZE = <span class="number">100</span>; <span class="comment">// 预设栈的最大容量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SequentialStack</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T data[MAX_SIZE]; <span class="comment">// 使用数组存储数据</span></span><br><span class="line">    <span class="type">int</span> top_index;    <span class="comment">// 栈顶指针（索引），指向栈顶元素的下一个位置</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">SequentialStack</span>() &#123;</span><br><span class="line">        top_index = <span class="number">0</span>; <span class="comment">// 初始化栈顶指针，表示栈为空</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作1：入栈 (Push)</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">const</span> T&amp; element)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (top_index &gt;= MAX_SIZE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">overflow_error</span>(<span class="string">&quot;Stack Overflow&quot;</span>); <span class="comment">// 栈满，抛出上溢异常</span></span><br><span class="line">        &#125;</span><br><span class="line">        data[top_index] = element;</span><br><span class="line">        top_index++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作2：出栈 (Pop)</span></span><br><span class="line">    <span class="function">T <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isEmpty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">underflow_error</span>(<span class="string">&quot;Stack is empty&quot;</span>); <span class="comment">// 栈空，抛出下溢异常</span></span><br><span class="line">        &#125;</span><br><span class="line">        top_index--;</span><br><span class="line">        <span class="keyword">return</span> data[top_index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作3：查看栈顶元素 (Peek)</span></span><br><span class="line">    <span class="function">T <span class="title">peek</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isEmpty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">underflow_error</span>(<span class="string">&quot;Stack is empty&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[top_index - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作4：判断栈是否为空 (isEmpty)</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> top_index == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作5：获取栈的大小 (size)</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">size</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> top_index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// --- 主函数测试 ---</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SequentialStack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is stack empty? &quot;</span> &lt;&lt; (s.<span class="built_in">isEmpty</span>() ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Pushing 10, 20, 30...&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">10</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">20</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Current stack size: &quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Top element is: &quot;</span> &lt;&lt; s.<span class="built_in">peek</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Popping element: &quot;</span> &lt;&lt; s.<span class="built_in">pop</span>() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Now top element is: &quot;</span> &lt;&lt; s.<span class="built_in">peek</span>() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Current stack size: &quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">### <span class="number">2.</span> 链式栈 (基于链表)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LinkedStack</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 节点结构</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">        T data;</span><br><span class="line">        Node* next;</span><br><span class="line">        <span class="built_in">Node</span>(<span class="type">const</span> T&amp; val) : <span class="built_in">data</span>(val), <span class="built_in">next</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    Node* top_ptr; <span class="comment">// 指向栈顶节点的指针</span></span><br><span class="line">    <span class="type">int</span> count;     <span class="comment">// 栈中元素的数量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">LinkedStack</span>() : <span class="built_in">top_ptr</span>(<span class="literal">nullptr</span>), <span class="built_in">count</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 析构函数，用于释放所有节点内存</span></span><br><span class="line">    ~<span class="built_in">LinkedStack</span>() &#123;</span><br><span class="line">        <span class="keyword">while</span> (!<span class="built_in">isEmpty</span>()) &#123;</span><br><span class="line">            <span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作1：入栈 (Push)</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">const</span> T&amp; element)</span> </span>&#123;</span><br><span class="line">        Node* newNode = <span class="keyword">new</span> <span class="built_in">Node</span>(element);</span><br><span class="line">        newNode-&gt;next = top_ptr; <span class="comment">// 新节点的next指向原来的栈顶</span></span><br><span class="line">        top_ptr = newNode;       <span class="comment">// 更新栈顶指针为新节点</span></span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作2：出栈 (Pop)</span></span><br><span class="line">    <span class="function">T <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isEmpty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">underflow_error</span>(<span class="string">&quot;Stack is empty&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Node* temp = top_ptr;      <span class="comment">// 临时保存栈顶节点</span></span><br><span class="line">        T value = temp-&gt;data;      <span class="comment">// 获取栈顶元素的值</span></span><br><span class="line">        top_ptr = top_ptr-&gt;next;   <span class="comment">// 更新栈顶指针</span></span><br><span class="line">        <span class="keyword">delete</span> temp;               <span class="comment">// 释放原栈顶节点的内存</span></span><br><span class="line">        count--;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作3：查看栈顶元素 (Peek)</span></span><br><span class="line">    <span class="function">T <span class="title">peek</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isEmpty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">underflow_error</span>(<span class="string">&quot;Stack is empty&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> top_ptr-&gt;data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作4：判断栈是否为空 (isEmpty)</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> top_ptr == <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 操作5：获取栈的大小 (size)</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">size</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// --- 主函数测试 ---</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LinkedStack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is stack empty? &quot;</span> &lt;&lt; (s.<span class="built_in">isEmpty</span>() ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Pushing 10, 20, 30...&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">10</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">20</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Current stack size: &quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Top element is: &quot;</span> &lt;&lt; s.<span class="built_in">peek</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Popping element: &quot;</span> &lt;&lt; s.<span class="built_in">pop</span>() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Now top element is: &quot;</span> &lt;&lt; s.<span class="built_in">peek</span>() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Current stack size: &quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[[栈的应用]]</p>
-
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/%E6%A0%88/" data-id="cmol6d2yu00b97grt5ch63rci" data-title="[数据结构·栈] 栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-树莓派/2.首次启动与连接网络" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/11/05/%E6%A0%91%E8%8E%93%E6%B4%BE/2.%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C/" class="article-date">
-  <time class="dt-published" datetime="2025-11-05T07:07:45.000Z" itemprop="datePublished">2025-11-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/11/05/%E6%A0%91%E8%8E%93%E6%B4%BE/2.%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C/">[树莓派] 2. 首次启动与连接网络</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>本笔记介绍的方法只适用于用网线直接连接树莓派和电脑，也许对使用WIFI连接有启发作用。</p>
-<h2 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h2><ol>
-<li>一根网线</li>
-<li>可以供电的type-C线</li>
-<li>已经烧录好系统的SD卡</li>
-<li>micro-HDMI线，用于连接到显示器</li>
-</ol>
-<h2 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h2><ol>
-<li>将SD卡插入树莓派。</li>
-<li>将Type-C供电接口插入树莓派</li>
-<li>将网线插入树莓派以太网接口</li>
-</ol>
-<p>硬件连接完成</p>
-<h2 id="首次启动"><a href="#首次启动" class="headerlink" title="首次启动"></a>首次启动</h2><p>由于作者用的是一张大容量低速卡，首次启动需要等待的时间很长，建议第一次插卡后观察电源附近ACT小灯，如果疯狂闪光并且持续一段时间说明成功概率很大，需要耐心等待。<br>接下来，你可以进行电脑侧的网络配置，在配置完以后，就可以监测系统的运行状态。</p>
-<h2 id="电脑网络设置"><a href="#电脑网络设置" class="headerlink" title="电脑网络设置"></a>电脑网络设置</h2><ol>
-<li><p>打开电脑网络连接设置(输入win+R，然后输入ncpa.cpl).<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213258077.png" alt="Pasted image 20251015132602"></p>
-</li>
-<li><p>找到现在电脑正在使用的网络（可上网的那个），右键，选择”属性“-&gt;”共享“<br> <img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213303836.png" alt="Pasted image 20251015132724"></p>
-</li>
-<li><p>勾选“<strong>允许其他网络用户…<strong>”，并在下拉菜单中选择“</strong>以太网</strong>”。<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213306786.png" alt="Pasted image 20251015132846"><br><strong>最后记得点击确定</strong></p>
-</li>
-</ol>
-<h2 id="监测运行状态"><a href="#监测运行状态" class="headerlink" title="监测运行状态"></a>监测运行状态</h2><p>为了获取树莓派的IP，我们需要下载IP扫描软件 Advanced IP Scanner 扫描 <code>192.168.137.1-254</code> 网段。<br>Advanced IP Scanner可以在官网自行下载或者使用winget下载，<br><a target="_blank" rel="noopener" href="https://www.advanced-ip-scanner.com/cn/">Advanced IP Scanner</a><br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213323675.png" alt="Pasted image 20251015133617"><br>进入界面以后，在图示位置改为<code>192.168.137.1-254</code>，从而扫描树莓派使用的网段，点击扫描后等待，可以看到有除了本机以外的另一台设备出现，记住这时出现的ip</p>
-<p>打开电脑的命令行，使用ping命令对树莓派的状态进行监测</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping &lt;树莓派的IP地址&gt; -t</span><br></pre></td></tr></table></figure>
-
-<p>耐心观察，直到屏幕上出现第一条成功的 <code>Reply from...</code> (回复来自…)。这代表系统已准备就绪。看到回复后，按 <code>Ctrl+C</code> 停止 <code>ping</code>。</p>
-<p>此时，可以连接显示器和键盘鼠标，进入系统桌面。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ping baidu.com</span><br></pre></td></tr></table></figure>
-<p>若显示如下所示，则说明树莓派成功连接了网络。<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213332488.png" alt="Pasted image 20251015143644"></p>
-<p>这一步顺利完成！我们的树莓派可以插着显示器和键鼠运行。<br>#kylin #raspberryPI</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/11/05/%E6%A0%91%E8%8E%93%E6%B4%BE/2.%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C/" data-id="cmol6d2y0000h7grtc6jv7s2o" data-title="[树莓派] 2. 首次启动与连接网络" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-树莓派/1.烧录kylinOS到microSD卡上" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/1.%E7%83%A7%E5%BD%95kylinOS%E5%88%B0microSD%E5%8D%A1%E4%B8%8A/" class="article-date">
-  <time class="dt-published" datetime="2025-10-20T14:36:44.000Z" itemprop="datePublished">2025-10-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/1.%E7%83%A7%E5%BD%95kylinOS%E5%88%B0microSD%E5%8D%A1%E4%B8%8A/">[树莓派] 1. 烧录KylinOS到MicroSD卡</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>这一步是部署kylin的第一步，本人在这一步踩了一个巨坑：下载错系统版本，浪费了巨量时间。</p>
-<h2 id="工具准备："><a href="#工具准备：" class="headerlink" title="工具准备："></a>工具准备：</h2><ol>
-<li>microSD卡（高速，容量不用很大，32GB-64GB够用即可）</li>
-<li>一个USB读卡器</li>
-</ol>
-<h2 id="启动盘制作工具安装"><a href="#启动盘制作工具安装" class="headerlink" title="启动盘制作工具安装"></a>启动盘制作工具安装</h2><p>首先，下载树莓派官方的启动盘制作工具：Raspberry Pi Imager<br><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/software/">Raspberry Pi software – Raspberry Pi</a><br>找到自己电脑对应的版本，安装并启动，显示如下界面：<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213102808.png" alt="Pasted image 20251014163211"></p>
-<h2 id="openkylin系统镜像下载"><a href="#openkylin系统镜像下载" class="headerlink" title="openkylin系统镜像下载"></a>openkylin系统镜像下载</h2><p>进入openkylin系统镜像下载官网：<br><a target="_blank" rel="noopener" href="https://www.openkylin.top/downloads/">openKylin开源操作系统</a></p>
-<p>官网界面如下图：<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213150689.png" alt="Pasted image 20251015091711"><br>如果你是树莓派4&#x2F;4B，请<strong>不要下载</strong>右边的RaspberryPI版本，这是提供给树莓派5的系统，我们要点击下面的历史版本，找到最新的没有标注rasp5的arm64版本</p>
-<p><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213206081.png" alt="Pasted image 20251015092031"><br>下载这一个版本即可<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213213683.png" alt="Pasted image 20251015092140"><br>等待下载后，我们得到了一个.xz 文件，这就是系统镜像的压缩包，无需手动解压，Raspberry PI Imager会自己解压读取里面的内容</p>
-<h2 id="系统烧录"><a href="#系统烧录" class="headerlink" title="系统烧录"></a>系统烧录</h2><p>将SD卡插入到电脑，在Raspberry PI Imager主界面点击”选择存储设备“，选择你插入的SD卡，</p>
-<p><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213233106.png" alt="Pasted image 20251014163539"></p>
-<p>选择操作系统，往下划到底，找到使用自定义镜像，找到之前下载的那个镜像，</p>
-<p><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213239867.png" alt="Pasted image 20251015092543"><br>树莓派设备选择自己的型号，再次确认系统镜像版本和树莓派版本对应（血的教训）<br>树莓派5则下载文件名里面有rasp5的系统，其他版本树莓派下载写有rasp的即可。</p>
-<p><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213243401.png" alt="Pasted image 20251014163610"><br>点击下一步，看到修改配置，如果后续使用网线，我们都默认即可，如果要使用wifi，则要配置一下wifi名称和密码，保存。<br><img src="https://gitee.com/eisem/obsidian-images/raw/master/img/20251020213246027.png" alt="Pasted image 20251014163827"><br>点击开始写入以后，进入如上页面，等待写入完成即可。</p>
-<p>#kylin #raspberryPI</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/1.%E7%83%A7%E5%BD%95kylinOS%E5%88%B0microSD%E5%8D%A1%E4%B8%8A/" data-id="cmol6d2y2000t7grtd7n428i2" data-title="[树莓派] 1. 烧录KylinOS到MicroSD卡" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/microSD/" rel="tag">microSD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%83%A7%E5%BD%95/" rel="tag">烧录</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-树莓派/4.VNC远程视频传输" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/4.VNC%E8%BF%9C%E7%A8%8B%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93/" class="article-date">
-  <time class="dt-published" datetime="2025-10-20T02:31:00.000Z" itemprop="datePublished">2025-10-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/4.VNC%E8%BF%9C%E7%A8%8B%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93/">[树莓派] 4. VNC远程桌面连接</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>由于我们使用的是 <strong>openKylin</strong> 操作系统，而不是 Raspberry Pi OS。这意味着我们<strong>不能</strong>使用 <code>raspi-config</code> 工具，也不能使用 Raspberry Pi OS 默认集成的 RealVNC。需要使用 Linux 通用的 VNC 解决方案。</p>
-<p>对于 openKylin (一个基于 Linux 的发行版)，最常用和最适合无头模式的 VNC 服务器是 <strong>TigerVNC</strong> </p>
-<p>请通过ssh终端执行以下步骤</p>
-<h2 id="安装TigerVNC服务器"><a href="#安装TigerVNC服务器" class="headerlink" title="安装TigerVNC服务器"></a>安装TigerVNC服务器</h2><p>1.首先，更新软件包列表，然后安装 <code>tigervnc-standalone-server</code>。openKylin 使用 <code>apt</code> 作为包管理器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install tigervnc-standalone-server</span><br></pre></td></tr></table></figure>
-
-<p>2.设置VNC密码<br>安装完成后，需要运行一次 <code>vncserver</code> 命令来设置一个专用于 VNC 连接的密码</p>
-<p>在终端输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure>
-
-<p>然后系统会提示设置密码： <code>You will require a password to access your desktops.</code> 我们输入一个 6-8 位的密码</p>
-<p>系统会询问是否设置一个 “view-only” (仅查看) 密码，一般选 <code>n</code> (否) 即可</p>
-<p>第一次运行时，它会自动创建一个默认配置文件，并启动一个 VNC 会话（可能在 <code>:1</code> 端口上）。我们先把它停掉，以便进行下一步配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver -<span class="built_in">kill</span> :1</span><br></pre></td></tr></table></figure>
-
-<h2 id="关键-配置-VNC-以启动-openKylin-桌面"><a href="#关键-配置-VNC-以启动-openKylin-桌面" class="headerlink" title="(关键) 配置 VNC 以启动 openKylin 桌面"></a>(关键) 配置 VNC 以启动 openKylin 桌面</h2><p>VNC 需要知道在用户连接时要启动哪个桌面环境。这通过修改 <code>~/.vnc/xstartup</code> 文件来完成</p>
-<p>1.使用<code>vim</code>编辑这个文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.vnc/xstartup</span><br></pre></td></tr></table></figure>
-
-<p>2.你会见到一个空文件夹</p>
-<p><img src="https://gitee.com/magic486/note/raw/master/image/unnamed.png" alt="unnamed.png"></p>
-<p>按下i键，左下角会出现插入的字样，此时可以编辑该文件</p>
-<p>可以复制该代码，在终端里鼠标右键即可将脚本粘贴进去</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消设置会话管理器和 DBus，防止冲突</span></span><br><span class="line"><span class="built_in">unset</span> SESSION_MANAGER</span><br><span class="line"><span class="built_in">unset</span> DBUS_SESSION_BUS_ADDRESS</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载 X 资源</span></span><br><span class="line">[ -r <span class="variable">$HOME</span>/.Xresources ] &amp;&amp; xrdb <span class="variable">$HOME</span>/.Xresources</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置灰色背景</span></span><br><span class="line">xsetroot -solid grey</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 VNC 的图标（可选，但推荐）</span></span><br><span class="line">vncconfig -iconic &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键：启动 openKylin (UKUI) 桌面环境</span></span><br><span class="line"><span class="built_in">exec</span> ukui-session</span><br></pre></td></tr></table></figure>
-
-<p>如果点右键复制之后，左下角变成了插入可视，意味着 <code>vim</code> <strong>拦截</strong>了你的鼠标点击，并进入了“可视选择模式”，而不是执行了“粘贴”操作，这是因为 <code>vim</code> 默认启用了鼠标支持，它把你的右键点击当成了 <code>vim</code> 内部的命令。</p>
-<p>解决：<br>退出当前模式，回到普通模式，依次输入<code>:set mouse=</code>。这个命令告诉vim：不管鼠标点击。</p>
-<p>3.保存文件并退出<br>回到普通模式，输入<code>:wq</code>，即可将文件保存并推出</p>
-<p>4.给予脚本权限</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x ~/.vnc/xstartup</span><br></pre></td></tr></table></figure>
-<p>5.启动VNC服务器<br>在ssh终端输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># (以防万一有残留，先kill一次)</span></span><br><span class="line">vncserver -<span class="built_in">kill</span> :1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动vnc服务，指定分辨率</span></span><br><span class="line">vncserver :1 -geometry 1280x720 -depth 24 -localhost no</span><br></pre></td></tr></table></figure>
-<p>6.确定树莓派VNC的服务状态<br>在ssh终端输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tlnp | grep 5901</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/magic486/note/raw/master/image/20251020100107878.png" alt="image.png"></p>
-<p>这表示 VNC 在监听所有 IP 地址，这是正确的<br>如果你看到的是 <code>127.0.0.1:5901</code>，那表示 VNC <strong>只</strong>监听本地连接，这是<strong>错误</strong>的。你需要停止它 (<code>vncserver -kill :1</code>)，然后确保你启动时<strong>没有</strong>加 <code>-localhost</code> 参数</p>
-<h2 id="在电脑上连接-VNC"><a href="#在电脑上连接-VNC" class="headerlink" title="在电脑上连接 VNC"></a>在电脑上连接 VNC</h2><p>1.首先下载安装VNC客户端，这里下载<strong>TigerVNC Viewer</strong> (官方配套)</p>
-<p>2.打开VNC Viewer，在地址栏中，输入树莓派的 <strong>IP 地址</strong> 和 <strong>端口号</strong>，格式为： <code>[树莓派的IP地址]:5901</code></p>
-<p>3.点击连接。系统会提示你输入在之前第二步中设置的 VNC 密码。</p>
-<p>4.如果一切顺利，你应该能看到 openKylin 的桌面了。</p>
-<p><img src="https://gitee.com/magic486/note/raw/master/image/20251020102313612.png" alt="image.png"></p>
-<h2 id="设置为开机自启动"><a href="#设置为开机自启动" class="headerlink" title="设置为开机自启动"></a>设置为开机自启动</h2><p>1.创建一个 <code>systemd</code> 服务文件。<strong>注意：</strong> 把 <code>&lt;USER&gt;</code> 替换为你的用户名 (例如 <code>pi</code> 或 &#96;kylin)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/systemd/system/vncserver@.service</span><br></pre></td></tr></table></figure>
-<p>vim文件的修改操作和前面一样</p>
-<p>2.将以下内容粘贴进去。<strong>请务必修改 <code>&lt;USER&gt;</code> 为你的实际用户名！</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Start TigerVNC server at startup</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">User=&lt;USER&gt;</span><br><span class="line">Group=&lt;USER&gt;</span><br><span class="line">WorkingDirectory=/home/&lt;USER&gt;</span><br><span class="line"></span><br><span class="line">PIDFile=/home/&lt;USER&gt;/.vnc/%H:%i.pid</span><br><span class="line"></span><br><span class="line">ExecStartPre=-/usr/bin/vncserver -<span class="built_in">kill</span> :%i &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">ExecStart=/usr/bin/vncserver -depth 24 -geometry 1280x720 -localhost no :%i</span><br><span class="line">ExecStop=/usr/bin/vncserver -<span class="built_in">kill</span> :%i</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>3.保存并退出</p>
-<p>4.让 <code>systemd</code> 重新加载配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-<p>5.启用这个服务（我们使用屏幕 <code>:1</code>）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这将使 vncserver@1.service 在开机时启动</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> vncserver@1.service</span><br></pre></td></tr></table></figure>
-
-<p>现在，VNC 服务会在树莓派每次启动时自动运行，你可以随时通过 VNC Viewer 连接了，到此，我们已经完成了所有步骤。</p>
-<h2 id="可能的报错"><a href="#可能的报错" class="headerlink" title="可能的报错"></a>可能的报错</h2><h3 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h3><p><img src="https://gitee.com/magic486/note/raw/master/image/1.png" alt="1.png"><br>这个错误<strong>不是</strong>“连接超时”或“连接被拒绝”（说明树莓派那边没开），而是你的 <strong>Windows 系统</strong>阻止了 <strong>TigerVNC Viewer 这个软件</strong>“向外”发起网络连接</p>
-<p>1.关闭第三方杀毒&#x2F;安全软件，如火绒等</p>
-<p>2.Windows Defender 防火墙，打开“<strong>Windows Defender 防火墙</strong>”，点击“<strong>允许应用或功能通过 Windows Defender 防火墙</strong>”，依次点击“<strong>更改设置</strong>”，“允许其他应用”，添加“<strong>TigerVNC Viewer</strong>”<br><img src="https://gitee.com/magic486/note/raw/master/image/20251020101712615.png" alt="image.png"></p>
-<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3><p><img src="https://gitee.com/magic486/note/raw/master/image/20251020102443847.png" alt="image.png"><br>出现这个错误就是树莓派拒绝了来自计算机的请求，说明前面的配置出现了问题，得回去查看，是否有步骤出错</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/20/%E6%A0%91%E8%8E%93%E6%B4%BE/4.VNC%E8%BF%9C%E7%A8%8B%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93/" data-id="cmol6d2y1000r7grtgyucbc72" data-title="[树莓派] 4. VNC远程桌面连接" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TigerVNC/" rel="tag">TigerVNC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" rel="tag">远程桌面</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-my-first-blog" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/24/my-first-blog/" class="article-date">
-  <time class="dt-published" datetime="2025-02-24T13:16:46.000Z" itemprop="datePublished">2025-02-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/24/my-first-blog/">my first blog</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/24/my-first-blog/" data-id="cmol6d2xv00027grt5b6wh0gc" data-title="my first blog" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asd/" rel="tag">asd</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/C-%E8%AF%AD%E6%B3%95/">C++语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%8E%92%E5%BA%8F/">排序</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/">树</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E9%93%BE%E8%A1%A8/">链表</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">网站建设</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOE%E7%BD%91/" rel="tag">AOE网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVL/" rel="tag">AVL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/" rel="tag">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Butterfly/" rel="tag">Butterfly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Floyd/" rel="tag">Floyd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Floyd-Warshall/" rel="tag">Floyd-Warshall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kruskal/" rel="tag">Kruskal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NFS/" rel="tag">NFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPU/" rel="tag">NPU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/" rel="tag">Prim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RKLLM/" rel="tag">RKLLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RKNN/" rel="tag">RKNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/" rel="tag">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TigerVNC/" rel="tag">TigerVNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asd/" rel="tag">asd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cout/" rel="tag">cout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fstream/" rel="tag">fstream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/list/" rel="tag">list</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microSD/" rel="tag">microSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">中缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/" rel="tag">二叉查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="tag">关键路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E7%B1%BB/" rel="tag">分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" rel="tag">博客美化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="tag">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" rel="tag">存储结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">平衡二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BA%94%E7%94%A8/" rel="tag">应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" rel="tag">快速选择</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="tag">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" rel="tag">插入排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6IO/" rel="tag">文件IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="tag">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" rel="tag">松弛操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF/" rel="tag">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" rel="tag">毛玻璃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" rel="tag">泛型编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%83%A7%E5%BD%95/" rel="tag">烧录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="tag">输入输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%93%E5%87%BA/" rel="tag">输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" rel="tag">远程桌面</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86/" rel="tag">遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" rel="tag">邻接矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/" rel="tag">邻接表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AOE%E7%BD%91/" style="font-size: 10px;">AOE网</a> <a href="/tags/ARM/" style="font-size: 15px;">ARM</a> <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Butterfly/" style="font-size: 10px;">Butterfly</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/Dijkstra/" style="font-size: 10px;">Dijkstra</a> <a href="/tags/Floyd/" style="font-size: 10px;">Floyd</a> <a href="/tags/Floyd-Warshall/" style="font-size: 10px;">Floyd-Warshall</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Kruskal/" style="font-size: 10px;">Kruskal</a> <a href="/tags/NFS/" style="font-size: 10px;">NFS</a> <a href="/tags/NPU/" style="font-size: 10px;">NPU</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/Prim/" style="font-size: 10px;">Prim</a> <a href="/tags/RK3576/" style="font-size: 15px;">RK3576</a> <a href="/tags/RKLLM/" style="font-size: 11.25px;">RKLLM</a> <a href="/tags/RKNN/" style="font-size: 10px;">RKNN</a> <a href="/tags/RMQ/" style="font-size: 10px;">RMQ</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/STL/" style="font-size: 12.5px;">STL</a> <a href="/tags/TigerVNC/" style="font-size: 10px;">TigerVNC</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/asd/" style="font-size: 10px;">asd</a> <a href="/tags/cout/" style="font-size: 10px;">cout</a> <a href="/tags/fstream/" style="font-size: 10px;">fstream</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/microSD/" style="font-size: 10px;">microSD</a> <a href="/tags/openKylin/" style="font-size: 13.75px;">openKylin</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">中缀表达式</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/" style="font-size: 10px;">二叉查找树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">关键路径</a> <a href="/tags/%E5%88%86%E7%B1%BB/" style="font-size: 10px;">分类</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">博客美化</a> <a href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">后缀表达式</a> <a href="/tags/%E5%9B%BE/" style="font-size: 18.75px;">图</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">存储结构</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">容器</a> <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" style="font-size: 17.5px;">嵌入式</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">平衡二叉树</a> <a href="/tags/%E5%BA%94%E7%94%A8/" style="font-size: 10px;">应用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">快速排序</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" style="font-size: 10px;">快速选择</a> <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 15px;">排序</a> <a href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">插入排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6IO/" style="font-size: 10px;">文件IO</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 11.25px;">最小生成树</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 11.25px;">最短路径</a> <a href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">松弛操作</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.75px;">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 13.75px;">树</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 13.75px;">树莓派</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 10px;">模板</a> <a href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" style="font-size: 10px;">毛玻璃</a> <a href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">泛型编程</a> <a href="/tags/%E7%83%A7%E5%BD%95/" style="font-size: 10px;">烧录</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 10px;">竞赛</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 10px;">线段树</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" style="font-size: 10px;">输入输出</a> <a href="/tags/%E8%BE%93%E5%87%BA/" style="font-size: 10px;">输出</a> <a href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">远程桌面</a> <a href="/tags/%E9%81%8D%E5%8E%86/" style="font-size: 10px;">遍历</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">邻接矩阵</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/" style="font-size: 10px;">邻接表</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2026/04/30/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/">自动改标题上传测试</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/28/Cann/report/">report</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/">开启监视</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/">[树莓派] 3. 以SSH连接树莓派</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">46</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-30T07:56:32.420Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

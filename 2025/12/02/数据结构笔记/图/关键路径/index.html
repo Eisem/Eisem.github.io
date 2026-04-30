@@ -1,113 +1,168 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>[数据结构·图] 关键路径 | Hexo my blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="图的关键路径 (Critical Path) 复习指南1. 核心概念1.1 定义关键路径是在 AOE 网 (Activity On Edge Network) 中，从源点 (Start) 到汇点 (End) 的所有路径中，路径长度（权重之和）最长 的那条路径。 1.2 适用范围 (AOE 网) AOE 网： **顶点 (Vertex)**：表示 **事件 (Event)**，例如“项目开始”、“地">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[数据结构·图] 关键路径 | Welcome To My-Blog</title><meta name="author" content="Eisem"><meta name="copyright" content="Eisem"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="图的关键路径 (Critical Path) 复习指南1. 核心概念1.1 定义关键路径是在 AOE 网 (Activity On Edge Network) 中，从源点 (Start) 到汇点 (End) 的所有路径中，路径长度（权重之和）最长 的那条路径。 1.2 适用范围 (AOE 网) AOE 网： **顶点 (Vertex)**：表示 **事件 (Event)**，例如“项目开始”、“地">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[数据结构·图] 关键路径">
 <meta property="og:url" content="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/index.html">
-<meta property="og:site_name" content="Hexo my blog">
+<meta property="og:site_name" content="Welcome To My-Blog">
 <meta property="og:description" content="图的关键路径 (Critical Path) 复习指南1. 核心概念1.1 定义关键路径是在 AOE 网 (Activity On Edge Network) 中，从源点 (Start) 到汇点 (End) 的所有路径中，路径长度（权重之和）最长 的那条路径。 1.2 适用范围 (AOE 网) AOE 网： **顶点 (Vertex)**：表示 **事件 (Event)**，例如“项目开始”、“地">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/A4.webp">
 <meta property="article:published_time" content="2025-12-02T07:00:00.000Z">
 <meta property="article:modified_time" content="2026-04-27T14:25:46.549Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Eisem">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="图">
 <meta property="article:tag" content="关键路径">
 <meta property="article:tag" content="AOE网">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo my blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo my blog</a>
-      </h1>
+<meta name="twitter:image" content="http://example.com/img/A4.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[数据结构·图] 关键路径",
+  "url": "http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/",
+  "image": "http://example.com/img/A4.webp",
+  "datePublished": "2025-12-02T07:00:00.000Z",
+  "dateModified": "2026-04-27T14:25:46.549Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eisem",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
       
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">asdf</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
 
-      <div class="outer">
-        <section id="main"><article id="post-数据结构笔记/图/关键路径" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" class="article-date">
-  <time class="dt-published" datetime="2025-12-02T07:00:00.000Z" itemprop="datePublished">2025-12-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a>►<a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
-    <h1 class="p-name article-title" itemprop="headline name">
-      [数据结构·图] 关键路径
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="图的关键路径-Critical-Path-复习指南"><a href="#图的关键路径-Critical-Path-复习指南" class="headerlink" title="图的关键路径 (Critical Path) 复习指南"></a>图的关键路径 (Critical Path) 复习指南</h1><h2 id="1-核心概念"><a href="#1-核心概念" class="headerlink" title="1. 核心概念"></a>1. 核心概念</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><p>关键路径是在 <strong>AOE 网 (Activity On Edge Network)</strong> 中，从源点 (Start) 到汇点 (End) 的所有路径中，<strong>路径长度（权重之和）最长</strong> 的那条路径。</p>
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[数据结构·图] 关键路径',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/points.css"><link rel="stylesheet" href="/css/scroll.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/A3.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Welcome To My-Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[数据结构·图] 关键路径</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas  fa-envelope"></i><span> comments</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas  fa-tags"></i><span> tags</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-users"></i><span> link</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas  fa-table"></i><span> categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[数据结构·图] 关键路径</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-02T07:00:00.000Z" title="发表于 2025-12-02 15:00:00">2025-12-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T14:25:46.549Z" title="更新于 2026-04-27 22:25:46">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="图的关键路径-Critical-Path-复习指南"><a href="#图的关键路径-Critical-Path-复习指南" class="headerlink" title="图的关键路径 (Critical Path) 复习指南"></a>图的关键路径 (Critical Path) 复习指南</h1><h2 id="1-核心概念"><a href="#1-核心概念" class="headerlink" title="1. 核心概念"></a>1. 核心概念</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><p>关键路径是在 <strong>AOE 网 (Activity On Edge Network)</strong> 中，从源点 (Start) 到汇点 (End) 的所有路径中，<strong>路径长度（权重之和）最长</strong> 的那条路径。</p>
 <h3 id="1-2-适用范围-AOE-网"><a href="#1-2-适用范围-AOE-网" class="headerlink" title="1.2 适用范围 (AOE 网)"></a>1.2 适用范围 (AOE 网)</h3><ul>
 <li><strong>AOE 网</strong>：<ul>
 <li>**顶点 (Vertex)**：表示 **事件 (Event)**，例如“项目开始”、“地基打好”。事件是一个瞬间点。</li>
@@ -191,158 +246,98 @@
 <hr>
 <h2 id="5-代码实现思路-C"><a href="#5-代码实现思路-C" class="headerlink" title="5. 代码实现思路 (C++)"></a>5. 代码实现思路 (C++)</h2><p>关键路径的代码比拓扑排序复杂，因为需要维护 $ve$ 和 $vl$ 数组。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">100</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF = <span class="number">1e9</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> to;</span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;Edge&gt; adj[MAXN]; <span class="comment">// 邻接表</span></span><br><span class="line"><span class="type">int</span> ve[MAXN]; <span class="comment">// 事件最早发生时间</span></span><br><span class="line"><span class="type">int</span> vl[MAXN]; <span class="comment">// 事件最迟发生时间</span></span><br><span class="line"><span class="type">int</span> indegree[MAXN];</span><br><span class="line"><span class="type">int</span> n; <span class="comment">// 顶点数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 拓扑排序并计算 ve</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">topologicalSort</span><span class="params">(stack&lt;<span class="type">int</span>&gt;&amp; topoStack)</span> </span>&#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(indegree[i] == <span class="number">0</span>) q.<span class="built_in">push</span>(i);</span><br><span class="line">        ve[i] = <span class="number">0</span>; <span class="comment">// 初始化</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        topoStack.<span class="built_in">push</span>(u); <span class="comment">// 保存拓扑序用于逆推</span></span><br><span class="line">        count++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; edge : adj[u]) &#123;</span><br><span class="line">            <span class="type">int</span> v = edge.to;</span><br><span class="line">            <span class="type">int</span> w = edge.weight;</span><br><span class="line">            indegree[v]--;</span><br><span class="line">            <span class="keyword">if</span>(indegree[v] == <span class="number">0</span>) q.<span class="built_in">push</span>(v);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 核心公式：ve(j) = max(ve(i) + w)</span></span><br><span class="line">            <span class="keyword">if</span>(ve[u] + w &gt; ve[v]) &#123;</span><br><span class="line">                ve[v] = ve[u] + w;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count == n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 关键路径求解</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">criticalPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; topoStack;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">topologicalSort</span>(topoStack)) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;有环，无法求解&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 vl，赋值为汇点的 ve</span></span><br><span class="line">    <span class="comment">// 注意：这里假设只有一个汇点，或者取所有点中 ve 最大的作为总工期</span></span><br><span class="line">    <span class="type">int</span> maxTime = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++) maxTime = <span class="built_in">max</span>(maxTime, ve[i]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;n; i++) vl[i] = maxTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 逆拓扑序计算 vl</span></span><br><span class="line">    <span class="keyword">while</span>(!topoStack.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = topoStack.<span class="built_in">top</span>();</span><br><span class="line">        topoStack.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; edge : adj[u]) &#123;</span><br><span class="line">            <span class="type">int</span> v = edge.to;</span><br><span class="line">            <span class="type">int</span> w = edge.weight;</span><br><span class="line">            <span class="comment">// 核心公式：这里因为是邻接表存的是 u-&gt;v，我们要用 v 来更新 u 的 vl 需要反向图</span></span><br><span class="line">            <span class="comment">// 但标准做法是在正向遍历时很难直接更新，</span></span><br><span class="line">            <span class="comment">// 通常做法：上面的栈是 u，我们需要遍历 u 的后继 v 来做吗？</span></span><br><span class="line">            <span class="comment">// 不，公式是 vl(i) = min(vl(j) - w)。</span></span><br><span class="line">            <span class="comment">// 所以我们需要知道 u 的后继 v。</span></span><br><span class="line">            <span class="comment">// 可是 u 是拓扑序出来的，栈顶是拓扑序最后的元素（汇点）。</span></span><br><span class="line">            <span class="comment">// 所以这里写法要注意：</span></span><br><span class="line">            <span class="comment">// 实际上应该是在遍历 u (前驱) 的时候，利用已经算好的 v (后继) ? </span></span><br><span class="line">            <span class="comment">// 不对，逆拓扑序是从后往前的。</span></span><br><span class="line">            <span class="comment">// 取出 u，u 是当前比较靠后的点。</span></span><br><span class="line">            <span class="comment">// 我们应该用 u 去更新它的前驱？不，邻接表很难找前驱。</span></span><br><span class="line">            <span class="comment">// 正确做法：</span></span><br><span class="line">            <span class="comment">// 应该在上面拓扑排序时，不仅仅记录 stack，</span></span><br><span class="line">            <span class="comment">// 计算 vl 的时候，可以遍历所有边？或者建逆邻接表？</span></span><br><span class="line">            <span class="comment">// 简便写法：按照拓扑序逆序取出 u，遍历 u 的所有邻接点 v</span></span><br><span class="line">            <span class="comment">// 此时 v 的 vl 还没定？不对，逆序取出，v 肯定比 u 后，v 应该已经算好了？</span></span><br><span class="line">            <span class="comment">// 让我们理一下：栈顶是汇点。</span></span><br><span class="line">            <span class="comment">// 汇点弹出。</span></span><br><span class="line">            <span class="comment">// 下一个弹出的是汇点的前驱 u。此时 u 的邻居 v (汇点) 已经算好 vl 了。</span></span><br><span class="line">            <span class="comment">// 所以遍历 u 的邻居 v，用 vl[v] - w 来更新 vl[u]。是对的！</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(vl[v] - w &lt; vl[u]) &#123;</span><br><span class="line">                vl[u] = vl[v] - w;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出关键活动</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;关键活动: &quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> u = <span class="number">0</span>; u &lt; n; u++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; edge : adj[u]) &#123;</span><br><span class="line">            <span class="type">int</span> v = edge.to;</span><br><span class="line">            <span class="type">int</span> w = edge.weight;</span><br><span class="line">            </span><br><span class="line">            <span class="type">int</span> e = ve[u];           <span class="comment">// 活动最早开始</span></span><br><span class="line">            <span class="type">int</span> l = vl[v] - w;       <span class="comment">// 活动最迟开始</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(e == l) &#123;</span><br><span class="line">                cout &lt;&lt; u &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; v &lt;&lt; <span class="string">&quot; (len: &quot;</span> &lt;&lt; w &lt;&lt; <span class="string">&quot;)&quot;</span> &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Eisem</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/">http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Welcome To My-Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E5%9B%BE/">图</a><a class="post-meta__tags" href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/">关键路径</a><a class="post-meta__tags" href="/tags/AOE%E7%BD%91/">AOE网</a></div><div class="post-share"><div class="social-share" data-image="/img/A4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" title="[数据结构·图] 拓扑排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">[数据结构·图] 拓扑排序</div></div><div class="info-2"><div class="info-item-1">图的拓扑排序 (Topological Sorting) 复习指南1. 核心概念1.1 定义拓扑排序是对有向无环图 (DAG, Directed Acyclic Graph) 的顶点的一种排序。它使得对于图中的每一条有向边 $(u, v)$，顶点 $u$ 在排序中都出现在顶点 $v$ 之前。 1.2 适用范围 (AOV 网) **AOV 网 (Activity On Vertex Network)**：用顶点表示活动，用边表示活动间的优先关系。 前提条件：图必须是 有向 的，且 **没有环 (Acyclic)**。 性质： 如果存在环，则无法进行拓扑排序。 一个 DAG 的拓扑排序序列可能不唯一。     2. 核心算法实现最常用的算法是基于 入度 (Indegree) 的算法（也称为 Kahn 算法）。 2.1 算法步骤 (Kahn 算法) 初始化：计算图中所有节点的入度。 入队：将所有入度为 0 的节点放入队列（Queue）中。 循环处理： 当队列不为空时，取出队首节点 $u$，放入结果序列。 遍历 $u$ 的所有邻接点 $v$ (即存在边 $u \to v$)。 将...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E2%80%94%E2%80%94%E6%99%AE%E9%87%8C%E5%A7%86%E7%AE%97%E6%B3%95/" title="[数据结构·图] 最小生成树——普里姆算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">[数据结构·图] 最小生成树——普里姆算法</div></div><div class="info-2"><div class="info-item-1">最小生成树：普里姆算法 (Prim) - 邻接表版1. 算法核心思想Prim 算法是一种 贪心算法。它的逻辑类似于“通过不断吞并最近的邻居来扩张领土”。  集合划分：将顶点分为两个集合： **已选集合 ($S$)**：已经在最小生成树中的点。 **未选集合 ($V-S$)**：还没有加入树的点。   贪心策略：每次从“未选集合”中找到一个顶点，使得它与“已选集合”之间的边权值最小。 更新：将该顶点加入 $S$，并更新它的邻居到 $S$ 的距离。   2. 数据结构设计由于使用邻接表，我们无法像邻接矩阵那样 $O(1)$ 查边，也无法高效地扫描所有点的最短距离。因此，我们需要配合 优先队列 (Min-Heap) 来快速获取当前距离生成树最近的点。  图存储：vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; adj (存目标点和权值)。 距离数组：dist[i] 记录节点 $i$ 到当前生成树集合的最小距离（注意：不是到源点的距离，那是 Dijkstra）。 访问标记：vis[i]...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Kruskal%20%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="[数据结构·图] Kruskal 算法的最小生成树"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Kruskal 算法的最小生成树</div></div><div class="info-2"><div class="info-item-1">最小生成树 (MST) 从理论到实操：基于 Kruskal 算法1. 题目解析与理论基础什么是最小生成树 (Minimum Spanning Tree, MST)？想象你要在一个拥有 $n$ 个城市的国家修建光缆，使得所有城市都能互相连通（直接或间接相连）。  生成树 (Spanning Tree)：在一个图中，选出 $n-1$ 条边，将所有 $n$ 个点连接起来，且没有环的结构。 最小生成树 (MST)：在所有可能的生成树中，边的权值之和最小的那一个。  结合题目 输入：$n$ 个节点，$m$ 条带权无向边。可能有重边（两个点之间有多条线）。 目标：选出 $n-1$ 条边，连接所有点，使权值和最小。 数据范围： $n \le 10^3$（点不多） $m \le 10^5$（边比较多） $w \le 10^9$（权重很大，注意：结果需要用 long long）     2. 算法选择：Kruskal 算法对于这道题，我们推荐使用 Kruskal (克鲁斯卡尔) 算法。 为什么选 Kruskal？Kruskal 算法的核心思想是...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/Floyd-Warshall%EF%BC%88%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%EF%BC%89%E7%AE%97%E6%B3%95/" title="[数据结构·图] Floyd-Warshall 算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] Floyd-Warshall 算法</div></div><div class="info-2"><div class="info-item-1">弗洛伊德算法 (Floyd-Warshall) 详解1. 算法核心思想Floyd 算法本质上是 **动态规划 (Dynamic Programming)**。 核心问题：从顶点 $i$ 到顶点 $j$，如果我们允许经过一些中转点，最短路径是多少？ 1.1 状态定义我们定义 $dp[k][i][j]$ 为：“只允许使用节点 $1$ 到 $k$ 作为中转节点的情况下，从 $i$ 到 $j$ 的最短路径长度。” 1.2 状态转移方程（核心逻辑）当我们要计算允许使用节点 $1…k$ 的最短路时，我们有两种选择：  **不经过节点 $k$**：如果不使用 $k$ 做中转，那么最短路径就等于“只允许使用 $1…k-1$”时的路径。即：$dp[k-1][i][j]$。 **经过节点 $k$**：如果我们利用 $k$ 做中转，那么路径就变成了 $i \to k \to j$。这条路的长度是：$dp[k-1][i][k] + dp[k-1][k][j]$。  结论：我们要在这两者中取最小值。$$dp[k][i][j] &#x3D; \min(dp[k-1][i][j], \quad...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%9B%BE%E7%9A%84%E5%9F%BA%E7%A1%80/" title="[数据结构·图] 图的基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 图的基础</div></div><div class="info-2"><div class="info-item-1">数据结构：图(Graph)图的基本概念一、图的定义图(Graph)是由顶点的有穷非空集合 $V(G)$ 和顶点之间边的集合 $E(G)$ 组成，通常表示为：$G&#x3D;(V,E)$。  $V$ 是图 $G$ 中顶点的集合。 $E$ 是图 $G$ 中边的集合。 $|V|$ 表示顶点的个数，也称图的阶。 $|E|$ 表示边的条数。   注意：图不可以是空图，顶点集 $V$ 一定非空，但边集 $E$ 可以为空。  二、图的基本概念和术语 有向图：边是有向边（弧），记为 $&lt;v, w&gt;$。$v$ 为弧尾，$w$ 为弧头。 无向图：边是无向边，记为 $(v, w)$ 或 $(w, v)$。 简单图：不存在重复边，不存在顶点到自身的边。 多重图：两个结点之间的边数多于一条，或允许顶点通过同一条边和自己关联。 完全图： 无向完全图：任意两个顶点之间都存在边，边数范围 $0$ 到 $n(n-1)&#x2F;2$。 有向完全图：任意两个顶点之间都存在方向相反的两条弧，弧数范围 $0$ 到 $n(n-1)$。   子图：$G’&#x3D;(V’, E’)$ 是...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" title="[数据结构·图] 拓扑排序"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 拓扑排序</div></div><div class="info-2"><div class="info-item-1">图的拓扑排序 (Topological Sorting) 复习指南1. 核心概念1.1 定义拓扑排序是对有向无环图 (DAG, Directed Acyclic Graph) 的顶点的一种排序。它使得对于图中的每一条有向边 $(u, v)$，顶点 $u$ 在排序中都出现在顶点 $v$ 之前。 1.2 适用范围 (AOV 网) **AOV 网 (Activity On Vertex Network)**：用顶点表示活动，用边表示活动间的优先关系。 前提条件：图必须是 有向 的，且 **没有环 (Acyclic)**。 性质： 如果存在环，则无法进行拓扑排序。 一个 DAG 的拓扑排序序列可能不唯一。     2. 核心算法实现最常用的算法是基于 入度 (Indegree) 的算法（也称为 Kahn 算法）。 2.1 算法步骤 (Kahn 算法) 初始化：计算图中所有节点的入度。 入队：将所有入度为 0 的节点放入队列（Queue）中。 循环处理： 当队列不为空时，取出队首节点 $u$，放入结果序列。 遍历 $u$ 的所有邻接点 $v$ (即存在边 $u \to v$)。 将...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3%EF%BC%9ADijkstra%20%E4%B8%8E%20Floyd/" title="[数据结构·图] 最短路径问题详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 最短路径问题详解</div></div><div class="info-2"><div class="info-item-1">最短路径问题详解：Dijkstra 与 Floyd在图论中，最短路径问题主要分为两类：  单源最短路径 (Single-Source Shortest Path)：求从一个起点到其他所有点的最短路径。（代表：Dijkstra） 多源最短路径 (All-Pairs Shortest Path)：求任意两个点之间的最短路径。（代表：Floyd）   一、Dijkstra 算法 (单源最短路)适用场景：带权图（无向&#x2F;有向），边权非负。核心思想：贪心策略 (Greedy) + 广度优先搜索 (BFS) 的变种。 1. 详细思路：作为“涟漪”扩散想象你站在起点 $S$，往地上倒了一桶水。水流会优先沿着阻力最小（边权最小）的路径蔓延。  我们维护一个集合 $S$（已确定最短路的点）和一个集合 $U$（未确定最短路的点）。 每次从 $U$ 中找出一个距离起点最近的点 $u$，把它加入 $S$。 然后以 $u$ 为跳板，去“松弛” (Relax) 它的邻居 $v$。 松弛操作：如果 dist[u] + weight(u, v) &lt; dist[v]，说明通过 $u$ 到达 $v$...</div></div></div></a><a class="pagination-related" href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E2%80%94%E2%80%94%E6%99%AE%E9%87%8C%E5%A7%86%E7%AE%97%E6%B3%95/" title="[数据结构·图] 最小生成树——普里姆算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">[数据结构·图] 最小生成树——普里姆算法</div></div><div class="info-2"><div class="info-item-1">最小生成树：普里姆算法 (Prim) - 邻接表版1. 算法核心思想Prim 算法是一种 贪心算法。它的逻辑类似于“通过不断吞并最近的邻居来扩张领土”。  集合划分：将顶点分为两个集合： **已选集合 ($S$)**：已经在最小生成树中的点。 **未选集合 ($V-S$)**：还没有加入树的点。   贪心策略：每次从“未选集合”中找到一个顶点，使得它与“已选集合”之间的边权值最小。 更新：将该顶点加入 $S$，并更新它的邻居到 $S$ 的距离。   2. 数据结构设计由于使用邻接表，我们无法像邻接矩阵那样 $O(1)$ 查边，也无法高效地扫描所有点的最短距离。因此，我们需要配合 优先队列 (Min-Heap) 来快速获取当前距离生成树最近的点。  图存储：vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; adj (存目标点和权值)。 距离数组：dist[i] 记录节点 $i$ 到当前生成树集合的最小距离（注意：不是到源点的距离，那是 Dijkstra）。 访问标记：vis[i]...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/A4.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eisem</div><div class="author-info-description">none</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84-Critical-Path-%E5%A4%8D%E4%B9%A0%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">图的关键路径 (Critical Path) 复习指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">1. 核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4-AOE-%E7%BD%91"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 适用范围 (AOE 网)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%85%B3%E9%94%AE%E6%B4%BB%E5%8A%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 关键活动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4-%E5%9B%9B%E6%AD%A5%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">2. 核心计算步骤 (四步法)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%B1%82-%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%9C%80%E6%97%A9%E5%8F%91%E7%94%9F%E6%97%B6%E9%97%B4-ve-k"><span class="toc-number">1.2.1.</span> <span class="toc-text">第一步：求 事件的最早发生时间 $ve(k)$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%B1%82-%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%9C%80%E8%BF%9F%E5%8F%91%E7%94%9F%E6%97%B6%E9%97%B4-vl-k"><span class="toc-number">1.2.2.</span> <span class="toc-text">第二步：求 事件的最迟发生时间 $vl(k)$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E6%B1%82-%E6%B4%BB%E5%8A%A8%E7%9A%84%E6%9C%80%E6%97%A9%E5%BC%80%E5%A7%8B%E6%97%B6%E9%97%B4-e-k"><span class="toc-number">1.2.3.</span> <span class="toc-text">第三步：求 活动的最早开始时间 $e(k)$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E6%B1%82-%E6%B4%BB%E5%8A%A8%E7%9A%84%E6%9C%80%E8%BF%9F%E5%BC%80%E5%A7%8B%E6%97%B6%E9%97%B4-l-k"><span class="toc-number">1.2.4.</span> <span class="toc-text">第四步：求 活动的最迟开始时间 $l(k)$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A%E6%A0%87%E5%87%86"><span class="toc-number">1.2.5.</span> <span class="toc-text">判定标准</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B8%B8%E8%A7%81%E9%A2%98%E5%9E%8B%E4%B8%8E%E8%80%83%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">3. 常见题型与考法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E4%B8%80%EF%BC%9A%E6%89%8B%E7%AE%97%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84-%E8%A1%A8%E6%A0%BC%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">题型一：手算关键路径 (表格法)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E4%BA%8C%EF%BC%9A%E5%B7%A5%E7%A8%8B%E5%8A%A0%E9%80%9F%E4%B8%8E%E5%B7%A5%E6%9C%9F%E7%BC%A9%E7%9F%AD"><span class="toc-number">1.3.2.</span> <span class="toc-text">题型二：工程加速与工期缩短</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E4%B8%89%EF%BC%9A%E5%88%A4%E6%96%AD%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">1.3.3.</span> <span class="toc-text">题型三：判断关键路径的变化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%98%93%E9%94%99%E7%82%B9%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.4.</span> <span class="toc-text">4. 易错点与注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-1-AOV-%E4%B8%8E-AOE-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.4.1.</span> <span class="toc-text">⚠️ 1. AOV 与 AOE 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-2-%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E4%B8%8D%E5%94%AF%E4%B8%80"><span class="toc-number">1.4.2.</span> <span class="toc-text">⚠️ 2. 关键路径不唯一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-3-%E8%99%9A%E6%B4%BB%E5%8A%A8-Dummy-Activity"><span class="toc-number">1.4.3.</span> <span class="toc-text">⚠️ 3. 虚活动 (Dummy Activity)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-4-ve-%E5%92%8C-vl-%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.4.4.</span> <span class="toc-text">⚠️ 4. $ve$ 和 $vl$ 的初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF-C"><span class="toc-number">1.5.</span> <span class="toc-text">5. 代码实现思路 (C++)</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/hello-world/" title="Hello World">Hello World</a><time datetime="2026-04-30T07:35:23.329Z" title="发表于 2026-04-30 15:35:23">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="自动改标题上传测试">自动改标题上传测试</a><time datetime="2026-04-30T06:53:16.661Z" title="发表于 2026-04-30 14:53:16">2026-04-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/Cann/report/" title="report">report</a><time datetime="2026-04-27T16:19:58.782Z" title="发表于 2026-04-28 00:19:58">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/" title="开启监视">开启监视</a><time datetime="2026-04-27T16:18:39.555Z" title="发表于 2026-04-28 00:18:39">2026-04-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/" title="[树莓派] 3. 以SSH连接树莓派">[树莓派] 3. 以SSH连接树莓派</a><time datetime="2026-03-29T14:47:10.000Z" title="发表于 2026-03-29 22:47:10">2026-03-29</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: rgba(255, 255, 255,0.4);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Eisem</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" data-id="cmol6d2y6001q7grt5gz77wfs" data-title="[数据结构·图] 关键路径" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOE%E7%BD%91/" rel="tag">AOE网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="tag">关键路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
 
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E2%80%94%E2%80%94%E6%99%AE%E9%87%8C%E5%A7%86%E7%AE%97%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          [数据结构·图] 最小生成树——普里姆算法
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2025/12/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">[数据结构·图] 拓扑排序</div>
-    </a>
-  
-</nav>
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
 
-  
-</article>
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
 
+    const valineConfig = {
+      el: '#vcomment',
+      appId: 'qLMZwh39iPK0IwpSoF1X0FHH-MdYXbMMI',
+      appKey: 'OcAr77fCRFEkevCaVCs0DxOO',
+      avatar: 'monsterid',
+      serverURLs: 'https://qlmzwh39.api.lncldglobal.com',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RK3576%E4%B8%8E%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">RK3576与模型部署</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/">数据结构笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/C-%E8%AF%AD%E6%B3%95/">C++语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E5%9B%BE/">图</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%8E%92%E5%BA%8F/">排序</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%88/">栈</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E6%A0%91/">树</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/%E9%93%BE%E8%A1%A8/">链表</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/">网站建设</a></li></ul>
-    </div>
-  </div>
+    new Valine(valineConfig)
+  }
 
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AOE%E7%BD%91/" rel="tag">AOE网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARM/" rel="tag">ARM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AVL/" rel="tag">AVL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/" rel="tag">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Butterfly/" rel="tag">Butterfly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Floyd/" rel="tag">Floyd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Floyd-Warshall/" rel="tag">Floyd-Warshall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kruskal/" rel="tag">Kruskal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NFS/" rel="tag">NFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NPU/" rel="tag">NPU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ollama/" rel="tag">Ollama</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/" rel="tag">Prim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RK3576/" rel="tag">RK3576</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RKLLM/" rel="tag">RKLLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RKNN/" rel="tag">RKNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/" rel="tag">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/" rel="tag">STL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TigerVNC/" rel="tag">TigerVNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VNC/" rel="tag">VNC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asd/" rel="tag">asd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cout/" rel="tag">cout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fstream/" rel="tag">fstream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/list/" rel="tag">list</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microSD/" rel="tag">microSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openKylin/" rel="tag">openKylin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/" rel="tag">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">中缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/" rel="tag">二叉查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="tag">关键路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E7%B1%BB/" rel="tag">分类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" rel="tag">博客美化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">后缀表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="tag">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" rel="tag">存储结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">平衡二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BA%94%E7%94%A8/" rel="tag">应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" rel="tag">快速选择</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="tag">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" rel="tag">插入排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6IO/" rel="tag">文件IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="tag">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" rel="tag">松弛操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF/" rel="tag">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" rel="tag">毛玻璃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" rel="tag">泛型编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%83%A7%E5%BD%95/" rel="tag">烧录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="tag">输入输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BE%93%E5%87%BA/" rel="tag">输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" rel="tag">远程桌面</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%8D%E5%8E%86/" rel="tag">遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" rel="tag">邻接矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/" rel="tag">邻接表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
-    </div>
-  </div>
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/AOE%E7%BD%91/" style="font-size: 10px;">AOE网</a> <a href="/tags/ARM/" style="font-size: 15px;">ARM</a> <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/Butterfly/" style="font-size: 10px;">Butterfly</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/Dijkstra/" style="font-size: 10px;">Dijkstra</a> <a href="/tags/Floyd/" style="font-size: 10px;">Floyd</a> <a href="/tags/Floyd-Warshall/" style="font-size: 10px;">Floyd-Warshall</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Kruskal/" style="font-size: 10px;">Kruskal</a> <a href="/tags/NFS/" style="font-size: 10px;">NFS</a> <a href="/tags/NPU/" style="font-size: 10px;">NPU</a> <a href="/tags/Ollama/" style="font-size: 10px;">Ollama</a> <a href="/tags/Prim/" style="font-size: 10px;">Prim</a> <a href="/tags/RK3576/" style="font-size: 15px;">RK3576</a> <a href="/tags/RKLLM/" style="font-size: 11.25px;">RKLLM</a> <a href="/tags/RKNN/" style="font-size: 10px;">RKNN</a> <a href="/tags/RMQ/" style="font-size: 10px;">RMQ</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/STL/" style="font-size: 12.5px;">STL</a> <a href="/tags/TigerVNC/" style="font-size: 10px;">TigerVNC</a> <a href="/tags/VNC/" style="font-size: 10px;">VNC</a> <a href="/tags/asd/" style="font-size: 10px;">asd</a> <a href="/tags/cout/" style="font-size: 10px;">cout</a> <a href="/tags/fstream/" style="font-size: 10px;">fstream</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/microSD/" style="font-size: 10px;">microSD</a> <a href="/tags/openKylin/" style="font-size: 13.75px;">openKylin</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">中缀表达式</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/" style="font-size: 10px;">二叉查找树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">二叉树</a> <a href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">关键路径</a> <a href="/tags/%E5%88%86%E7%B1%BB/" style="font-size: 10px;">分类</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">博客美化</a> <a href="/tags/%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">后缀表达式</a> <a href="/tags/%E5%9B%BE/" style="font-size: 18.75px;">图</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">堆排序</a> <a href="/tags/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" style="font-size: 11.25px;">存储结构</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 10px;">容器</a> <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" style="font-size: 17.5px;">嵌入式</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">平衡二叉树</a> <a href="/tags/%E5%BA%94%E7%94%A8/" style="font-size: 10px;">应用</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">快速排序</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9/" style="font-size: 10px;">快速选择</a> <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 15px;">排序</a> <a href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">插入排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px;">数据结构</a> <a href="/tags/%E6%96%87%E4%BB%B6IO/" style="font-size: 10px;">文件IO</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" style="font-size: 11.25px;">最小生成树</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 11.25px;">最短路径</a> <a href="/tags/%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">松弛操作</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.75px;">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 13.75px;">树</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 13.75px;">树莓派</a> <a href="/tags/%E6%A8%A1%E6%9D%BF/" style="font-size: 10px;">模板</a> <a href="/tags/%E6%AF%9B%E7%8E%BB%E7%92%83/" style="font-size: 10px;">毛玻璃</a> <a href="/tags/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">泛型编程</a> <a href="/tags/%E7%83%A7%E5%BD%95/" style="font-size: 10px;">烧录</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 10px;">竞赛</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 10px;">线段树</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" style="font-size: 10px;">输入输出</a> <a href="/tags/%E8%BE%93%E5%87%BA/" style="font-size: 10px;">输出</a> <a href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" style="font-size: 10px;">远程桌面</a> <a href="/tags/%E9%81%8D%E5%8E%86/" style="font-size: 10px;">遍历</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">邻接矩阵</a> <a href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/" style="font-size: 10px;">邻接表</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2026/04/30/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/30/opencode/%E8%87%AA%E5%8A%A8%E6%94%B9%E6%A0%87%E9%A2%98%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/">自动改标题上传测试</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/28/Cann/report/">report</a>
-          </li>
-        
-          <li>
-            <a href="/2026/04/28/opencode/%E5%BC%80%E5%90%AF%E7%9B%91%E8%A7%86/">开启监视</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/29/%E6%A0%91%E8%8E%93%E6%B4%BE/3.%E4%BB%A5SSH%E8%BF%9E%E6%8E%A5/">[树莓派] 3. 以SSH连接树莓派</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="/js/scroll.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
